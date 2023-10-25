@@ -21,10 +21,6 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       marital_status: {
         type: Sequelize.STRING,
         allowNull: false,
