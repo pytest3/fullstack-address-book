@@ -1,8 +1,9 @@
 "use strict";
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("parent", {
+    await queryInterface.createTable("employed_contact", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,15 +13,23 @@ module.exports = {
       contact_id: {
         type: Sequelize.INTEGER,
         // allowNull: false,
+        foreignKey: true,
         references: {
           model: "contact",
           key: "id",
         },
-        // foreignKey: true,
         unique: true,
       },
-      number_of_kids: {
-        type: Sequelize.INTEGER,
+      company_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      company_industry: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      role: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
@@ -33,7 +42,14 @@ module.exports = {
       },
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("parent");
+    await queryInterface.dropTable("employed_contact");
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
   },
 };

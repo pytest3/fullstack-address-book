@@ -1,8 +1,10 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const email = sequelize.define("email", {
-    email_address: { type: DataTypes.STRING, allowNull: false },
+  const parent = sequelize.define("employed_contact", {
+    company_name: { type: DataTypes.STRING, allowNull: false },
+    company_industry: { type: DataTypes.STRING, allowNull: false },
+    role: { type: DataTypes.STRING, allowNull: false },
     contact_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -12,15 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  email.associate = (models) => {
-    email.belongsTo(models.contact, { foreignKey: "contact_id" });
+  parent.associate = (models) => {
+    parent.belongsTo(models.contact, { foreignKey: "contact_id" });
   };
 
-  return email;
+  return parent;
 };
-
 // module.exports = (sequelize, DataTypes) => {
-//   class email extends Model {
+//   class parent extends Model {
 //     /**
 //      * Helper method for defining associations.
 //      * This method is not a part of Sequelize lifecycle.
@@ -30,9 +31,9 @@ module.exports = (sequelize, DataTypes) => {
 //       // define association here
 //     }
 //   }
-//   email.init(
+//   parent.init(
 //     {
-//       email_address: { type: DataTypes.STRING, allowNull: false },
+//       number_of_kids: { type: DataTypes.INTEGER, allowNull: false },
 //       contact_id: {
 //         type: DataTypes.INTEGER,
 //         references: {
@@ -43,8 +44,8 @@ module.exports = (sequelize, DataTypes) => {
 //     },
 //     {
 //       sequelize,
-//       modelName: "email",
+//       modelName: "parent",
 //     }
 //   );
-//   return email;
+//   return parent;
 // };

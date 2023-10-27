@@ -12,6 +12,10 @@ module.exports = {
       contact_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "contact",
+          key: "id",
+        },
       },
       email_address: {
         type: Sequelize.STRING,

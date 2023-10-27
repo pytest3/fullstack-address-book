@@ -12,10 +12,18 @@ module.exports = {
       contact_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "contact",
+          key: "id",
+        },
       },
       hobby_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "hobby",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
