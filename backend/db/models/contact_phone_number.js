@@ -2,16 +2,20 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  const contact_phone_number = sequelize.define("contact_phone_number", {
-    phone_number: { type: DataTypes.STRING, allowNull: false },
-    contact_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: contact,
-        key: "id",
+  const contact_phone_number = sequelize.define(
+    "contact_phone_number",
+    {
+      phone_number: { type: DataTypes.STRING, allowNull: false },
+      contact_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "contact",
+          key: "id",
+        },
       },
     },
-  });
+    { freezeTableName: true }
+  );
 
   const { contact } = sequelize.models;
   contact_phone_number.belongsTo(contact);

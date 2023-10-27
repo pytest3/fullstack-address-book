@@ -1,16 +1,20 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const email = sequelize.define("email", {
-    email_address: { type: DataTypes.STRING, allowNull: false },
-    contact_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "contact",
-        key: "id",
+  const email = sequelize.define(
+    "email",
+    {
+      email_address: { type: DataTypes.STRING, allowNull: false },
+      contact_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "contact",
+          key: "id",
+        },
       },
     },
-  });
+    { freezeTableName: true }
+  );
 
   email.associate = (models) => {
     email.belongsTo(models.contact, { foreignKey: "contact_id" });

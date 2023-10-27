@@ -1,20 +1,22 @@
 "use strict";
-const { contact } = require("./contact.js");
-const { category } = require("./category.js");
 
 module.exports = (sequelize, DataTypes) => {
-  const contact_category = sequelize.define("contact_category", {
-    contact_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: { model: contact, key: "id" },
+  const contact_category = sequelize.define(
+    "contact_category",
+    {
+      contact_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "contact", key: "id" },
+      },
+      category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "category", key: "id" },
+      },
     },
-    category_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: { model: category, key: "id" },
-    },
-  });
+    { freezeTableName: true }
+  );
 
   return contact_category;
 };

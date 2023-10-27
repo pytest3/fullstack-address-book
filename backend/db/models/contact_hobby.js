@@ -1,18 +1,22 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const contact_hobby = sequelize.define("contact_hobby", {
-    contact_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: { model: contact, key: "id" },
+  const contact_hobby = sequelize.define(
+    "contact_hobby",
+    {
+      contact_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "contact", key: "id" },
+      },
+      hobby_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "hobby", key: "id" },
+      },
     },
-    hobby_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: { model: hobby, key: "id" },
-    },
-  });
+    { freezeTableName: true }
+  );
 
   return contact_hobby;
 };

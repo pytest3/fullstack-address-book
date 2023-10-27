@@ -1,13 +1,17 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const category = sequelize.define("category", {
-    category_name: { type: DataTypes.STRING, allowNull: false },
-  });
+  const category = sequelize.define(
+    "category",
+    {
+      category_name: { type: DataTypes.STRING, allowNull: false },
+    },
+    { freezeTableName: true }
+  );
 
   category.associate = (models) => {
     category.belongsToMany(models.contact, {
-      through: contact_category,
+      through: "contact_category",
     });
   };
 
