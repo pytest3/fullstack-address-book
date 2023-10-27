@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
     contact.hasOne(models.employed_contact, {
       foreignKey: "contact_id",
     });
+    contact.belongsToMany(models.category, {
+      through: contact_category,
+      foreignKey: "contact_id",
+    });
+    contact.belongsToMany(models.hobby, {
+      through: contact_hobby,
+      foreignKey: "contact_id",
+    });
   };
 
   return contact;

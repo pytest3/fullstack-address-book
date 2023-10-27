@@ -13,9 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       references: { model: hobby, key: "id" },
     },
   });
-  const { contact, hobby } = sequelize.models;
-  contact_hobby.belongsToMany(contact);
-  contact_hobby.belongsToMany(hobby);
 
   return contact_hobby;
 };

@@ -16,15 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  contact_category.associate = (models) => {
-    contact_category.belongsToMany(models.category, {
-      through: contact_category,
-    });
-    contact_category.belongsToMany(models.contact, {
-      through: contact_category,
-    });
-  };
-
   return contact_category;
 };
 

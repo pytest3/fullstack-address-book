@@ -5,6 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     category_name: { type: DataTypes.STRING, allowNull: false },
   });
 
+  category.associate = (models) => {
+    category.belongsToMany(models.contact, {
+      through: contact_category,
+    });
+  };
+
   return category;
 };
 
