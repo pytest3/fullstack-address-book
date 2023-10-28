@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         references: { model: "category", key: "id" },
       },
     },
-    { freezeTableName: true }
+    { freezeTableName: true, underscored: true }
   );
 
   return contact_category;

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       hobby_name: { type: DataTypes.STRING, allowNull: false },
     },
-    { freezeTableName: true }
+    { freezeTableName: true, underscored: true }
   );
 
   hobby.associate = (models) => {

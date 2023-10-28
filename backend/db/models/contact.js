@@ -14,13 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       first_name: { type: DataTypes.STRING, allowNull: false },
       last_name: { type: DataTypes.STRING, allowNull: false },
       birthday: { type: DataTypes.DATE, allowNull: false },
-      email: { type: DataTypes.STRING, allowNull: false },
       marital_status: {
         type: DataTypes.STRING,
         validate: { isIn: [["married", "single", "divorced", "separated"]] },
       },
     },
-    { freezeTableName: true }
+    { freezeTableName: true, underscored: true }
   );
 
   contact.associate = (models) => {

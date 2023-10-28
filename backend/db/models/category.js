@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       category_name: { type: DataTypes.STRING, allowNull: false },
     },
-    { freezeTableName: true }
+    { freezeTableName: true, underscored: true }
   );
 
   category.associate = (models) => {
