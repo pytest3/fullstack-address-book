@@ -27,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
   contact.associate = (models) => {
     contact.hasMany(models.email);
     contact.hasMany(models.contact_phone_number);
-    contact.hasOne(models.parent, {
+    contact.hasOne(models.parenthood_detail, {
       foreignKey: "contact_id",
     });
-    contact.hasOne(models.employed_contact, {
+    contact.hasOne(models.employment_detail, {
       foreignKey: "contact_id",
     });
     contact.belongsToMany(models.category, {

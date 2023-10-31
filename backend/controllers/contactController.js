@@ -2,7 +2,7 @@ const db = require("../db/models");
 const { Op } = require("sequelize");
 
 function findAll(req, res) {
-  contact
+  db.contact
     .findAll()
     .then((data) => res.send(data))
     .catch((err) =>
@@ -24,8 +24,8 @@ function findOne(req, res) {
       include: [
         { model: db.email },
         { model: db.contact_phone_number },
-        { model: db.parent },
-        { model: db.employed_contact },
+        { model: db.parenthood_detail },
+        { model: db.employment_detail },
       ],
     })
     .then((contact) => res.send(contact));
