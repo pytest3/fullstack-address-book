@@ -26,6 +26,8 @@ function findOne(req, res) {
         { model: db.contact_phone_number },
         { model: db.parenthood_detail },
         { model: db.employment_detail },
+        { model: db.hobby },
+        { model: db.category },
       ],
     })
     .then((contact) => res.send(contact));
@@ -46,6 +48,8 @@ function add(req, res) {
           last_name: req.body.last_name,
           birthday: new Date(req.body.birthday),
           marital_status: req.body.marital_status,
+          is_employed: true,
+          is_parent: true,
         },
         transaction: t,
       })
@@ -67,13 +71,14 @@ function add(req, res) {
             data: { email_address: req.body.email },
           },
           {
-            model: "parent",
+            model: "parenthood_detail",
             data: {
-              number_of_kids: req.body.number_of_kids,
+              son_count: req.body.son_count,
+              daughter_count: req.body.daughter_count,
             },
           },
           {
-            model: "employed_contact",
+            model: "employment_detail",
             data: {
               company_name: req.body.company_name,
               company_industry: req.body.company_industry,
