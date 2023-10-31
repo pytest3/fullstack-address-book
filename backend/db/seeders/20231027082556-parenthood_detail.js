@@ -3,15 +3,16 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("parent", [
+    return queryInterface.bulkInsert("parenthood_detail", [
       {
-        number_of_kids: 2,
         contact_id: 1,
+        son_count: 1,
+        daughter_count: 0,
       },
     ]);
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("parent", null, {});
+    return queryInterface.bulkDelete("parenthood_detail", null, {});
   },
 };
