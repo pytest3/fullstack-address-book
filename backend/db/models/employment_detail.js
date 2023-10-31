@@ -1,30 +1,28 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const parent = sequelize.define(
-    "parent",
+  const employment_detail = sequelize.define(
+    "employment_detail",
     {
-      number_of_kids: { type: DataTypes.INTEGER, allowNull: false },
+      company_name: { type: DataTypes.STRING, allowNull: false },
+      company_industry: { type: DataTypes.STRING, allowNull: false },
+      role: { type: DataTypes.STRING, allowNull: false },
       contact_id: {
         type: DataTypes.INTEGER,
-        // foreignKey: true,
         references: {
           model: "contact",
           key: "id",
         },
-        unique: true,
       },
     },
     { freezeTableName: true, underscored: true }
   );
 
-  parent.associate = (models) => {
-    parent.belongsTo(models.contact, {
-      foreignKey: "contact_id",
-    });
+  employment_detail.associate = (models) => {
+    employment_detail.belongsTo(models.contact, { foreignKey: "contact_id" });
   };
 
-  return parent;
+  return employment_detail;
 };
 // module.exports = (sequelize, DataTypes) => {
 //   class parent extends Model {

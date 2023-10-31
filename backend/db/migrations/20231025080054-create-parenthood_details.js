@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("parent", {
+    await queryInterface.createTable("parenthood_details", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -19,7 +19,11 @@ module.exports = {
         // foreignKey: true,
         unique: true,
       },
-      number_of_kids: {
+      son_count: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      daughter_count: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -36,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("parent");
+    await queryInterface.dropTable("parenthood_details");
   },
 };
