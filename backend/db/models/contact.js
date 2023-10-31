@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         validate: { isIn: [["married", "single", "divorced", "separated"]] },
       },
+      is_parent: { type: DataTypes.BOOLEAN, allowNull: false },
+      is_employed: { type: DataTypes.BOOLEAN, allowNull: false },
     },
     { freezeTableName: true, underscored: true }
   );
