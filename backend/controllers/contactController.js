@@ -1,8 +1,6 @@
 const db = require("../db/models");
 const { Op } = require("sequelize");
 
-const { contact, contact_phone_number } = db;
-
 function findAll(req, res) {
   contact
     .findAll()
@@ -12,9 +10,30 @@ function findAll(req, res) {
     );
 }
 
+function deleteAll(req, res) {
+  db.sequelize
+    .truncate({ cascade: true, restartIdentity: true })
+    .then((done) => res.send("deleted all"));
+}
+
+function findOne(req, res) {
+  const { first_name } = req.params;
+  db.contact
+    .findAll({
+      where: { first_name: first_name },
+      include: [
+        { model: db.email },
+        { model: db.contact_phone_number },
+        { model: db.parent },
+        { model: db.employed_contact },
+      ],
+    })
+    .then((contact) => res.send(contact));
+}
+
 function add(req, res) {
   db.sequelize.transaction((t) => {
-    return contact
+    return db.contact
       .findOrCreate({
         where: {
           [Op.and]: [
@@ -35,7 +54,6 @@ function add(req, res) {
           res.send("Contact already exist");
           return;
         }
-
         const inputs = [
           {
             model: "contact_phone_number",
@@ -92,4 +110,4 @@ function add(req, res) {
   });
 }
 
-module.exports = { findAll, add };
+module.exports = { findAll, add, deleteAll, findOne };
