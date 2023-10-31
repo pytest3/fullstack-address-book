@@ -22,12 +22,21 @@ function findOne(req, res) {
     .findAll({
       where: { first_name: first_name },
       include: [
-        { model: db.email },
-        { model: db.contact_phone_number },
-        { model: db.parenthood_detail },
-        { model: db.employment_detail },
-        { model: db.hobby },
-        { model: db.category },
+        { model: db.email, attributes: ["email_address"] },
+        { model: db.contact_phone_number, attributes: ["phone_number"] },
+        {
+          model: db.parenthood_detail,
+          attributes: ["son_count", "daughter_count"],
+        },
+        {
+          model: db.employment_detail,
+          attributes: ["company_name", "company_industry", "role"],
+        },
+        {
+          model: db.hobby,
+          attributes: ["hobby_name"],
+        },
+        { model: db.category, attributes: ["category_name"] },
       ],
     })
     .then((contact) => res.send(contact));
@@ -83,6 +92,12 @@ function add(req, res) {
               company_name: req.body.company_name,
               company_industry: req.body.company_industry,
               role: req.body.role,
+            },
+          },
+          {
+            model: "golf",
+            data: {
+              hobby_name: req.body.hobby,
             },
           },
         ];
