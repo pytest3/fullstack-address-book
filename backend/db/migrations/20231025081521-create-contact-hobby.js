@@ -16,6 +16,7 @@ module.exports = {
           model: "contact",
           key: "id",
         },
+        onDelete: "cascade",
       },
       hobby_id: {
         type: Sequelize.INTEGER,
@@ -24,6 +25,7 @@ module.exports = {
           model: "hobby",
           key: "id",
         },
+        onDelete: "cascade",
       },
       created_at: {
         allowNull: false,
