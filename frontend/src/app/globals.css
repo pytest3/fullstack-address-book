@@ -44,6 +44,20 @@ h6 {
   isolation: isolate;
 }
 
+:root {
+
+  --color-gray-1: #f8f9faff;
+  --color-gray-2: #e9ecefff;
+  --color-gray-3: #dee2e6ff;
+  --color-gray-4: #ced4daff;
+  --color-gray-5: #adb5bdff;
+  --color-gray-6: #6c757dff;
+  --color-gray-7: #495057ff;
+  --color-gray-8: #343a40ff;
+  --color-gray-9: #212529ff;
+}
+
 td {
   padding: 0px;
 }
+
