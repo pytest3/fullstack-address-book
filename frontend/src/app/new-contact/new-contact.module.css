@@ -1,0 +1,66 @@
+.wrapper {
+    padding: 20px;
+}
+
+.form {
+    display: grid;
+    gap: var(--vertical-spacing) 0px
+}
+
+.form input {
+    border: none
+}
+
+.icon {
+    stroke-width: 2;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    color: var(--color-blue-7);
+    align-self: center;
+    justify-self: center;
+}
+
+.nameSection {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 0px var(--horizontal-spacing)
+}
+
+.lastName {
+    grid-column: 2/-1
+}
+
+.birthdaySection {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 0px var(--horizontal-spacing)
+}
+
+.phoneSection {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 0px var(--horizontal-spacing)
+}
+
+
+.multiplePhone {
+    grid-column: 2/-1;
+}
+
+.employmentSection {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 0px var(--horizontal-spacing)
+}
+
+.maritalSection {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 0px var(--horizontal-spacing)
+}
+
+.employmentStatus,
+.maritalStatus {
+    border: none;
+    width: 100%
+}
