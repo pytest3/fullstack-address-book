@@ -9,47 +9,74 @@ import {
   Briefcase,
   Heart,
   Mail,
-  Plus,
-  X,
+  Gamepad2,
+  PersonStanding,
+  Baby,
 } from "lucide-react";
 
-export default function Page() {
-  function handlePhoneInput() {
-    setShowAddPhone(true);
-    return;
-  }
-  const [showAddEmail, setShowAddEmail] = React.useState(false);
-  const [showAddPhone, setShowAddPhone] = React.useState(false);
-  const [employmentStatus, setEmploymentStatus] = React.useState("");
-  const [maritalStatus, setMaritalStatus] = React.useState("");
+import MultiLineFormInput from "@/components/MultiLineFormInput";
+import ConditionalFormInput from "@/components/ConditionalFormInput";
 
+export default function Page() {
+  const [maritalStatus, setMaritalStatus] = React.useState("");
   const [emailList, setEmailList] = React.useState([
     { id: crypto.randomUUID(), email: "" },
   ]);
+  const [phoneList, setPhoneList] = React.useState([
+    { id: crypto.randomUUID(), phone: "" },
+  ]);
+  const [hobbyList, setHobbyList] = React.useState([
+    { id: crypto.randomUUID(), hobby: "" },
+  ]);
 
-  function handleAddEmail(e) {
-    setEmailList([
-      ...emailList,
-      { id: crypto.randomUUID(), email: e.target.value },
-    ]);
-  }
+  const [categoryList, setCategoryList] = React.useState([
+    { id: crypto.randomUUID(), category: "" },
+  ]);
 
-  function handleEmailInput(e, emailId) {
-    const updatedEmailList = emailList.map((email) => {
-      if (email.id != emailId) {
-        return email;
-      }
-      return { ...email, email: e.target.value };
-    });
-    setEmailList(updatedEmailList);
-  }
+  const [employmentStatus, setEmploymentStatus] = React.useState({
+    status: "",
+    organization: null,
+    industry: null,
+    jobTitle: null,
+  });
 
-  function handleRemoveEmail(e, emailId) {
-    const updatedEmailList = emailList.filter((email) => {
-      return email.id != emailId;
-    });
-    setEmailList(updatedEmailList);
-  }
+  const [parentHoodStatus, setParentHoodStatus] = React.useState({
+    status: "",
+    daughterCount: null,
+    sonCount: null,
+  });
+
+  const employmentConfig = {
+    showCondition: "employed",
+    options: [
+      { value: "", text: "Add employment status", disabled: true },
+      { value: "unemployed", text: "Unemployed" },
+      { value: "employed", text: "Employed" },
+      { value: "notApplicable", text: "Not applicable" },
+    ],
+    conditionalFields: [
+      { placeHolder: "Job title", id: "jobTitle" },
+      { placeHolder: "Organization", id: "organization" },
+      { placeHolder: "Industry", id: "industry" },
+    ],
+  };
+
+  const parentHoodConfig = {
+    showCondition: "parent",
+    options: [
+      { value: "", text: "Add parenthood status", disabled: true },
+      { value: "parent", text: "Parent" },
+      { value: "notParent", text: "Not parent" },
+    ],
+    conditionalFields: [
+      {
+        placeHolder: "Number of daughter(s)",
+        id: "daughterCount",
+        type: "number",
+      },
+      { placeHolder: "Number of son(s)", id: "sonCount", type: "number" },
+    ],
+  };
 
   return (
     <div
@@ -57,6 +84,7 @@ export default function Page() {
       style={{ "--horizontal-spacing": "20px", "--vertical-spacing": "20px" }}
     >
       <form className={styles.form}>
+        <button>save</button>
         <section className={styles.nameSection}>
           <User className={styles.icon} />
           <input id="firstName" type="text" placeholder="First name"></input>
@@ -79,116 +107,49 @@ export default function Page() {
           ></input>
         </section>
 
-        <section className={styles.phoneSection}>
-          <Phone className={styles.icon} />
-          {showAddPhone && (
-            <input
-              placeholder="Add another phone"
-              type="text"
-              id="phone"
-              onChange={handlePhoneInput}
-            ></input>
-          )}
-          <input
-            placeholder="Add phone"
-            type="text"
-            id="phone"
-            onChange={handlePhoneInput}
-            className={styles.indented}
-          ></input>
-        </section>
+        <ConditionalFormInput
+          icon={Briefcase}
+          name="employment"
+          inputs={employmentStatus}
+          setInputs={setEmploymentStatus}
+          config={employmentConfig}
+        />
 
+        <ConditionalFormInput
+          icon={Baby}
+          name="parentHoodStatus"
+          inputs={parentHoodStatus}
+          setInputs={setParentHoodStatus}
+          config={parentHoodConfig}
+        />
 
-            <section className={styles.emailSection}>
-          <Mail className={styles.icon} />
-          {emailList.map(({ id: emailId }, idx) => {
-            return (
-              <div
-                key={emailId}
-                className={`${styles.indented} ${styles.rowWithButtons}`}
-              >
-                <input
-                  placeholder="Add email"
-                  type="text"
-                  id="email"
-                  onChange={(e) => handleEmailInput(e, emailId)}
-                ></input>
-                <div className={styles.buttonGroup}>
-                  {idx === emailList.length - 1 && (
-                    <Plus onClick={handleAddEmail} />
-                  )}
-                  <X onClick={(e) => handleRemoveEmail(e, emailId)} />
-                </div>
-              </div>
-            );
-          })}
+        <MultiLineFormInput
+          icon={Mail}
+          name="email"
+          inputs={emailList}
+          setInputs={setEmailList}
+        />
 
+        <MultiLineFormInput
+          icon={Phone}
+          name="phone"
+          inputs={phoneList}
+          setInputs={setPhoneList}
+        />
 
+        <MultiLineFormInput
+          icon={Gamepad2}
+          name="hobby"
+          inputs={hobbyList}
+          setInputs={setHobbyList}
+        />
 
-        <section className={styles.emailSection}>
-          <Mail className={styles.icon} />
-          {emailList.map(({ id: emailId }, idx) => {
-            return (
-              <div
-                key={emailId}
-                className={`${styles.indented} ${styles.rowWithButtons}`}
-              >
-                <input
-                  placeholder="Add email"
-                  type="text"
-                  id="email"
-                  onChange={(e) => handleEmailInput(e, emailId)}
-                ></input>
-                <div className={styles.buttonGroup}>
-                  {idx === emailList.length - 1 && (
-                    <Plus onClick={handleAddEmail} />
-                  )}
-                  <X onClick={(e) => handleRemoveEmail(e, emailId)} />
-                </div>
-              </div>
-            );
-          })}
-        </section>
-
-        <section className={styles.employmentSection}>
-          <Briefcase className={styles.icon} />
-          <select
-            id="employmentStatus"
-            value={employmentStatus}
-            className={styles.employmentStatus}
-            onChange={(e) => setEmploymentStatus(e.target.value)}
-          >
-            <option value="" disabled>
-              Add employment status
-            </option>
-            <option value="unemployed">Unemployed</option>
-            <option value="employed">Employed</option>
-            <option value="not applicable">Not applicable</option>
-          </select>
-
-          {employmentStatus === "employed" && (
-            <>
-              <input
-                placeholder="Job title"
-                type="text"
-                id="jobTitle"
-                className={styles.indented}
-              ></input>
-              <input
-                placeholder="Organization"
-                type="text"
-                id="organization"
-                className={styles.indented}
-              ></input>
-              <input
-                placeholder="Industry"
-                type="text"
-                id="industry"
-                className={styles.indented}
-              ></input>
-            </>
-          )}
-        </section>
+        <MultiLineFormInput
+          icon={PersonStanding}
+          name="category"
+          inputs={categoryList}
+          setInputs={setCategoryList}
+        />
 
         <section className={styles.maritalSection}>
           <Heart className={styles.icon} />

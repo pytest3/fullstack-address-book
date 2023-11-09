@@ -24,19 +24,6 @@
     grid-column: 2/-1;
 }
 
-.rowWithButtons {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0px 10px
-}
-
-.buttonGroup {
-    display: flex;
-    gap: 0px 10px;
-    color: var(--color-gray-4)
-}
-
 .nameSection {
     display: grid;
     grid-template-columns: 30px 1fr;
@@ -49,31 +36,23 @@
     gap: 0px var(--horizontal-spacing)
 }
 
-.phoneSection {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 0px var(--horizontal-spacing)
-}
 
-.emailSection {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 0px var(--horizontal-spacing)
-}
-
+/* remove */
 .employmentSection {
     display: grid;
     grid-template-columns: 30px 1fr;
     gap: 0px var(--horizontal-spacing)
 }
 
+/* remove */
 .maritalSection {
     display: grid;
     grid-template-columns: 30px 1fr;
     gap: 0px var(--horizontal-spacing)
 }
 
-.employmentStatus,
+
+/* remove */
 .maritalStatus {
     border: none;
     width: 100%
