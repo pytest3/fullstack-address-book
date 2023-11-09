@@ -2,17 +2,54 @@
 
 import React from "react";
 import styles from "./new-contact.module.css";
-import { Phone, Cake, User, Briefcase, Heart } from "lucide-react";
+import {
+  Phone,
+  Cake,
+  User,
+  Briefcase,
+  Heart,
+  Mail,
+  Plus,
+  X,
+} from "lucide-react";
 
 export default function Page() {
-  function handlePhoneInput(e) {
+  function handlePhoneInput() {
     setShowAddPhone(true);
     return;
   }
+  const [showAddEmail, setShowAddEmail] = React.useState(false);
   const [showAddPhone, setShowAddPhone] = React.useState(false);
-  const [hasMultiplePhones, setHasMultiplePhones] = React.useState(false);
   const [employmentStatus, setEmploymentStatus] = React.useState("");
   const [maritalStatus, setMaritalStatus] = React.useState("");
+
+  const [emailList, setEmailList] = React.useState([
+    { id: crypto.randomUUID(), email: "" },
+  ]);
+
+  function handleAddEmail(e) {
+    setEmailList([
+      ...emailList,
+      { id: crypto.randomUUID(), email: e.target.value },
+    ]);
+  }
+
+  function handleEmailInput(e, emailId) {
+    const updatedEmailList = emailList.map((email) => {
+      if (email.id != emailId) {
+        return email;
+      }
+      return { ...email, email: e.target.value };
+    });
+    setEmailList(updatedEmailList);
+  }
+
+  function handleRemoveEmail(e, emailId) {
+    const updatedEmailList = emailList.filter((email) => {
+      return email.id != emailId;
+    });
+    setEmailList(updatedEmailList);
+  }
 
   return (
     <div
@@ -27,7 +64,7 @@ export default function Page() {
             id="lastName"
             type="text"
             placeholder="Last name"
-            className={styles.lastName}
+            className={styles.indented}
           ></input>
         </section>
 
@@ -57,8 +94,60 @@ export default function Page() {
             type="text"
             id="phone"
             onChange={handlePhoneInput}
-            className={styles.multiplePhone}
+            className={styles.indented}
           ></input>
+        </section>
+
+
+            <section className={styles.emailSection}>
+          <Mail className={styles.icon} />
+          {emailList.map(({ id: emailId }, idx) => {
+            return (
+              <div
+                key={emailId}
+                className={`${styles.indented} ${styles.rowWithButtons}`}
+              >
+                <input
+                  placeholder="Add email"
+                  type="text"
+                  id="email"
+                  onChange={(e) => handleEmailInput(e, emailId)}
+                ></input>
+                <div className={styles.buttonGroup}>
+                  {idx === emailList.length - 1 && (
+                    <Plus onClick={handleAddEmail} />
+                  )}
+                  <X onClick={(e) => handleRemoveEmail(e, emailId)} />
+                </div>
+              </div>
+            );
+          })}
+
+
+
+        <section className={styles.emailSection}>
+          <Mail className={styles.icon} />
+          {emailList.map(({ id: emailId }, idx) => {
+            return (
+              <div
+                key={emailId}
+                className={`${styles.indented} ${styles.rowWithButtons}`}
+              >
+                <input
+                  placeholder="Add email"
+                  type="text"
+                  id="email"
+                  onChange={(e) => handleEmailInput(e, emailId)}
+                ></input>
+                <div className={styles.buttonGroup}>
+                  {idx === emailList.length - 1 && (
+                    <Plus onClick={handleAddEmail} />
+                  )}
+                  <X onClick={(e) => handleRemoveEmail(e, emailId)} />
+                </div>
+              </div>
+            );
+          })}
         </section>
 
         <section className={styles.employmentSection}>
@@ -76,11 +165,33 @@ export default function Page() {
             <option value="employed">Employed</option>
             <option value="not applicable">Not applicable</option>
           </select>
+
+          {employmentStatus === "employed" && (
+            <>
+              <input
+                placeholder="Job title"
+                type="text"
+                id="jobTitle"
+                className={styles.indented}
+              ></input>
+              <input
+                placeholder="Organization"
+                type="text"
+                id="organization"
+                className={styles.indented}
+              ></input>
+              <input
+                placeholder="Industry"
+                type="text"
+                id="industry"
+                className={styles.indented}
+              ></input>
+            </>
+          )}
         </section>
 
         <section className={styles.maritalSection}>
           <Heart className={styles.icon} />
-
           <select
             id="maritalStatus"
             value={maritalStatus}
