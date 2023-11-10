@@ -1,17 +1,37 @@
+"use client";
+
 import React from "react";
-import styles from "./styles.module.css";
+import styles from "./NameList.module.css";
 import { UserCircle2 } from "lucide-react";
+import useSWR from "swr";
+import InitialsAvatar from "../InitialsAvatar";
 
 export default function NameList() {
-  const names = ["Thomas cook", "Lily Tan", "Claudia Foo", "Alicia Keys"];
+  async function fetcher(...args) {
+    const res = await fetch(...args, {
+      headers: { Accept: "application/json" },
+    });
+    return res.json();
+  }
+
+  // const { data, error, isLoading } = useSWR(
+  //   "http://localhost:3000/api/contacts",
+  //   fetcher
+  // );
+
   return (
     <div>
-      {names.map((name) => {
+      {data?.map(({ id, first_name, last_name }) => {
         return (
-          <article className={styles.card}>
-            <UserCircle2 className={styles.avatar} />
-            <div className={styles.name}>{name}</div>
-            <div className={styles.job}>{name}</div>
+          <article key={id} className={styles.card}>
+            <InitialsAvatar
+              avatarWrapperStyles={styles.avatarWrapper}
+              avatarStyles={styles.avatar}
+              firstName={first_name}
+              lastName={last_name}
+            />
+            <div className={styles.name}>{first_name}</div>
+            <div className={styles.job}>{last_name}</div>
           </article>
         );
       })}
