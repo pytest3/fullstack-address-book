@@ -5,18 +5,16 @@
 }
 
 .leftActions {
-    font-size: 16px;
-    font-weight: 600;
+    color: var(--color-blue-7);
 }
 
 .wrapper {
     display: flex;
     width: 100%;
-    color: var(--color-blue-7);
     align-items: center;
-    margin-bottom: 15px;
 }
 
 .icon {
     stroke-width: 2px;
+    color: var(--color-blue-7);
 }

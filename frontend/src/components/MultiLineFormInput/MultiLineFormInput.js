@@ -4,10 +4,10 @@ import { Plus, X, HelpCircle } from "lucide-react";
 
 export default function MultiLineFormInput({
   icon: Icon = HelpCircle,
-  name,
   type = "text",
   inputs,
   setInputs,
+  name,
   ...props
 }) {
   function handleAddItem(e) {
@@ -35,7 +35,6 @@ export default function MultiLineFormInput({
     <section className={styles.inputSection}>
       <Icon className={styles.icon} />
       {inputs.map(({ id: inputId }, idx) => {
-        console.log(idx);
         return (
           <div
             key={inputId}
@@ -44,13 +43,20 @@ export default function MultiLineFormInput({
             <input
               placeholder={`Add ${name}`}
               type={type}
-              id={`${name}`}
               onChange={(e) => handleItemInput(e, inputId)}
+              name={name}
               {...props}
             ></input>
             <div className={styles.buttonGroup}>
-              {idx === inputs.length - 1 && <Plus onClick={handleAddItem} />}
-              <X onClick={(e) => handleRemoveItem(e, inputId)} />
+              {idx === inputs.length - 1 && (
+                <Plus className={styles.plusIcon} onClick={handleAddItem} />
+              )}
+              {inputs.length > 1 && (
+                <X
+                  className={styles.crossIcon}
+                  onClick={(e) => handleRemoveItem(e, inputId)}
+                />
+              )}
             </div>
           </div>
         );

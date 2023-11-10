@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    align-items: baseline
+}
+
+.leftActionsWrapper {
+    flex: 1;
+}
+
+.rightActionWrapper {
+    display: flex;
+    flex: 1;
+    justify-content: end;
+}
+
+.saveBtn {
+    padding: 0px;
+    text-decoration: none;
+    border: none;
+    background: inherit;
+    width: auto;
+    color: var(--color-blue-7);    
+}
+.cancelBtn {
+    text-decoration: none;
+    color: var(--color-blue-7);
+}
+
