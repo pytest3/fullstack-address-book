@@ -19,6 +19,14 @@ export default function NameList() {
   //   fetcher
   // );
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Unable to fetch data. Error: {error.message}</div>;
+  }
+
   return (
     <div>
       {data?.map(({ id, first_name, last_name }) => {
