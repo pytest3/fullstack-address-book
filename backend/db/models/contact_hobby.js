@@ -6,17 +6,22 @@ module.exports = (sequelize, DataTypes) => {
     {
       contact_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "contact", key: "id" },
       },
       hobby_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "hobby", key: "id" },
       },
     },
     { freezeTableName: true, underscored: true }
   );
+
+  contact_hobby.associate = (models) => {
+    contact_hobby.belongsTo(models.hobby);
+    contact_hobby.belongsTo(models.contact);
+  };
 
   return contact_hobby;
 };

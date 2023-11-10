@@ -35,11 +35,13 @@ module.exports = (sequelize, DataTypes) => {
     });
     contact.belongsToMany(models.category, {
       through: "contact_category",
-      foreignKey: "contact_id",
+      sourceKey: "id",
+      targetKey: "id",
     });
     contact.belongsToMany(models.hobby, {
       through: "contact_hobby",
-      foreignKey: "contact_id",
+      sourceKey: "id",
+      targetKey: "id",
     });
   };
 

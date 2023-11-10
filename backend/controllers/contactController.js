@@ -1,9 +1,12 @@
 const db = require("../db/models");
 const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
 function findAll(req, res) {
   db.contact
-    .findAll()
+    .findAll({
+      include: [db.email, db.contact_phone_number, db.employment_detail],
+    })
     .then((data) => {
       if (!data) {
         return res.status(404).send(err.message || "No user data found");
@@ -69,12 +72,12 @@ function updateAll(req, res) {
       );
 
       promises.push(
-        ...req.body.phone_number.map((phoneNumber, index) => {
+        ...req.body.phone_number.map((phone, index) => {
           return contactInstance
             .getContact_phone_numbers()
             .then((numberInstances) => {
               return numberInstances[index].update({
-                phone_number: phoneNumber,
+                phone_number: phone,
               });
             });
         })
@@ -272,6 +275,22 @@ function add(req, res) {
   });
 }
 
+function testQuery(req, res) {
+  db.category
+    .findAll({
+      attributes: [
+        "category_name",
+
+        [
+          sequelize.fn("COUNT", sequelize.col("category_name")),
+          "category_count",
+        ],
+      ],
+      group: ["category_name"],
+    })
+    .then((data) => res.send(data));
+}
+
 module.exports = {
   findAll,
   findByName,
@@ -279,4 +298,5 @@ module.exports = {
   add,
   updateAll,
   deleteOne,
+  testQuery,
 };
