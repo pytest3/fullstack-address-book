@@ -16,8 +16,14 @@ import {
 
 import MultiLineFormInput from "@/components/MultiLineFormInput";
 import ConditionalFormInput from "@/components/ConditionalFormInput";
+import { sendRequest } from "@/utils";
+import NavBarForm from "@/components/NavBarForm";
+import InitialsAvatar from "@/components/InitialsAvatar";
 
 export default function Page() {
+  const isRequired = false;
+
+  const [name, setName] = React.useState({ firstName: "", lastName: "" });
   const [maritalStatus, setMaritalStatus] = React.useState("");
   const [emailList, setEmailList] = React.useState([
     { id: crypto.randomUUID(), email: "" },
@@ -55,9 +61,9 @@ export default function Page() {
       { value: "notApplicable", text: "Not applicable" },
     ],
     conditionalFields: [
-      { placeHolder: "Job title", id: "jobTitle" },
-      { placeHolder: "Organization", id: "organization" },
-      { placeHolder: "Industry", id: "industry" },
+      { placeHolder: "Job title", name: "jobTitle" },
+      { placeHolder: "Organization", name: "organization" },
+      { placeHolder: "Industry", name: "industry" },
     ],
   };
 
@@ -71,70 +77,127 @@ export default function Page() {
     conditionalFields: [
       {
         placeHolder: "Number of daughter(s)",
-        id: "daughterCount",
+        name: "daughterCount",
         type: "number",
       },
-      { placeHolder: "Number of son(s)", id: "sonCount", type: "number" },
+      {
+        placeHolder: "Number of son(s)",
+        name: "sonCount",
+        type: "number",
+      },
     ],
   };
+
+  function handleNameInput(e) {
+    setName({ ...name, [e.target.name]: e.target.value });
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const reqBody = {
+      first_name: data.get("firstName"),
+      last_name: data.get("lastName"),
+      birthday: data.get("birthday"),
+      marital_status: data.get("maritalStatus"),
+      is_employed: data.get("isEmployed"),
+      is_parent: data.get("isParent"),
+      phone_number: data.getAll("phone"),
+      son_count: data.get("sonCount"),
+      daughter_count: data.get("daughterCount"),
+      company_name: data.get("organization"),
+      company_industry: data.get("industry"),
+      role: data.get("jobTitle"),
+      email: data.getAll("email"),
+      hobby_name: data.getAll("hobby"),
+      category: data.getAll("category"),
+    };
+
+    sendRequest("http://localhost:3000/api/contactsdadfa", "POST", reqBody);
+  }
 
   return (
     <div
       className={styles.wrapper}
-      style={{ "--horizontal-spacing": "20px", "--vertical-spacing": "20px" }}
+      style={{
+        "--horizontal-spacing": "20px",
+        "--vertical-spacing": "20px",
+        "--inner-vertical-spacing": "10px",
+      }}
     >
-      <form className={styles.form}>
-        <button>save</button>
+      <NavBarForm />
+      <InitialsAvatar firstName={name.firstName} lastName={name.lastName} />
+      <form
+        id="new-user-form"
+        className={styles.form}
+        onSubmit={handleFormSubmit}
+      >
         <section className={styles.nameSection}>
           <User className={styles.icon} />
-          <input id="firstName" type="text" placeholder="First name"></input>
           <input
-            id="lastName"
+            name="firstName"
+            type="text"
+            placeholder="First name"
+            onChange={handleNameInput}
+            required={isRequired}
+          ></input>
+          <input
+            name="lastName"
             type="text"
             placeholder="Last name"
+            onChange={handleNameInput}
             className={styles.indented}
+            required={isRequired}
           ></input>
         </section>
 
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
           <input
+            name="birthday"
             placeholder="Add Birthday"
             type="text"
             onFocus={(e) => (e.target.type = "date")}
             onBlur={(e) => (e.target.type = "text")}
             id="date"
+            required={isRequired}
           ></input>
         </section>
-
-        <ConditionalFormInput
-          icon={Briefcase}
-          name="employment"
-          inputs={employmentStatus}
-          setInputs={setEmploymentStatus}
-          config={employmentConfig}
-        />
-
-        <ConditionalFormInput
-          icon={Baby}
-          name="parentHoodStatus"
-          inputs={parentHoodStatus}
-          setInputs={setParentHoodStatus}
-          config={parentHoodConfig}
-        />
 
         <MultiLineFormInput
           icon={Mail}
           name="email"
+          type="email"
           inputs={emailList}
           setInputs={setEmailList}
+          required={isRequired}
+        />
+
+        <ConditionalFormInput
+          icon={Briefcase}
+          name="isEmployed"
+          inputs={employmentStatus}
+          setInputs={setEmploymentStatus}
+          config={employmentConfig}
+          required={isRequired}
+        />
+
+        <ConditionalFormInput
+          icon={Baby}
+          name="isParent"
+          inputs={parentHoodStatus}
+          setInputs={setParentHoodStatus}
+          config={parentHoodConfig}
+          required={isRequired}
         />
 
         <MultiLineFormInput
           icon={Phone}
           name="phone"
+          type="number"
           inputs={phoneList}
           setInputs={setPhoneList}
+          required={isRequired}
         />
 
         <MultiLineFormInput
@@ -142,6 +205,7 @@ export default function Page() {
           name="hobby"
           inputs={hobbyList}
           setInputs={setHobbyList}
+          required={isRequired}
         />
 
         <MultiLineFormInput
@@ -149,15 +213,18 @@ export default function Page() {
           name="category"
           inputs={categoryList}
           setInputs={setCategoryList}
+          required={isRequired}
         />
 
         <section className={styles.maritalSection}>
           <Heart className={styles.icon} />
           <select
-            id="maritalStatus"
+            name="maritalStatus"
             value={maritalStatus}
             className={styles.maritalStatus}
             onChange={(e) => setMaritalStatus(e.target.value)}
+            required={isRequired}
+            style={{ color: maritalStatus === "" ? "grey" : "black" }}
           >
             <option value="" disabled>
               Add marital status

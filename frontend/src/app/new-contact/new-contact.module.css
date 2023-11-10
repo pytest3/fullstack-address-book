@@ -27,33 +27,26 @@
 .nameSection {
     display: grid;
     grid-template-columns: 30px 1fr;
-    gap: 0px var(--horizontal-spacing)
+    gap: 10px var(--horizontal-spacing);
+
 }
 
-.birthdaySection {
+.birthdaySection, .maritalSection {
     display: grid;
     grid-template-columns: 30px 1fr;
-    gap: 0px var(--horizontal-spacing)
+    gap: 0px var(--horizontal-spacing);
+    padding-top: var(--inner-vertical-spacing);
+    border-top: 1px solid var(--color-gray-2);
 }
 
-
-/* remove */
-.employmentSection {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 0px var(--horizontal-spacing)
-}
-
-/* remove */
-.maritalSection {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 0px var(--horizontal-spacing)
-}
-
-
-/* remove */
 .maritalStatus {
     border: none;
-    width: 100%
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('/chevron-down.svg');
+    background-repeat: no-repeat;
+    background-position: right;
 }
+
