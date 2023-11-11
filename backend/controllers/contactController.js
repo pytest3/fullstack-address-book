@@ -6,6 +6,10 @@ function findAll(req, res) {
   db.contact
     .findAll({
       include: [db.email, db.contact_phone_number, db.employment_detail],
+      order: [
+        ["first_name", "ASC"],
+        ["last_name", "ASC"],
+      ],
     })
     .then((data) => {
       if (!data) {
@@ -20,7 +24,6 @@ function findAll(req, res) {
 
 function updateAll(req, res) {
   const { userId } = req.params;
-
   db.contact
     .findByPk(userId)
     .then((contactInstance) => {
