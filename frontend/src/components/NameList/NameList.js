@@ -33,10 +33,11 @@ export default function NameList() {
         return (
           <article key={id} className={styles.card}>
             <InitialsAvatar
-              avatarWrapperStyles={styles.avatarWrapper}
-              avatarStyles={styles.avatar}
               firstName={first_name}
               lastName={last_name}
+              className={styles.initialsAvatar}
+              fontSize="20px"
+              circleSize="52px"
             />
             <div className={styles.name}>{first_name}</div>
             <div className={styles.job}>{last_name}</div>

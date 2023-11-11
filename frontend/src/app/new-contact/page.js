@@ -126,7 +126,14 @@ export default function Page() {
       }}
     >
       <NavBarForm />
-      <InitialsAvatar firstName={name.firstName} lastName={name.lastName} />
+      <div className={styles.avatarWrapper}>
+        <InitialsAvatar
+          firstName={name.firstName}
+          lastName={name.lastName}
+          fontSize="35px"
+          circleSize="100px"
+        />
+      </div>
       <form
         id="new-user-form"
         className={styles.form}

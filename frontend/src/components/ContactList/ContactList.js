@@ -7,10 +7,10 @@ import styles from "./styles.module.css";
 export default function ContactList() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-  const { data, error, isLoading } = useSWR(
-    "http://localhost:3000/api/contacts",
-    fetcher
-  );
+  // const { data, error, isLoading } = useSWR(
+  //   "http://localhost:3000/api/contacts",
+  //   fetcher
+  // );
 
   console.log(data);
 
