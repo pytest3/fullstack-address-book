@@ -6,7 +6,7 @@ const { contactController } = controllers;
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.send("hello homepage");
+  return res.send("hello homepage");
 });
 
 /* Contact router */
@@ -17,6 +17,6 @@ router.get("/api/contacts/:first_name", contactController.findByName);
 router.delete("/api/contacts/delete-all", contactController.deleteAll);
 router.delete("/api/contacts/:userId", contactController.deleteOne);
 
-router.get("/api/test", contactController.testQuery);
+// router.get("/api/test", contactController.testQuery);
 
 module.exports = router;
