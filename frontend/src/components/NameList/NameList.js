@@ -14,10 +14,10 @@ export default function NameList() {
     return res.json();
   }
 
-  // const { data, error, isLoading } = useSWR(
-  //   "http://localhost:3000/api/contacts",
-  //   fetcher
-  // );
+  const { data, error, isLoading } = useSWR(
+    "http://localhost:3000/api/contacts",
+    fetcher
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
