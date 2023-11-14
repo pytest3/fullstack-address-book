@@ -45,7 +45,6 @@ h6 {
 }
 
 :root {
-  
   --color-gray-1: #f8f9faff;
   --color-gray-2: #e9ecefff;
   --color-gray-3: #dee2e6ff;
@@ -55,7 +54,6 @@ h6 {
   --color-gray-7: #495057ff;
   --color-gray-8: #343a40ff;
   --color-gray-9: #212529ff;
-
 
   --color-blue-9: #03045eff;
   --color-blue-8: #023e8aff;
@@ -72,3 +70,9 @@ td {
   padding: 0px;
 }
 
+html,
+body,
+#root, /* for create-react-app */
+#__next /* for Next.js */ {
+  height: 100%;
+}

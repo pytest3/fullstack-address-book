@@ -1,0 +1,12 @@
+.wrapper {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  gap: 20px;
+}
+
+.backBtn {
+  display: grid;
+  justify-content: center;
+  text-decoration: none;
+}
