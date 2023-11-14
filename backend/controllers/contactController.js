@@ -22,6 +22,26 @@ function findAll(req, res) {
     );
 }
 
+function findById(req, res) {
+  const { id } = req.params;
+  db.contact
+    .findByPk(id, {
+      include: [
+        db.email,
+        db.contact_phone_number,
+        db.employment_detail,
+        db.parenthood_detail,
+        db.hobby,
+        db.category,
+      ],
+    })
+    .then((data) => {
+      console.log(data);
+      res.send(data);
+    })
+    .catch((err) => console.log(err));
+}
+
 function updateAll(req, res) {
   const { userId } = req.params;
   db.contact
@@ -297,6 +317,7 @@ function testQuery(req, res) {
 module.exports = {
   findAll,
   findByName,
+  findById,
   deleteAll,
   add,
   updateAll,

@@ -1,0 +1,104 @@
+.wrapper {
+  width: 100%;
+  --horizontal-spacing: 20px;
+  --vertical-spacing: 20px;
+  --inner-vertical-spacing: 10px;
+}
+
+.navbar {
+  padding-bottom: 20px;
+}
+
+.greyBG {
+  background-color: var(--color-gray-2);
+  padding: 20px;
+  padding-bottom: 0px;
+  /* border-bottom-left-radius: 220px 40px;
+  border-bottom-right-radius: 220px 40px; */
+}
+
+.userSummary {
+  display: grid;
+  justify-content: center;
+  /* padding-bottom: 20px; */
+}
+
+.whiteBG {
+  background-color: white;
+  padding: 20px;
+  padding-top: 5px;
+  display: grid;
+  gap: 40px 0px;
+}
+
+.avatar {
+  margin-bottom: 15px;
+  background-color: var(--color-gray-4);
+  border: inherit;
+}
+
+.avatar * {
+  color: white;
+}
+
+.fullName {
+  font-weight: 00;
+  font-size: 20px;
+}
+
+.avatar,
+.fullName,
+.jobInfo {
+  justify-self: center;
+}
+
+.jobInfo {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-gray-6);
+}
+
+.form {
+  display: grid;
+  gap: 30px 0px;
+}
+
+.form * {
+  color: var(--color-gray-7);
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px var(--horizontal-spacing);
+  font-size: 16px;
+}
+
+.icon {
+  stroke-width: 2;
+  grid-row: 1/2;
+  grid-column: 1/2;
+  color: var(--color-blue-7);
+  align-self: center;
+  justify-self: center;
+}
+
+.indented {
+  grid-column: 2/-1;
+}
+
+.wrapper input {
+  border: none;
+}
+
+/* */
+.row {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.smallText {
+  font-size: 12px;
+  color: var(--color-gray-6);
+}

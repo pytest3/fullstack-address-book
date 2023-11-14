@@ -12,3 +12,7 @@ export async function sendRequest(url, method, data) {
     console.log(err);
   }
 }
+
+export function capitalizeFirstLetter(string) {
+  return string[0].toUpperCase() + string.slice(1);
+}
