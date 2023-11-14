@@ -57,6 +57,7 @@ export default function Page({ params }) {
             circleSize="70px"
             fontSize="30px"
             className={styles.avatar}
+            fontClassName={styles.avatarFont}
           ></InitialsAvatar>
           <div className={styles.fullName}>
             {capitalizeFirstLetter(first_name)}{" "}

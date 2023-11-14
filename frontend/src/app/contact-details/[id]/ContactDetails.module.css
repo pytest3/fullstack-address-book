@@ -37,13 +37,13 @@
   border: inherit;
 }
 
-.avatar * {
-  color: white;
-}
-
 .fullName {
   font-weight: 00;
   font-size: 20px;
+}
+
+.avatarFont {
+  color: white;
 }
 
 .avatar,

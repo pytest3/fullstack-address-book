@@ -8,6 +8,7 @@ export default function InitialsAvatar({
   className = "",
   fontSize,
   circleSize,
+  fontClassName = "",
 }) {
   const firstNameInitial = firstName.slice(0, 1).toUpperCase();
   const lastNameInitial = lastName.slice(0, 1).toUpperCase();
@@ -20,8 +21,12 @@ export default function InitialsAvatar({
         <User2 size={64} strokeWidth={1.5} />
       ) : (
         <>
-          <span className={styles.initial}>{firstNameInitial}</span>
-          <span className={styles.initial}>{lastNameInitial}</span>
+          <span className={`${styles.initial} ${fontClassName}`}>
+            {firstNameInitial}
+          </span>
+          <span className={`${styles.initial} ${fontClassName}`}>
+            {lastNameInitial}
+          </span>
         </>
       )}
     </div>
