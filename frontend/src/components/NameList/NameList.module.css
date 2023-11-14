@@ -26,3 +26,8 @@
   font-size: 14px;
   color: rgb(148, 142, 142);
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}

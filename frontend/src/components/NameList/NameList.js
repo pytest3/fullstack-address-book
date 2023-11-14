@@ -5,6 +5,7 @@ import styles from "./NameList.module.css";
 import { UserCircle2 } from "lucide-react";
 import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
+import Link from "next/link";
 
 export default function NameList() {
   async function fetcher(...args) {
@@ -31,17 +32,27 @@ export default function NameList() {
     <div>
       {data?.map(({ id, first_name, last_name }) => {
         return (
-          <article key={id} className={styles.card}>
-            <InitialsAvatar
-              firstName={first_name}
-              lastName={last_name}
-              className={styles.initialsAvatar}
-              fontSize="20px"
-              circleSize="52px"
-            />
-            <div className={styles.name}>{first_name}</div>
-            <div className={styles.job}>{last_name}</div>
-          </article>
+          <Link
+            key={id}
+            href={`./contact-details/${id}`}
+            className={styles.link}
+          >
+            <article
+              key={id}
+              className={styles.card}
+              onClick={() => console.log(id)}
+            >
+              <InitialsAvatar
+                firstName={first_name}
+                lastName={last_name}
+                className={styles.initialsAvatar}
+                fontSize="20px"
+                circleSize="52px"
+              />
+              <div className={styles.name}>{first_name}</div>
+              <div className={styles.job}>{last_name}</div>
+            </article>
+          </Link>
         );
       })}
     </div>
