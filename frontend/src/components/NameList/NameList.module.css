@@ -1,3 +1,8 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .card {
   width: 100%;
   display: grid;
@@ -30,4 +35,26 @@
 .link {
   text-decoration: none;
   color: inherit;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0px 20px;
+}
+
+.checkBox {
+  padding-bottom: 15px;
+}
+
+.footer {
+  display: flex;
+  margin-top: auto;
+  background-color: var(--color-gray-3);
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 0px;
+  border-radius: 10px;
+  border: none;
 }
