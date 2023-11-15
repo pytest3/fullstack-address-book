@@ -4,10 +4,12 @@ import { Plus, UserCircle } from "lucide-react";
 import NavBarWrapper from "../NavBarWrapper";
 import Link from "next/link";
 
-export default function NavBarMain() {
+export default function NavBarMain({ toggleEdit, isEdit }) {
   return (
     <NavBarWrapper className={styles.wrapper}>
-      <div className={styles.leftActions}>Edit</div>
+      <div className={styles.leftActions} onClick={toggleEdit}>
+        {isEdit ? "Done" : "Edit"}
+      </div>
       <div className={styles.rightActions}>
         <Link href="/new-contact">
           <Plus className={styles.icon} />
