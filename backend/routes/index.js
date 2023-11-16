@@ -1,5 +1,5 @@
 var express = require("express");
-var router = express.Router();
+var router = express.Router(); // gets an instance of express router
 const controllers = require("../controllers");
 
 const { contactController } = controllers;

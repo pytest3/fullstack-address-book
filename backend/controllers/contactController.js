@@ -59,8 +59,8 @@ function updateAll(req, res) {
           last_name: req.body.last_name,
           birthday: new Date(req.body.birthday),
           marital_status: req.body.marital_status,
-          is_employed: req.body.is_employed,
-          is_parent: req.body.is_parent,
+          is_employed: req.body.is_employed === "Employed",
+          is_parent: req.body.is_parent === "Parent",
         })
       );
 
@@ -165,42 +165,62 @@ function deleteOne(req, res) {
   db.contact
     .findByPk(userId)
     .then((userInstance) => {
+      console.log("====");
+
+      console.log(userInstance);
+      console.log("====");
+
       return Promise.all([
-        userInstance
-          .getEmployment_detail()
-          .then((employmentInstance) => employmentInstance.destroy()),
+        userInstance.destroy(),
+
+        userInstance.getEmployment_detail().then((employmentInstance) => {
+          employmentInstance?.destroy();
+        }),
 
         userInstance
           .getParenthood_detail()
-          .then((parentHoodInstance) => parentHoodInstance.destroy()),
+          .then((parentHoodInstance) => parentHoodInstance?.destroy()),
 
         userInstance.getEmails().then((emailInstances) => {
           emailInstances.map((emailInstance) => {
-            return emailInstance.destroy();
+            return emailInstance?.destroy();
           });
         }),
 
         userInstance.getContact_phone_numbers().then((numberInstances) => {
           numberInstances.map((numberInstance) => {
-            return numberInstance.destroy();
+            return numberInstance?.destroy();
           });
         }),
 
         userInstance.getCategories().then((categoryInstances) => {
           categoryInstances.map((categoryInstance) => {
-            return categoryInstance.destroy();
+            return categoryInstance?.destroy();
           });
         }),
 
         userInstance.getHobbies().then((hobbyInstances) => {
           hobbyInstances.map((hobbyInstance) => {
-            return hobbyInstance.destroy();
+            return hobbyInstance?.destroy();
           });
         }),
       ]);
     })
-    .then(res.send("Contact deleted"))
-    .catch((err) => console.log(err));
+    .then((done) => {
+      // console.log("====");
+      // console.log(done);
+      // console.log("====");
+      res.send("Contact deleted");
+    })
+    .catch((err) => {
+      res.status(err.status || 500).send({
+        status: "error",
+        error: {
+          message: err.message || "cannot delete contact",
+        },
+      });
+      console.log(err);
+    });
 }
 
 function findByName(req, res) {
@@ -233,8 +253,8 @@ function add(req, res) {
           last_name: req.body.last_name,
           birthday: new Date(req.body.birthday),
           marital_status: req.body.marital_status,
-          is_employed: true,
-          is_parent: true,
+          is_employed: req.body.is_employed === "Employed",
+          is_parent: req.body.is_Parent === "Parent",
         },
         transaction: t,
       })
