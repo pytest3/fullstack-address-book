@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       is_parent: { type: DataTypes.BOOLEAN, allowNull: false },
       is_employed: { type: DataTypes.BOOLEAN, allowNull: false },
     },
-    { freezeTableName: true, underscored: true }
+    { freezeTableName: true, underscored: true, onDelete: "cascade" }
   );
 
   contact.associate = (models) => {
