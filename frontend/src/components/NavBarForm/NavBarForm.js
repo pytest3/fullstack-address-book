@@ -13,7 +13,9 @@ export default function NavBarForm() {
       </div>
       <div className={styles.title}>New contact</div>
       <div className={styles.rightActionWrapper}>
-        <button className={styles.saveBtn}>Save</button>
+        <button className={styles.saveBtn} form="new-user-form">
+          Save
+        </button>
       </div>
     </NavBarWrapper>
   );

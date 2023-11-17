@@ -16,12 +16,19 @@ import {
 
 import MultiLineFormInput from "@/components/MultiLineFormInput";
 import ConditionalFormInput from "@/components/ConditionalFormInput";
-import { sendRequest } from "@/utils";
 import NavBarForm from "@/components/NavBarForm";
 import InitialsAvatar from "@/components/InitialsAvatar";
+import { useHttp } from "@/hooks/useHttp";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const isRequired = false;
+  const isRequired = true;
+
+  const router = useRouter();
+
+  const { isLoading, isError, sendRequest } = useHttp(
+    "http://localhost:3000/api/contacts"
+  );
 
   const [name, setName] = React.useState({ firstName: "", lastName: "" });
   const [maritalStatus, setMaritalStatus] = React.useState("");
@@ -103,8 +110,9 @@ export default function Page() {
       is_employed: data.get("isEmployed"),
       is_parent: data.get("isParent"),
       phone_number: data.getAll("phone"),
-      son_count: data.get("sonCount"),
-      daughter_count: data.get("daughterCount"),
+      son_count: data.get("isParent") !== "Parent" ? 0 : data.get("sonCount"),
+      daughter_count:
+        data.get("isParent") !== "Parent" ? 0 : data.get("daughterCount"),
       company_name: data.get("organization"),
       company_industry: data.get("industry"),
       role: data.get("jobTitle"),
@@ -112,8 +120,20 @@ export default function Page() {
       hobby_name: data.getAll("hobby"),
       category: data.getAll("category"),
     };
+    const createdUser = sendRequest("POST", reqBody);
 
-    sendRequest("http://localhost:3000/api/contactsdadfa", "POST", reqBody);
+    createdUser.then((user) => {
+      const { id } = user;
+      router.push(`/contact-details/${id}`);
+    });
+  }
+
+  if (isLoading) {
+    return <div>Uploading data to db...</div>;
+  }
+
+  if (isError) {
+    return <div>Unable to create user</div>;
   }
 
   return (
