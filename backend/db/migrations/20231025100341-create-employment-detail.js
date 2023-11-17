@@ -22,15 +22,15 @@ module.exports = {
       },
       company_name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       company_industry: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       role: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         allowNull: false,
