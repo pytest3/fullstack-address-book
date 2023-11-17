@@ -19,14 +19,6 @@ function reducer(state, action) {
         isLoading: false,
         response: action.response,
       };
-    case "pending":
-      return {
-        ...state,
-        isSuccess: false,
-        isError: false,
-        isPending: true,
-        isLoading: false,
-      };
     case "loading":
       return {
         ...state,
@@ -46,8 +38,6 @@ export function useHttp(url) {
     isLoading: false,
     response: null,
   });
-
-  // dispatch({ type: "pending" });
 
   async function sendRequest(method = "GET", body) {
     const options = {
