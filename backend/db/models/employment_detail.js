@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   const employment_detail = sequelize.define(
     "employment_detail",
     {
-      company_name: { type: DataTypes.STRING, allowNull: false },
-      company_industry: { type: DataTypes.STRING, allowNull: false },
-      role: { type: DataTypes.STRING, allowNull: false },
+      company_name: { type: DataTypes.STRING, allowNull: true },
+      company_industry: { type: DataTypes.STRING, allowNull: true },
+      role: { type: DataTypes.STRING, allowNull: true },
       contact_id: {
         type: DataTypes.INTEGER,
         references: {
