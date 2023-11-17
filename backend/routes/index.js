@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
 
 /* Contact router */
 router.get("/api/contacts", contactController.findAll);
-router.post("/api/contacts", contactController.add);
+router.post("/api/contacts", contactController.addOne);
 router.put("/api/contacts/:userId", contactController.updateAll);
 // router.get("/api/contacts/:first_name", contactController.findByName);
 
