@@ -32,16 +32,22 @@ export default function Page({ params }) {
 
   const {
     birthday = "",
+    is_parent,
+    is_employed,
     contact_phone_numbers = [],
     emails = [],
-    employment_detail: { company_industry, role, company_name } = {},
     first_name,
     last_name,
-    parenthood_detail: { daughter_count, son_count } = {},
     hobbies,
     categories,
     marital_status,
-  } = data || {};
+  } = data ?? {};
+
+  const company_industry = data?.employment_detail?.company_industry;
+  const role = data?.employment_detail?.role;
+  const company_name = data?.employment_detail?.company_name;
+  const daughter_count = data?.parenthood_detail?.daughter_count;
+  const son_count = data?.parenthood_detail?.son_count;
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -111,13 +117,17 @@ export default function Page({ params }) {
             );
           })}
         </section>
-        <section className={styles.section}>
-          <Briefcase className={styles.icon} />
-          <div className={styles.row}>
-            <span>{company_industry}</span>
-            <span className={styles.smallText}>Job industry</span>
-          </div>
-        </section>
+        {is_employed && (
+          <section className={styles.section}>
+            (<Briefcase className={styles.icon} />
+            )(
+            <div className={styles.row}>
+              <span>{company_industry}</span>
+              <span className={styles.smallText}>Job industry</span>
+            </div>
+            )
+          </section>
+        )}
         <section className={styles.section}>
           <Heart className={styles.icon} />
           <div className={styles.row}>
@@ -125,17 +135,19 @@ export default function Page({ params }) {
             <span className={styles.smallText}>Marital status</span>
           </div>
         </section>
-        <section className={styles.section}>
-          <Baby className={styles.icon} />
-          <div className={styles.row}>
-            <span>{son_count}</span>
-            <span className={styles.smallText}>Number of son(s)</span>
-          </div>
-          <div className={`${styles.row} ${styles.indented}`}>
-            <span>{daughter_count}</span>
-            <span className={styles.smallText}>Number of daughter(s)</span>
-          </div>
-        </section>
+        {is_parent && (
+          <section className={styles.section}>
+            <Baby className={styles.icon} />
+            <div className={styles.row}>
+              <span>{son_count}</span>
+              <span className={styles.smallText}>Number of son(s)</span>
+            </div>
+            <div className={`${styles.row} ${styles.indented}`}>
+              <span>{daughter_count}</span>
+              <span className={styles.smallText}>Number of daughter(s)</span>
+            </div>
+          </section>
+        )}
 
         <section className={styles.section}>
           <Gamepad2 className={styles.icon} />
