@@ -131,16 +131,6 @@ function updateAll(req, res) {
         })
       );
 
-      // for (index in req.body.hobby_name) {
-      //   promises.push(
-      //     contactInstance.getHobbies().then((hobbyInstances) => {
-      //       return hobbyInstances.update({
-      //         hobby_name: req.body.hobby_name,
-      //       });
-      //     })
-      //   );
-      // }
-
       return Promise.all(promises);
     })
     .then((updatedContact) => {
@@ -169,11 +159,6 @@ function deleteOne(req, res) {
   db.contact
     .findByPk(userId)
     .then((userInstance) => {
-      console.log("====");
-
-      console.log(userInstance);
-      console.log("====");
-
       return Promise.all([
         userInstance.destroy(),
 
@@ -211,9 +196,6 @@ function deleteOne(req, res) {
       ]);
     })
     .then((done) => {
-      // console.log("====");
-      // console.log(done);
-      // console.log("====");
       res.send("Contact deleted");
     })
     .catch((err) => {
