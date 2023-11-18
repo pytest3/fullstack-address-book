@@ -20,8 +20,13 @@ import { capitalizeFirstLetter } from "@/utils";
 export default function Page({ params }) {
   const { id } = params;
 
-  const fetcher = (...args) =>
+  const fetcher = async (...args) =>
     fetch(...args).then((res) => {
+      if (!res.ok) {
+        const error = new Error();
+        error.message = "An error occurred while loading user details page";
+        throw error;
+      }
       return res.json();
     });
 

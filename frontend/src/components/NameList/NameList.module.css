@@ -58,3 +58,7 @@
   border-radius: 10px;
   border: none;
 }
+
+.error {
+  width: 100%;
+}
