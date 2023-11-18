@@ -6,6 +6,7 @@ import { Trash2 } from "lucide-react";
 import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
+import { CustomError } from "@/helpers/error";
 
 export default function NameList({
   isEdit,
@@ -16,6 +17,13 @@ export default function NameList({
     const res = await fetch(...args, {
       headers: { Accept: "application/json" },
     });
+
+    if (!res.ok) {
+      const error = new Error("An error occurred while fetching the data");
+      error.status = res.status;
+      throw error;
+    }
+
     return res.json();
   }
 
@@ -29,7 +37,7 @@ export default function NameList({
   }
 
   if (error) {
-    return <div>Unable to fetch data. Error: {error.message}</div>;
+    return <div className={styles.error}>{error.message}</div>;
   }
 
   function handleSubmit(e) {
