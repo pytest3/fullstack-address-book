@@ -154,8 +154,15 @@ function deleteAll(req, res) {
     );
 }
 
+function deleteContact(req, res) {
+  try {
+    const result = db.sequelize.transaction(async (t) => {});
+  } catch (error) {}
+}
+
 function deleteOne(req, res) {
   const { userId } = req.params;
+
   db.contact
     .findByPk(userId)
     .then((userInstance) => {
@@ -205,7 +212,6 @@ function deleteOne(req, res) {
           message: err.message || "cannot delete contact",
         },
       });
-      console.log(err);
     });
 }
 
