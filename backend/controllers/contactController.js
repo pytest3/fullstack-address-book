@@ -1,6 +1,5 @@
 const db = require("../db/models");
 const { Op } = require("sequelize");
-const sequelize = require("sequelize");
 
 function findAll(req, res) {
   db.contact
@@ -155,9 +154,14 @@ function updateAll(req, res) {
 }
 
 function deleteAll(req, res) {
-  db.sequelize.truncate({ cascade: true, restartIdentity: true }).then(() => {
-    res.send("deleted all");
-  });
+  db.sequelize
+    .truncate({ cascade: true, restartIdentity: true })
+    .then(() => {
+      res.send("deleted all");
+    })
+    .catch((err) =>
+      res.status(404).send({ status: "error", error: { message: err.message } })
+    );
 }
 
 function deleteOne(req, res) {
@@ -238,17 +242,28 @@ function findByName(req, res) {
     });
 }
 
-function add(req, res) {
-  db.sequelize.transaction((t) => {
-    return db.contact
-      .findOrCreate({
+async function addOne(req, res) {
+  try {
+    const result = await db.sequelize.transaction(async (t) => {
+      const existingContact = await db.contact.findOne({
         where: {
           [Op.and]: [
             { first_name: req.body.first_name },
             { last_name: req.body.last_name },
           ],
         },
-        defaults: {
+        transaction: t,
+      });
+
+      if (existingContact) {
+        return res.status(400).send({
+          status: "error",
+          error: { message: "contact exists" },
+        });
+      }
+
+      const newContact = await db.contact.create(
+        {
           first_name: req.body.first_name,
           last_name: req.body.last_name,
           birthday: new Date(req.body.birthday),
@@ -256,67 +271,197 @@ function add(req, res) {
           is_employed: req.body.is_employed === "Employed",
           is_parent: req.body.is_Parent === "Parent",
         },
-        transaction: t,
-      })
-      .then(([contact, created]) => {
-        if (!created) {
-          return res.send("contact exists");
-        }
-        const promises = [];
-        promises.push(
-          contact.createParenthood_detail(
-            {
-              daughter_count: req.body.daughter_count,
-              son_count: req.body.son_count,
-            },
-            { transaction: t }
-          ),
-          contact.createEmployment_detail(
-            {
-              company_name: req.body.company_name,
-              company_industry: req.body.company_industry,
-              role: req.body.role,
-            },
-            { transaction: t }
-          )
+        { transaction: t }
+      );
+
+      await newContact.createParenthood_detail(
+        {
+          daughter_count: req.body.daughter_count,
+          son_count: req.body.son_count,
+        },
+        { transaction: t }
+      );
+
+      await newContact.createEmployment_detail(
+        {
+          company_name: req.body.company_name,
+          company_industry: req.body.company_industry,
+          role: req.body.role,
+        },
+        { transaction: t }
+      );
+
+      for (element of req.body.phone_number) {
+        await newContact.createContact_phone_number(
+          {
+            phone_number: element,
+          },
+          { transaction: t }
         );
-        for (element of req.body.phone_number) {
-          promises.push(
-            contact.createContact_phone_number(
-              {
-                phone_number: element,
-              },
-              { transaction: t }
-            )
-          );
-        }
-        for (element of req.body.email) {
-          promises.push(
-            contact.createEmail({ email_address: element }, { transaction: t })
-          );
-        }
-        for (element of req.body.category) {
-          promises.push(
-            contact.createCategory(
-              { category_name: element },
-              { transaction: t }
-            )
-          );
-        }
-        for (element of req.body.hobby_name) {
-          promises.push(
-            contact.createHobby({ hobby_name: element }, { transaction: t })
-          );
-        }
-        return Promise.all(promises);
-      })
-      .then((contact) => res.send(contact))
-      .catch((err) => {
-        console.log(err);
-        return res.send(err);
-      });
-  });
+      }
+
+      for (element of req.body.email) {
+        await newContact.createEmail(
+          { email_address: element },
+          { transaction: t }
+        );
+      }
+
+      for (element of req.body.category) {
+        await newContact.createCategory(
+          { category_name: element },
+          { transaction: t }
+        );
+      }
+
+      for (element of req.body.hobby_name) {
+        await newContact.createHobby(
+          { hobby_name: element },
+          { transaction: t }
+        );
+      }
+
+      return newContact;
+    });
+    res.send(result);
+  } catch (err) {
+    res.status(404).send({
+      status: "error",
+      error: { message: "could not create message" },
+    });
+  }
 }
+
+function testAdd(req, res) {
+  db.contact
+    .create({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      birthday: new Date(req.body.birthday),
+      marital_status: req.body.marital_status,
+      is_employed: req.body.is_employed === "Employed",
+      is_parent: req.body.is_Parent === "Parent",
+    })
+    .then((contact) => res.send(contact))
+    .catch((err) => res.send(err));
+}
+// function add(req, res) {
+//   db.sequelize.transaction((t) => {
+//     return db.contact
+//       .findOne({
+//         where: {
+//           [Op.and]: [
+//             { first_name: req.body.first_name },
+//             { last_name: req.body.last_name },
+//           ],
+//         },
+//         transaction: t,
+//       })
+//       .then((contactInstance) => {
+//         if (contactInstance) {
+//           console.log("contact exists");
+//           return res.send({
+//             status: "error",
+//             error: { message: "contact exists" },
+//           });
+//         }
+//         return db.contact
+//           .create(
+//             {
+//               first_name: req.body.first_name,
+//               last_name: req.body.last_name,
+//               birthday: new Date(req.body.birthday),
+//               marital_status: req.body.marital_status,
+//               is_employed: req.body.is_employed === "Employed",
+//               is_parent: req.body.is_Parent === "Parent",
+//             },
+//             { transaction: t }
+//           )
+//           .then((contactInstance) => {
+//             const contactId = contactInstance.id;
+//             const promises = [];
+//             promises.push(
+//               contactInstance
+//                 .createParenthood_detail(
+//                   {
+//                     daughter_count: req.body.daughter_count,
+//                     son_count: req.body.son_count,
+//                   },
+//                   { transaction: t }
+//                 )
+//                 .catch((err) => {
+//                   return err;
+//                 }),
+
+//               contactInstance
+//                 .createEmployment_detail(
+//                   {
+//                     company_name: req.body.company_name,
+//                     company_industry: req.body.company_industry,
+//                     role: req.body.role,
+//                   },
+//                   { transaction: t }
+//                 )
+//                 .catch((err) => {
+//                   return err;
+//                 }),
+
+//               for (element of req.body.phone_number) {
+//                 promises.push(
+//                   contactInstance.createContact_phone_number(
+//                     {
+//                       phone_number: element,
+//                     },
+//                     { transaction: t }
+//                   )
+//                 );
+//               }
+
+//               for (element of req.body.email) {
+//                 promises.push(
+//                   contactInstance.createEmail(
+//                     { email_address: element },
+//                     { transaction: t }
+//                   )
+//                 );
+//               }
+
+//               for (element of req.body.category) {
+//                 promises.push(
+//                   contactInstance.createCategory(
+//                     { category_name: element },
+//                     { transaction: t }
+//                   )
+//                 );
+//               }
+
+//               for (element of req.body.hobby_name) {
+//                 promises.push(
+//                   contactInstance.createHobby(
+//                     { hobby_name: element },
+//                     { transaction: t }
+//                   )
+//                 );
+//               }
+//             )
+//             return [Promise.all(promises), contactId];
+//           })
+//           .then(([promises, contactId]) => {
+//             console.log("+++++++");
+//             console.log(contactId);
+//             console.log("+++++++");
+//             return res.send({ contact_id: contactId });
+//           })
+//           .catch((err) => {
+//             console.log("======");
+//             console.log("error has been reached!!!!!!!!!");
+//             console.log("======");
+
+//             return res.send(err);
+//           });
+//       });
+//   });
+// }
 
 function testQuery(req, res) {
   db.category
@@ -339,8 +484,9 @@ module.exports = {
   findByName,
   findById,
   deleteAll,
-  add,
+  addOne,
   updateAll,
   deleteOne,
   testQuery,
+  testAdd,
 };

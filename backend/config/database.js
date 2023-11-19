@@ -8,6 +8,7 @@ module.exports = {
     database: process.env.DATABASE,
     host: process.env.HOST,
     dialect: process.env.DIALECT,
+    logging: false, // disable logging
 
     define: {
       underscored: true,
