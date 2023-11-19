@@ -38,6 +38,7 @@ export default function Home() {
         isEdit={isEdit}
         updateSelectedContacts={updateSelectedContacts}
         selectedCount={selectedCount}
+        selectedContacts={selectedContacts}
       />
     </main>
   );
