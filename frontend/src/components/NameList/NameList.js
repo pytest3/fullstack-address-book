@@ -10,9 +10,11 @@ import { useHttp } from "@/hooks/useHttp";
 
 export default function NameList({
   isEdit,
+  toggleEdit,
   updateSelectedContacts,
   selectedContacts,
   selectedCount,
+  toggleRefresh,
 }) {
   async function fetcher(...args) {
     const res = await fetch(...args, {
@@ -33,7 +35,9 @@ export default function NameList({
     fetcher
   );
 
-  const { sendRequest } = useHttp("/api/contacts/:userId");
+  const { sendRequest, response } = useHttp(
+    "http://localhost:3000/api/contacts"
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -43,10 +47,12 @@ export default function NameList({
     return <div className={styles.error}>{error.message}</div>;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(selectedContacts);
-    sendRequest("DELETE", selectedContacts);
+    await sendRequest("DELETE", selectedContacts);
+    toggleRefresh(crypto.randomUUID()); // to force client side re-render
+    updateSelectedContacts([]); // to reset selected contacts as part of client side re-render
+    toggleEdit(!isEdit);
   }
 
   return (

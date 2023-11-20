@@ -17,7 +17,7 @@ function reducer(state, action) {
         isError: false,
         isPending: false,
         isLoading: false,
-        response: action.response,
+        response: action.data,
       };
     case "loading":
       return {
@@ -66,16 +66,16 @@ export function useHttp(url) {
 
       const data = await response.json();
 
-      dispatch({ type: "success", data });
+      console.log("hey", data);
 
-      console.log(data);
+      dispatch({ type: "success", data });
 
       return data;
     } catch (err) {
       dispatch({ type: "error" });
       console.log({
         status: "error",
-        error: { message: err.message || "cannot create contact" },
+        error: { message: err.message },
       });
     }
   }

@@ -99,7 +99,7 @@ export default function Page() {
     setName({ ...name, [e.target.name]: e.target.value });
   }
 
-  function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
     const reqBody = {
@@ -120,12 +120,10 @@ export default function Page() {
       hobby_name: data.getAll("hobby"),
       category: data.getAll("category"),
     };
-    const createdUser = sendRequest("POST", reqBody);
+    const createdUser = await sendRequest("POST", reqBody);
 
-    createdUser.then((user) => {
-      const { id } = user;
-      router.push(`/contact-details/${id}`);
-    });
+    const { id } = createdUser;
+    router.push(`/contact-details/${id}`);
   }
 
   if (isLoading) {

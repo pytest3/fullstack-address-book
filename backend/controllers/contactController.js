@@ -154,10 +154,64 @@ function deleteAll(req, res) {
     );
 }
 
-function deleteContact(req, res) {
+async function deleteContact(req, res) {
   try {
-    const result = db.sequelize.transaction(async (t) => {});
-  } catch (error) {}
+    const contactIds = req.body;
+
+    const isDeleted = await db.sequelize.transaction(async (t) => {
+      const deletedContacts = [];
+      for (const contactId of contactIds) {
+        await db.contact_phone_number.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.email.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.parenthood_detail.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.employment_detail.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.category.destroy({
+          where: { id: contactId },
+          transaction: t,
+        });
+        await db.hobby.destroy({
+          where: { id: contactId },
+          transaction: t,
+        });
+        await db.contact_category.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.contact_hobby.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+
+        const delContact = await db.contact.destroy({
+          where: { id: contactId },
+          transaction: t,
+        });
+
+        deletedContacts.push(delContact);
+      }
+
+      return deletedContacts;
+    });
+
+    res.json({ status: isDeleted });
+  } catch (err) {
+    const error = new Error();
+    error.name = "Unable to delete contact";
+    error.message = err.message;
+    throw error;
+  }
 }
 
 function deleteOne(req, res) {
@@ -475,6 +529,5 @@ module.exports = {
   addOne,
   updateAll,
   deleteOne,
-  testQuery,
-  testAdd,
+  deleteContact,
 };
