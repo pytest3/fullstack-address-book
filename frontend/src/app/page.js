@@ -11,6 +11,7 @@ export default function Home() {
   const [refreshKey, setRefreshKey] = React.useState("");
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
+  const [searchTerm, setSearchTerm] = React.useState("");
 
   function toggleEdit() {
     setIsEdit(!isEdit);
@@ -36,10 +37,19 @@ export default function Home() {
     setSelectedContacts(nextSelectedContacts);
   }
 
+  function handleSearch(userInput) {
+    setSearchTerm(userInput);
+  }
+
   return (
     <main className={styles.wrapper}>
       <NavBarMain toggleEdit={toggleEdit} isEdit={isEdit}></NavBarMain>
-      <SearchBar isEdit={isEdit} selectedCount={selectedCount} />
+      <SearchBar
+        isEdit={isEdit}
+        selectedCount={selectedCount}
+        handleSearch={handleSearch}
+        searchTerm={searchTerm}
+      />
       <NameList
         isEdit={isEdit}
         toggleEdit={toggleEdit}
@@ -48,6 +58,7 @@ export default function Home() {
         selectedContacts={selectedContacts}
         key={refreshKey}
         toggleRefresh={setRefreshKey}
+        searchTerm={searchTerm}
       />
     </main>
   );

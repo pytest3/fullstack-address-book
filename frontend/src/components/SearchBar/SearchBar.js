@@ -3,8 +3,12 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-export default function SearchBar({ isEdit, selectedCount }) {
-  const [search, setSearch] = React.useState("");
+export default function SearchBar({
+  isEdit,
+  selectedCount,
+  searchTerm,
+  handleSearch,
+}) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -13,10 +17,10 @@ export default function SearchBar({ isEdit, selectedCount }) {
       <form>
         <input
           className={styles.input}
-          value={search}
+          value={searchTerm}
           placeholder="Search contacts"
           onChange={(e) => {
-            setSearch(e.target.value);
+            handleSearch(e.target.value);
           }}
           type="text"
         ></input>
