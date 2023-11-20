@@ -158,8 +158,7 @@ async function deleteContact(req, res) {
   try {
     const contactIds = req.body;
 
-    const isDeleted = await db.sequelize.transaction(async (t) => {
-      const deletedContacts = [];
+    await db.sequelize.transaction(async (t) => {
       for (const contactId of contactIds) {
         await db.contact_phone_number.destroy({
           where: { contact_id: contactId },
@@ -194,15 +193,11 @@ async function deleteContact(req, res) {
           transaction: t,
         });
 
-        const delContact = await db.contact.destroy({
+        await db.contact.destroy({
           where: { id: contactId },
           transaction: t,
         });
-
-        deletedContacts.push(delContact);
       }
-
-      return deletedContacts;
     });
 
     res.json({ status: isDeleted });
