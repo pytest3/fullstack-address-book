@@ -62,3 +62,11 @@
 .error {
   width: 100%;
 }
+
+.noContacts {
+  display: grid;
+  justify-content: center;
+  padding-top: 30%;
+  font-size: 20px;
+  color: var(--color-gray-5);
+}

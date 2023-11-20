@@ -158,8 +158,6 @@ async function deleteContact(req, res) {
   try {
     const contactIds = req.body;
 
-    console.log(contactIds);
-
     await db.sequelize.transaction(async (t) => {
       for (const contactId of contactIds) {
         await db.contact_phone_number.destroy({

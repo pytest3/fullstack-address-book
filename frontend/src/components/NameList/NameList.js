@@ -15,6 +15,7 @@ export default function NameList({
   selectedContacts,
   selectedCount,
   toggleRefresh,
+  searchTerm = "",
 }) {
   async function fetcher(...args) {
     const res = await fetch(...args, {
@@ -35,6 +36,12 @@ export default function NameList({
     fetcher
   );
 
+  const filteredContacts = data?.filter(
+    (contact) =>
+      contact.first_name.includes(searchTerm) ||
+      contact.last_name.includes(searchTerm)
+  );
+
   const { sendRequest, response } = useHttp(
     "http://localhost:3000/api/contacts"
   );
@@ -50,14 +57,18 @@ export default function NameList({
   async function handleSubmit(e) {
     e.preventDefault();
     await sendRequest("DELETE", selectedContacts);
-    toggleRefresh(crypto.randomUUID()); // to force client side re-render
+    toggleRefresh(crypto.randomUUID()); // to force client side re-render on form submit
     updateSelectedContacts([]); // to reset selected contacts as part of client side re-render
     toggleEdit(!isEdit);
   }
 
+  if (filteredContacts.length === 0) {
+    return <div className={styles.noContacts}>No contacts found</div>;
+  }
+
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
-      {data?.map(({ id, first_name, last_name }) => {
+      {filteredContacts?.map(({ id, first_name, last_name }) => {
         return (
           <div key={id} className={styles.row}>
             {isEdit && (
