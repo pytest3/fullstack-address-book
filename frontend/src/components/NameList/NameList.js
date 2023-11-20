@@ -6,12 +6,15 @@ import { Trash2 } from "lucide-react";
 import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
-import { CustomError } from "@/helpers/error";
+import { useHttp } from "@/hooks/useHttp";
 
 export default function NameList({
   isEdit,
+  toggleEdit,
   updateSelectedContacts,
+  selectedContacts,
   selectedCount,
+  toggleRefresh,
 }) {
   async function fetcher(...args) {
     const res = await fetch(...args, {
@@ -32,6 +35,10 @@ export default function NameList({
     fetcher
   );
 
+  const { sendRequest, response } = useHttp(
+    "http://localhost:3000/api/contacts"
+  );
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -40,8 +47,12 @@ export default function NameList({
     return <div className={styles.error}>{error.message}</div>;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    await sendRequest("DELETE", selectedContacts);
+    toggleRefresh(crypto.randomUUID()); // to force client side re-render
+    updateSelectedContacts([]); // to reset selected contacts as part of client side re-render
+    toggleEdit(!isEdit);
   }
 
   return (
@@ -60,11 +71,7 @@ export default function NameList({
               </div>
             )}
             <Link href={`./contact-details/${id}`} className={styles.link}>
-              <article
-                key={id}
-                className={styles.card}
-                onClick={() => console.log(id)}
-              >
+              <article key={id} className={styles.card}>
                 <InitialsAvatar
                   firstName={first_name}
                   lastName={last_name}

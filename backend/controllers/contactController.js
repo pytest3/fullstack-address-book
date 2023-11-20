@@ -131,16 +131,6 @@ function updateAll(req, res) {
         })
       );
 
-      // for (index in req.body.hobby_name) {
-      //   promises.push(
-      //     contactInstance.getHobbies().then((hobbyInstances) => {
-      //       return hobbyInstances.update({
-      //         hobby_name: req.body.hobby_name,
-      //       });
-      //     })
-      //   );
-      // }
-
       return Promise.all(promises);
     })
     .then((updatedContact) => {
@@ -164,16 +154,67 @@ function deleteAll(req, res) {
     );
 }
 
+async function deleteContact(req, res) {
+  try {
+    const contactIds = req.body;
+
+    await db.sequelize.transaction(async (t) => {
+      for (const contactId of contactIds) {
+        await db.contact_phone_number.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.email.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.parenthood_detail.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.employment_detail.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.category.destroy({
+          where: { id: contactId },
+          transaction: t,
+        });
+        await db.hobby.destroy({
+          where: { id: contactId },
+          transaction: t,
+        });
+        await db.contact_category.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+        await db.contact_hobby.destroy({
+          where: { contact_id: contactId },
+          transaction: t,
+        });
+
+        await db.contact.destroy({
+          where: { id: contactId },
+          transaction: t,
+        });
+      }
+    });
+
+    res.json({ status: isDeleted });
+  } catch (err) {
+    const error = new Error();
+    error.name = "Unable to delete contact";
+    error.message = err.message;
+    throw error;
+  }
+}
+
 function deleteOne(req, res) {
   const { userId } = req.params;
+
   db.contact
     .findByPk(userId)
     .then((userInstance) => {
-      console.log("====");
-
-      console.log(userInstance);
-      console.log("====");
-
       return Promise.all([
         userInstance.destroy(),
 
@@ -211,9 +252,6 @@ function deleteOne(req, res) {
       ]);
     })
     .then((done) => {
-      // console.log("====");
-      // console.log(done);
-      // console.log("====");
       res.send("Contact deleted");
     })
     .catch((err) => {
@@ -223,7 +261,6 @@ function deleteOne(req, res) {
           message: err.message || "cannot delete contact",
         },
       });
-      console.log(err);
     });
 }
 
@@ -487,6 +524,5 @@ module.exports = {
   addOne,
   updateAll,
   deleteOne,
-  testQuery,
-  testAdd,
+  deleteContact,
 };

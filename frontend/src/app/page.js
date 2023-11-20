@@ -8,6 +8,7 @@ import React from "react";
 
 export default function Home() {
   const [isEdit, setIsEdit] = React.useState(false);
+  const [refreshKey, setRefreshKey] = React.useState("");
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
 
@@ -18,6 +19,11 @@ export default function Home() {
 
   function updateSelectedContacts(e) {
     let nextSelectedContacts;
+    if (!e.target) {
+      // to reset selected contacts as part of client side re-render
+      setSelectedContacts([]);
+      return;
+    }
     const isPresent = selectedContacts.includes(+e.target.name);
     if (isPresent) {
       nextSelectedContacts = selectedContacts.filter(
@@ -36,8 +42,12 @@ export default function Home() {
       <SearchBar isEdit={isEdit} selectedCount={selectedCount} />
       <NameList
         isEdit={isEdit}
+        toggleEdit={toggleEdit}
         updateSelectedContacts={updateSelectedContacts}
         selectedCount={selectedCount}
+        selectedContacts={selectedContacts}
+        key={refreshKey}
+        toggleRefresh={setRefreshKey}
       />
     </main>
   );

@@ -18,6 +18,7 @@ router.put("/api/contacts/:userId", contactController.updateAll);
 router.get("/api/contacts/:id", contactController.findById);
 
 router.delete("/api/contacts/delete-all", contactController.deleteAll);
+router.delete("/api/contacts", contactController.deleteContact);
 router.delete("/api/contacts/:userId", contactController.deleteOne);
 
 // router.get("/api/test", contactController.testQuery);
