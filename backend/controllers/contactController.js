@@ -158,6 +158,8 @@ async function deleteContact(req, res) {
   try {
     const contactIds = req.body;
 
+    console.log(contactIds);
+
     await db.sequelize.transaction(async (t) => {
       for (const contactId of contactIds) {
         await db.contact_phone_number.destroy({
@@ -200,7 +202,10 @@ async function deleteContact(req, res) {
       }
     });
 
-    res.json({ status: isDeleted });
+    res.send({
+      status: "Deleted contact(s) successfully",
+      message: `Deleted contact(s) id: ${contactIds}`,
+    });
   } catch (err) {
     const error = new Error();
     error.name = "Unable to delete contact";
