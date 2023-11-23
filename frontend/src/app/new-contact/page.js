@@ -14,8 +14,8 @@ import {
   Baby,
 } from "lucide-react";
 
-import MultiLineFormInput from "@/components/MultiLineFormInput";
-import ConditionalFormInput from "@/components/ConditionalFormInput";
+import MultiLineFormInput from "@/components/NewContactForm/MultiLineFormInput";
+import ConditionalFormInput from "@/components/NewContactForm/ConditionalFormInput";
 import NavBarForm from "@/components/NavBarForm";
 import InitialsAvatar from "@/components/InitialsAvatar";
 import { useHttp } from "@/hooks/useHttp";
@@ -110,9 +110,9 @@ export default function Page() {
       is_employed: data.get("isEmployed"),
       is_parent: data.get("isParent"),
       phone_number: data.getAll("phone"),
-      son_count: data.get("isParent") !== "Parent" ? 0 : data.get("sonCount"),
+      son_count: data.get("isParent") !== "parent" ? 0 : data.get("sonCount"),
       daughter_count:
-        data.get("isParent") !== "Parent" ? 0 : data.get("daughterCount"),
+        data.get("isParent") !== "parent" ? 0 : data.get("daughterCount"),
       company_name: data.get("organization"),
       company_industry: data.get("industry"),
       role: data.get("jobTitle"),
@@ -120,10 +120,13 @@ export default function Page() {
       hobby_name: data.getAll("hobby"),
       category: data.getAll("category"),
     };
-    const createdUser = await sendRequest("POST", reqBody);
 
-    const { id } = createdUser;
-    router.push(`/contact-details/${id}`);
+    for (const pair of data.entries()) {
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
+
+    const createdUser = await sendRequest("POST", reqBody);
+    router.push(`/contact-details/${createdUser.id}`);
   }
 
   if (isLoading) {
@@ -257,7 +260,7 @@ export default function Page() {
             <option value="single">Single</option>
             <option value="married">Married</option>
             <option value="divorced">Divorced</option>
-            <option value="unknown">Not applicable</option>
+            <option value="not applicable">Not applicable</option>
           </select>
         </section>
       </form>

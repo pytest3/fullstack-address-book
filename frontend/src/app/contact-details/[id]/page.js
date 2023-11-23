@@ -76,7 +76,9 @@ export default function Page({ params }) {
           </div>
           <div className={styles.jobInfo}>
             <span className={styles.jobText}>
-              {role}, {company_name}
+              {role}
+              {!role || !company_name ? " " : ", "}
+              {company_name}
             </span>
           </div>
         </div>
@@ -95,7 +97,7 @@ export default function Page({ params }) {
           <Cake className={styles.icon} />
           <div className={styles.row}>
             <span>{new Date(birthday).toLocaleDateString()}</span>
-            <span className={styles.smallText}>Birthday</span>
+            <span className={styles.smallText}>Birthday | dd/mm/yyyy</span>
           </div>
         </section>
         <section className={styles.section}>
@@ -122,15 +124,13 @@ export default function Page({ params }) {
             );
           })}
         </section>
-        {is_employed && (
+        {is_employed === "employed" && (
           <section className={styles.section}>
-            (<Briefcase className={styles.icon} />
-            )(
+            <Briefcase className={styles.icon} />
             <div className={styles.row}>
               <span>{company_industry}</span>
               <span className={styles.smallText}>Job industry</span>
             </div>
-            )
           </section>
         )}
         <section className={styles.section}>
@@ -145,11 +145,11 @@ export default function Page({ params }) {
             <Baby className={styles.icon} />
             <div className={styles.row}>
               <span>{son_count}</span>
-              <span className={styles.smallText}>Number of son(s)</span>
+              <span className={styles.smallText}>Son(s)</span>
             </div>
             <div className={`${styles.row} ${styles.indented}`}>
               <span>{daughter_count}</span>
-              <span className={styles.smallText}>Number of daughter(s)</span>
+              <span className={styles.smallText}>Daughter(s)</span>
             </div>
           </section>
         )}
