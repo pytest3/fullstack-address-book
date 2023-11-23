@@ -12,100 +12,38 @@ import {
   Gamepad2,
   PersonStanding,
   Baby,
-  FileQuestion,
 } from "lucide-react";
-// import MultiLineFormInput from "@/components/MultiLineFormInput";
-import ConditionalFormInput from "@/components/ConditionalFormInput";
+
 import NavBarForm from "@/components/NavBarForm";
-import InitialsAvatar from "@/components/InitialsAvatar";
+import InitialsAvatarEdit from "@/components/EditContactForm/InitialsAvatarEdit";
 import { useHttp } from "@/hooks/useHttp";
 import { useParams, useRouter } from "next/navigation";
 import useUser from "@/hooks/useUser";
-import MultiTest from "@/components/test/MultiTest";
-import ConditionalTest from "@/components/ConditionalTest";
+import MultiLineField from "@/components/EditContactForm/MultiLineField";
+import DropDownFieldInput from "@/components/EditContactForm/DropDownFieldInput";
+import BirthdayFieldInput from "@/components/EditContactForm/BirthdayFieldInput";
+import NameProvider from "@/components/EditContactForm/NameProvider";
+import NameFieldInput from "@/components/EditContactForm/NameFieldInput";
+import ConditionalEmploymentField from "@/components/EditContactForm/ConditionalEmploymentField";
+import ConditionalParentField from "@/components/EditContactForm/ConditionalParentField";
 export default function Page() {
   const isRequired = true;
-  const router = useRouter();
   const { id } = useParams();
 
   const { isSendingError, sendRequest } = useHttp(
     "http://localhost:3000/api/contacts"
   );
   const { isLoading, user, isError } = useUser(id);
-  const userBirthday = new Date(user?.birthday);
-  const [month, day, year] = [
-    userBirthday.getMonth(),
-    userBirthday.getDate(),
-    userBirthday.getFullYear(),
-  ];
-  const formattedDbBirthday = `${year}-${month}-${day}`;
   const [fetchedUser, setFetchedUser] = React.useState({});
 
   React.useEffect(() => {
     setFetchedUser(user);
   }, [user]);
 
-  console.log(fetchedUser);
+  console.log(user);
 
-  // const [emailList, setEmailList] = React.useState([]);
   const [name, setName] = React.useState({ firstName: "", lastName: "" });
-  const [maritalStatus, setMaritalStatus] = React.useState("");
-  // const [phoneList, setPhoneList] = React.useState("");
-  // const [hobbyList, setHobbyList] = React.useState([
-  //   { id: crypto.randomUUID(), hobby: "" },
-  // ]);
-  const [birthday, setBirthday] = React.useState(null);
-  // const [categoryList, setCategoryList] = React.useState([
-  //   { id: crypto.randomUUID(), category: "" },
-  // ]);
-  // const [employmentStatus, setEmploymentStatus] = React.useState({
-  //   status: "",
-  //   organization: null,
-  //   industry: null,
-  //   jobTitle: null,
-  // });
-  // const [parentHoodStatus, setParentHoodStatus] = React.useState({
-  //   status: "",
-  //   daughterCount: null,
-  //   sonCount: null,
-  // });
-  const employmentConfig = {
-    showCondition: "employed",
-    options: [
-      { value: "", text: "Add employment status", disabled: true },
-      { value: "unemployed", text: "Unemployed" },
-      { value: "employed", text: "Employed" },
-      { value: "notApplicable", text: "Not applicable" },
-    ],
-    conditionalFields: [
-      { placeHolder: "Job title", name: "jobTitle" },
-      { placeHolder: "Organization", name: "organization" },
-      { placeHolder: "Industry", name: "industry" },
-    ],
-  };
-  const parentHoodConfig = {
-    showCondition: "parent",
-    options: [
-      { value: "", text: "Add parenthood status", disabled: true },
-      { value: "parent", text: "Parent" },
-      { value: "notParent", text: "Not parent" },
-    ],
-    conditionalFields: [
-      {
-        placeHolder: "Number of daughter(s)",
-        name: "daughterCount",
-        type: "number",
-      },
-      {
-        placeHolder: "Number of son(s)",
-        name: "sonCount",
-        type: "number",
-      },
-    ],
-  };
-  function handleNameInput(e) {
-    setName({ ...name, [e.target.name]: e.target.value });
-  }
+
   async function handleFormSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -117,9 +55,9 @@ export default function Page() {
       is_employed: data.get("isEmployed"),
       is_parent: data.get("isParent"),
       phone_number: data.getAll("phone"),
-      son_count: data.get("isParent") !== "Parent" ? 0 : data.get("sonCount"),
+      son_count: data.get("isParent") !== "parent" ? 0 : data.get("sonCount"),
       daughter_count:
-        data.get("isParent") !== "Parent" ? 0 : data.get("daughterCount"),
+        data.get("isParent") !== "parent" ? 0 : data.get("daughterCount"),
       company_name: data.get("organization"),
       company_industry: data.get("industry"),
       role: data.get("jobTitle"),
@@ -127,10 +65,10 @@ export default function Page() {
       hobby_name: data.getAll("hobby"),
       category: data.getAll("category"),
     };
-
-    console.log(reqBody);
+    for (const pair of data.entries()) {
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
     // const createdUser = await sendRequest("POST", reqBody);
-
     // const { id } = createdUser;
     // router.push(`/contact-details/${id}`);
   }
@@ -151,63 +89,35 @@ export default function Page() {
       }}
     >
       <NavBarForm />
-      <div className={styles.avatarWrapper}>
-        <InitialsAvatar
-          firstName={name.firstName}
-          lastName={name.lastName}
-          fontSize="35px"
-          circleSize="100px"
-        />
-      </div>
       <form
         id="new-user-form"
         className={styles.form}
         onSubmit={handleFormSubmit}
       >
-        <section className={styles.nameSection}>
-          <User className={styles.icon} />
-          <input
-            name="firstName"
-            type="text"
-            onChange={handleNameInput}
-            required={isRequired}
-            value={user.first_name || name.firstName}
-          ></input>
-          <input
-            name="lastName"
-            type="text"
-            onChange={handleNameInput}
-            className={styles.indented}
-            required={isRequired}
-            value={user.last_name || name.lastName}
-          ></input>
-        </section>
-
-        <section className={styles.birthdaySection}>
-          <Cake className={styles.icon} />
-          <input
-            name="birthday"
-            type="date"
-            id="date"
-            required={isRequired}
-            onChange={(e) => {
-              setBirthday(e.target.value);
+        <NameProvider
+          fetchedName={{
+            firstName: user.first_name,
+            lastName: user.last_name,
+          }}
+        >
+          <div className={styles.avatarWrapper}>
+            <InitialsAvatarEdit fontSize="35px" circleSize="100px" />
+          </div>
+          <NameFieldInput
+            icon={User}
+            fetchedData={{
+              first_name: user.first_name,
+              last_name: user.last_name,
             }}
-            value={birthday || formattedDbBirthday}
-          ></input>
-        </section>
-
-        {/* <MultiLineFormInput
-          icon={Mail}
-          name="email"
-          type="email"
-          inputs={fetchedUser.emails}
-          inputName="email_address"
-          setInputs={setEmailList}
+            required={isRequired}
+          />
+        </NameProvider>
+        <BirthdayFieldInput
+          icon={Cake}
           required={isRequired}
-        /> */}
-
-        <MultiTest
+          fetchedData={fetchedUser.birthday}
+        />
+        <MultiLineField
           icon={Mail}
           name="email"
           type="email"
@@ -215,80 +125,33 @@ export default function Page() {
           inputName="email_address"
           required={isRequired}
         />
-
-        {/* <ConditionalFormInput
+        <ConditionalEmploymentField
           icon={Briefcase}
           name="isEmployed"
-          inputs={employmentStatus}
-          setInputs={setEmploymentStatus}
-          config={employmentConfig}
-          required={isRequired}
-        /> */}
-
-        <ConditionalTest
-          icon={Briefcase}
-          name="isEmployed"
-          fetchedData={fetchedUser.employment_detail}
-          initialState={{
-            status: "",
-            organization: null,
-            industry: null,
-            jobTitle: null,
+          fetchedData={{
+            ...fetchedUser.employment_detail,
+            employmentStatus: fetchedUser.is_employed,
           }}
-          config={employmentConfig}
           required={isRequired}
         />
-
-        {/* <ConditionalFormInput
+        <ConditionalParentField
           icon={Baby}
           name="isParent"
-          inputs={parentHoodStatus}
-          setInputs={setParentHoodStatus}
-          config={parentHoodConfig}
-          required={isRequired}
-        /> */}
-
-        <ConditionalTest
-          icon={Baby}
-          name="isParent"
-          fetchedData={fetchedUser.parenthood_detail}
-          initialState={{
-            status: "",
-            daughterCount: null,
-            sonCount: null,
+          fetchedData={{
+            ...fetchedUser.parenthood_detail,
+            parentStatus: fetchedUser.is_parent,
           }}
-          config={parentHoodConfig}
-          required={isRequired}
+          isRequired={isRequired}
         />
-
-        {/* <MultiLineFormInput
+        <MultiLineField
           icon={Phone}
           name="phone"
           type="number"
-          inputs={user?.contact_phone_numbers}
-          inputName="phone_number"
-          setInputs={setPhoneList}
-          required={isRequired}
-        /> */}
-
-        <MultiTest
-          icon={Phone}
-          name="phone"
-          type="email"
           fetchedData={fetchedUser.contact_phone_numbers}
           inputName="phone_number"
           required={isRequired}
         />
-        {/* 
-        <MultiLineFormInput
-          icon={Gamepad2}
-          name="hobby"
-          inputs={hobbyList}
-          setInputs={setHobbyList}
-          required={isRequired}
-        /> */}
-
-        <MultiTest
+        <MultiLineField
           icon={Gamepad2}
           name="hobby"
           type="text"
@@ -296,16 +159,7 @@ export default function Page() {
           inputName="hobby_name"
           required={isRequired}
         />
-
-        {/* <MultiLineFormInput
-          icon={PersonStanding}
-          name="category"
-          inputs={categoryList}
-          setInputs={setCategoryList}
-          required={isRequired}
-        /> */}
-
-        <MultiTest
+        <MultiLineField
           icon={PersonStanding}
           name="category"
           type="text"
@@ -313,26 +167,11 @@ export default function Page() {
           inputName="category_name"
           required={isRequired}
         />
-
-        <section className={styles.maritalSection}>
-          <Heart className={styles.icon} />
-          <select
-            name="maritalStatus"
-            value={maritalStatus}
-            className={styles.maritalStatus}
-            onChange={(e) => setMaritalStatus(e.target.value)}
-            required={isRequired}
-            style={{ color: maritalStatus === "" ? "grey" : "black" }}
-          >
-            <option value="" disabled>
-              Add marital status
-            </option>
-            <option value="single">Single</option>
-            <option value="married">Married</option>
-            <option value="divorced">Divorced</option>
-            <option value="unknown">Not applicable</option>
-          </select>
-        </section>
+        <DropDownFieldInput
+          icon={Heart}
+          fetchedData={fetchedUser.marital_status}
+          required={isRequired}
+        />
       </form>
     </div>
   );

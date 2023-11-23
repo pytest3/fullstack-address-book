@@ -58,8 +58,8 @@ function updateAll(req, res) {
           last_name: req.body.last_name,
           birthday: new Date(req.body.birthday),
           marital_status: req.body.marital_status,
-          is_employed: req.body.is_employed === "Employed",
-          is_parent: req.body.is_parent === "Parent",
+          is_employed: req.body.is_employed === "employed",
+          is_parent: req.body.is_parent === "parent",
         })
       );
 
@@ -308,8 +308,8 @@ async function addOne(req, res) {
           last_name: req.body.last_name,
           birthday: new Date(req.body.birthday),
           marital_status: req.body.marital_status,
-          is_employed: req.body.is_employed === "Employed",
-          is_parent: req.body.is_Parent === "Parent",
+          is_employed: req.body.is_employed,
+          is_parent: req.body.is_parent,
         },
         { transaction: t }
       );
@@ -363,11 +363,17 @@ async function addOne(req, res) {
 
       return newContact;
     });
-    res.send(result);
+
+    return res.status(202).send(result);
   } catch (err) {
-    res.status(404).send({
+    console.log(err);
+    res.status(404).json({
       status: "error",
-      error: { message: "could not create message" },
+      error: {
+        name: err.name || "Sequelize DB error",
+        message: err.message || "Could not create contact",
+        others: err,
+      },
     });
   }
 }
@@ -379,8 +385,8 @@ function testAdd(req, res) {
       last_name: req.body.last_name,
       birthday: new Date(req.body.birthday),
       marital_status: req.body.marital_status,
-      is_employed: req.body.is_employed === "Employed",
-      is_parent: req.body.is_Parent === "Parent",
+      is_employed: req.body.is_employed,
+      is_parent: req.body.is_parent,
     })
     .then((contact) => res.send(contact))
     .catch((err) => res.send(err));

@@ -1,0 +1,21 @@
+.avatar {
+  --avatar-color: var(--color-gray-5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--size);
+  height: var(--size);
+  background-color: inherit;
+  border: 1px solid;
+  border-radius: 50%;
+  font-size: var(--fontSize);
+  border-color: var(--avatar-color);
+}
+
+.initial {
+  color: var(--avatar-color);
+}
+
+.avatar svg {
+  color: var(--avatar-color);
+}

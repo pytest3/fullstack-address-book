@@ -1,21 +1,52 @@
 import React from "react";
-import styles from "./ConditionalTest.module.css";
+import styles from "./ConditionalParentField.module.css";
 
-export default function ConditionalTest({
+const config = {
+  showCondition: "parent",
+  options: [
+    { value: "", text: "Add parenthood status", disabled: true },
+    { value: "parent", text: "Parent" },
+    { value: "notParent", text: "Not parent" },
+  ],
+  conditionalFields: [
+    {
+      placeHolder: "Number of daughter(s)",
+      name: "daughterCount",
+      type: "number",
+    },
+    {
+      placeHolder: "Number of son(s)",
+      name: "sonCount",
+      type: "number",
+    },
+  ],
+};
+
+export default function ConditionalParentField({
   icon: Icon,
-  config,
   isRequired,
   fetchedData,
-  initialState,
+  ...rest
 }) {
-  const [inputs, setInputs] = React.useState(fetchedData || initialState);
+  const [inputs, setInputs] = React.useState({
+    condition: "",
+    daughterCount: "",
+    sonCount: "",
+  });
+
+  const { son_count, daughter_count, parentStatus } = fetchedData;
 
   React.useEffect(() => {
-    setInputs(fetchedData ? fetchedData : initialState);
+    setInputs({
+      ...inputs,
+      status: parentStatus,
+      sonCount: son_count,
+      daughterCount: daughter_count,
+    });
   }, [fetchedData]);
 
   function handleInput(e) {
-    const nextInputs = { ...inputs, [e.target.id]: e.target.value };
+    const nextInputs = { ...inputs, [e.target.name]: e.target.value };
     setInputs(nextInputs);
   }
 
@@ -29,8 +60,9 @@ export default function ConditionalTest({
           setInputs({ ...inputs, status: e.target.value });
         }}
         style={{
-          color: inputs.status === "" ? "grey" : "black",
+          color: parentStatus ? "black" : "grey",
         }}
+        {...rest}
       >
         {config.options.map(({ value, text, disabled }, idx) => {
           return (
@@ -41,7 +73,7 @@ export default function ConditionalTest({
         })}
       </select>
 
-      {inputs.status === config.showCondition && (
+      {inputs.status === "parent" && (
         <>
           {config.conditionalFields.map(
             ({ placeHolder, name, type = "text" }, idx) => {
@@ -55,6 +87,7 @@ export default function ConditionalTest({
                   onChange={handleInput}
                   required={isRequired}
                   className={styles.indented}
+                  value={inputs[name] || ""}
                 ></input>
               );
             }

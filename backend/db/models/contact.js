@@ -16,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       birthday: { type: DataTypes.DATE, allowNull: false },
       marital_status: {
         type: DataTypes.STRING,
-        validate: { isIn: [["married", "single", "divorced", "separated"]] },
+        validate: {
+          isIn: [["married", "single", "divorced", "not applicable"]],
+        },
       },
-      is_parent: { type: DataTypes.BOOLEAN, allowNull: false },
-      is_employed: { type: DataTypes.BOOLEAN, allowNull: false },
+      is_parent: { type: DataTypes.STRING, allowNull: false },
+      is_employed: { type: DataTypes.STRING, allowNull: false },
     },
     { freezeTableName: true, underscored: true, onDelete: "cascade" }
   );

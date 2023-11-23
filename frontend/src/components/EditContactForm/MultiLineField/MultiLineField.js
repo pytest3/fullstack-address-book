@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./MultiTest.module.css";
+import styles from "./MultiLineField.module.css";
 import { Plus, X, HelpCircle } from "lucide-react";
 import useUser from "@/hooks/useUser";
 import { useParams } from "next/navigation";
 
-export default function MultiTest({
+export default function MultiLineField({
   icon: Icon = HelpCircle,
   type = "text",
   fetchedData,
@@ -12,57 +12,38 @@ export default function MultiTest({
   inputName,
   ...props
 }) {
-  // const [inputs, setInputs] = React.useState(
-  //   fetchedData || [{ id: crypto.randomUUID(), [name]: "" }]
-  // );
+  const [inputs, setInputs] = React.useState([]);
 
-  const initialState = fetchedData.map((i) => {
-    return { id: crypto.randomUUID(), input: i.email_address };
-  });
-
-  console.log(initialState);
-
-  const [inputs, setInputs] = React.useState(initialState);
   const { id } = useParams();
+
+  React.useEffect(() => {
+    setInputs(fetchedData);
+  }, [fetchedData]);
+
   const { user, isLoading } = useUser(id);
-
-  if (!fetchedData) {
-    return <h1>LOADING</h1>;
-  }
-
-  // React.useEffect(() => {
-  //   console.log("i ran");
-  //   setInputs(
-  //     fetchedData ? fetchedData : [{ id: crypto.randomUUID(), [name]: "" }]
-  //   );
-  // }, [fetchedData]);
 
   function handleAddItem(e) {
     setInputs([...inputs, { id: crypto.randomUUID(), input: e.target.value }]);
   }
 
-  const testEmail = user.emails;
-
   function handleItemInput(e, inputId) {
-    console.log(e.target.value);
-    console.log(inputs);
-    const updatedItemList = inputs.map((input) => {
+    const updatedItemList = inputs?.map((input) => {
       if (input.id != inputId) {
         return input;
       }
-      return { ...input, input: e.target.value };
+      return { ...input, [inputName]: e.target.value };
     });
     setInputs(updatedItemList);
   }
 
   function handleRemoveItem(e, inputId) {
-    const updatedItemList = inputs.filter((input) => {
+    const updatedItemList = inputs?.filter((input) => {
       return input.id != inputId;
     });
     setInputs(updatedItemList);
   }
 
-  if (isLoading) {
+  if (isLoading || !fetchedData) {
     return <div>Loading user details...</div>;
   }
 
@@ -70,7 +51,6 @@ export default function MultiTest({
     <section className={styles.inputSection}>
       <Icon className={styles.icon} />
       {inputs?.map((item, idx) => {
-        console.log(inputs);
         const { id: inputId } = item;
         return (
           <div

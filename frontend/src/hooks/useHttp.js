@@ -65,7 +65,6 @@ export function useHttp(url) {
       }
 
       const data = await response.json();
-      console.log(data);
 
       dispatch({ type: "success", data });
 
