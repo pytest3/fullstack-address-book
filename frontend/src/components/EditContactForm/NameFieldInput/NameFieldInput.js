@@ -25,6 +25,7 @@ export default function NameFieldInput({ icon: Icon, required }) {
         onChange={handleNameInput}
         required={required}
         value={firstName}
+        placeholder="First name"
       ></input>
       <input
         name="lastName"
@@ -33,6 +34,7 @@ export default function NameFieldInput({ icon: Icon, required }) {
         className={styles.indented}
         required={required}
         value={lastName}
+        placeholder="Last name"
       ></input>
     </section>
   );

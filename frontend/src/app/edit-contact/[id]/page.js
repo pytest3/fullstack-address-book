@@ -28,10 +28,11 @@ import ConditionalEmploymentField from "@/components/EditContactForm/Conditional
 import ConditionalParentField from "@/components/EditContactForm/ConditionalParentField";
 export default function Page() {
   const isRequired = true;
+  const router = useRouter();
   const { id } = useParams();
 
-  const { isSendingError, sendRequest } = useHttp(
-    "http://localhost:3000/api/contacts"
+  const { isError: isUpdateError, sendRequest } = useHttp(
+    `http://localhost:3000/api/contacts/${id}`
   );
   const { isLoading, user, isError } = useUser(id);
   const [fetchedUser, setFetchedUser] = React.useState({});
@@ -42,7 +43,7 @@ export default function Page() {
 
   console.log(user);
 
-  const [name, setName] = React.useState({ firstName: "", lastName: "" });
+  // const [name, setName] = React.useState({ firstName: "", lastName: "" });
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -65,12 +66,17 @@ export default function Page() {
       hobby_name: data.getAll("hobby"),
       category: data.getAll("category"),
     };
-    for (const pair of data.entries()) {
-      console.log(`${pair[0]}, ${pair[1]}`);
-    }
-    // const createdUser = await sendRequest("POST", reqBody);
+    // for (const pair of data.entries()) {
+    //   console.log(`${pair[0]}, ${pair[1]}`);
+    // }
+
+    console.log(reqBody);
+    const createdUser = await sendRequest("PUT", reqBody);
+    // console.log("here");
+    // console.log(createdUser);
+
     // const { id } = createdUser;
-    // router.push(`/contact-details/${id}`);
+    router.push(`/contact-details/${id}`);
   }
   if (isError) {
     return <div>Unable to load user</div>;
@@ -79,6 +85,9 @@ export default function Page() {
     return <div>Loading....</div>;
   }
 
+  if (isUpdateError) {
+    return <div>Unable to update contact</div>;
+  }
   return (
     <div
       className={styles.wrapper}
@@ -116,6 +125,7 @@ export default function Page() {
           icon={Cake}
           required={isRequired}
           fetchedData={fetchedUser.birthday}
+          // description={'Birthday | dd/mm/yyyy'}
         />
         <MultiLineField
           icon={Mail}
@@ -124,6 +134,7 @@ export default function Page() {
           fetchedData={fetchedUser.emails}
           inputName="email_address"
           required={isRequired}
+          // description={""}
         />
         <ConditionalEmploymentField
           icon={Briefcase}
@@ -133,6 +144,7 @@ export default function Page() {
             employmentStatus: fetchedUser.is_employed,
           }}
           required={isRequired}
+          // description={""}
         />
         <ConditionalParentField
           icon={Baby}
@@ -150,6 +162,7 @@ export default function Page() {
           fetchedData={fetchedUser.contact_phone_numbers}
           inputName="phone_number"
           required={isRequired}
+          // description={""}
         />
         <MultiLineField
           icon={Gamepad2}
@@ -158,6 +171,7 @@ export default function Page() {
           fetchedData={fetchedUser.hobbies}
           inputName="hobby_name"
           required={isRequired}
+          // description={"Hobby"}
         />
         <MultiLineField
           icon={PersonStanding}
@@ -166,11 +180,13 @@ export default function Page() {
           fetchedData={fetchedUser.categories}
           inputName="category_name"
           required={isRequired}
+          // description={"Contact category"}
         />
         <DropDownFieldInput
           icon={Heart}
           fetchedData={fetchedUser.marital_status}
           required={isRequired}
+          // description={"Marital status"}
         />
       </form>
     </div>

@@ -35,7 +35,7 @@ function findById(req, res) {
       ],
     })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.send(data);
     })
     .catch((err) => console.log(err));
@@ -43,104 +43,221 @@ function findById(req, res) {
 
 function updateAll(req, res) {
   const { userId } = req.params;
-  db.contact
-    .findByPk(userId)
-    .then((contactInstance) => {
-      if (!contactInstance) {
-        return res.status(400).send("Contact not found");
-      }
 
-      const promises = [];
+  db.sequelize.transaction((t) => {
+    return db.contact
+      .findByPk(userId)
+      .then((contactInstance) => {
+        console.log("========");
+        console.log(contactInstance);
+        if (!contactInstance) {
+          return res.status(400).send("Contact not found");
+        }
+        console.log(contactInstance);
+        return contactInstance;
+      })
+      .then((contactInstance) => {
+        const promises = [];
+        promises.push(
+          contactInstance.update(
+            {
+              first_name: req.body.first_name,
+              last_name: req.body.last_name,
+              birthday: new Date(req.body.birthday),
+              marital_status: req.body.marital_status,
+              is_employed: req.body.is_employed,
+              is_parent: req.body.is_parent,
+            },
+            { transaction: t }
+          )
+        );
+        promises.push(
+          contactInstance.getEmployment_detail().then((employmentInstance) =>
+            employmentInstance.update(
+              {
+                company_industry: req.body.company_industry,
+                company_name: req.body.company_name,
+                role: req.body.role,
+              },
+              { transaction: t }
+            )
+          )
+        );
+        promises.push(
+          contactInstance.getParenthood_detail().then((parentHoodInstance) =>
+            parentHoodInstance.update(
+              {
+                son_count: req.body.son_count,
+                daughter_count: req.body.daughter_count,
+              },
+              { transaction: t }
+            )
+          )
+        );
+        // promises.push(
+        //   contactInstance.getContact_phone_numbers().then((phoneInstances) => {
+        //     for (const index in phoneInstances) {
+        //       const phoneInstance = phoneInstances[index];
+        //       return phoneInstance.update({
+        //         phone_number: req.body.phone_number[index],
+        //       });
+        //     }
+        //   })
+        // );
 
-      promises.push(
-        contactInstance.update({
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
-          birthday: new Date(req.body.birthday),
-          marital_status: req.body.marital_status,
-          is_employed: req.body.is_employed === "employed",
-          is_parent: req.body.is_parent === "parent",
-        })
-      );
-
-      promises.push(
-        contactInstance.getEmployment_detail().then((employmentInstance) =>
-          employmentInstance.update({
-            company_industry: "health care",
-            company_name: "singtel",
-            role: "analyst",
-          })
-        )
-      );
-
-      promises.push(
-        contactInstance.getParenthood_detail().then((parentHoodInstance) =>
-          parentHoodInstance.update({
-            son_count: req.body.son_count,
-            daughter_count: req.body.daughter_count,
-          })
-        )
-      );
-
-      promises.push(
-        contactInstance.getContact_phone_numbers().then((phoneInstances) => {
-          for (const index in phoneInstances) {
-            const phoneInstance = phoneInstances[index];
-            return phoneInstance.update({
-              phone_number: req.body.phone_number[index],
-            });
-          }
-        })
-      );
-
-      promises.push(
-        ...req.body.phone_number.map((phone, index) => {
-          return contactInstance
+        // promises.push(
+        //   ...req.body.phone_number.map((phone, index) => {
+        //     return contactInstance
+        //       .getContact_phone_numbers()
+        //       .then((numberInstances) => {
+        //         return numberInstances[index].update({
+        //           phone_number: phone,
+        //         });
+        //       });
+        //   })
+        // );
+        promises.push(
+          contactInstance
             .getContact_phone_numbers()
             .then((numberInstances) => {
-              return numberInstances[index].update({
-                phone_number: phone,
+              const nbrPromises = [];
+              for (const instance of numberInstances) {
+                nbrPromises.push(instance.destroy({ transaction: t }));
+              }
+              return nbrPromises;
+            })
+            .then(() => {
+              console.log(req.body.phone_number);
+              req.body.phone_number.map((item) => {
+                return contactInstance.createContact_phone_number(
+                  {
+                    phone_number: item,
+                  },
+                  { transaction: t }
+                );
               });
-            });
-        })
-      );
+            })
+        );
+        // promises.push(
+        //   ...req.body.email.map((email, index) => {
+        //     return contactInstance.getEmails().then((emailInstances) => {
+        //       return emailInstances[index].update({
+        //         email_address: email,
+        //       });
+        //     });
+        //   })
+        // );
+        promises.push(
+          contactInstance
+            .getEmails()
+            .then((emailInstances) => {
+              for (const instance of emailInstances) {
+                instance.destroy({ transaction: t });
+              }
+            })
+            .then(() => {
+              req.body.email.map((item) => {
+                return contactInstance.createEmail(
+                  {
+                    email_address: item,
+                  },
+                  { transaction: t }
+                );
+              });
+            })
+        );
+        // promises.push(
+        //   ...req.body.category.map((category, index) => {
+        //     return contactInstance.getCategories().then((categoryInstances) => {
+        //       return categoryInstances[index].update({ category_name: category });
+        //     });
+        //   })
+        // );
+        promises.push(
+          contactInstance
+            .getCategories()
+            .then((categoryInstances) => {
+              console.log("*********");
+              console.log(categoryInstances);
+              return Promise.all(
+                categoryInstances.map((instance) => {
+                  instance.destroy({ transaction: t });
+                })
+              );
+            })
+            .then(() => {
+              console.log("+++++++++++");
+              console.log(req.body.category);
+              req.body.category.map((item) => {
+                return contactInstance.createCategory(
+                  {
+                    category_name: item,
+                  },
+                  { transaction: t }
+                );
+              });
+            })
+        );
+        // promises.push(
+        //   ...req.body.hobby_name.map((hobby, index) => {
+        //     return contactInstance.getHobbies().then((hobbyInstance) => {
+        //       return hobbyInstance[index].update({ hobby_name: hobby });
+        //     });
+        //   })
+        // );
+        promises.push(
+          contactInstance
+            .getHobbies()
+            .then((hobbyInstances) => {
+              console.log("+++++1. Hobby+++++++");
+              console.log(hobbyInstances);
+              console.log("++++++2. Hobby++++++++");
+              const hobbyPromises = [];
+              for (const instance of hobbyInstances) {
+                console.log(">>>>>>>", instance);
+                hobbyPromises.push(instance.destroy({ transaction: t }));
+              }
+              console.log("?????????");
+              return Promise.all(hobbyPromises);
+            })
+            .then(() => {
+              const newHobbyPromises = [];
+              console.log("OMGGG");
+              for (element of req.body.hobby_name) {
+                newHobbyPromises.push(
+                  contactInstance.createHobby(
+                    { hobby_name: element },
+                    { transaction: t }
+                  )
+                );
+              }
 
-      promises.push(
-        ...req.body.email.map((email, index) => {
-          return contactInstance.getEmails().then((emailInstances) => {
-            return emailInstances[index].update({
-              email_address: email,
-            });
-          });
-        })
-      );
+              return Promise.all(newHobbyPromises);
+              // req.body.hobby_name.map((item, idx) => {
+              //   console.log("======hobby name========");
+              //   console.log(req.body.hobby_name[idx]);
+              //   return contactInstance.createHobby(
+              //     {
+              //       hobby_name: item[idx],
+              //     },
+              //     { transaction: t }
+              //   );
+              // });
+            })
+        );
 
-      promises.push(
-        ...req.body.category.map((category, index) => {
-          return contactInstance.getCategories().then((categoryInstances) => {
-            return categoryInstances[index].update({ category_name: category });
-          });
-        })
-      );
-
-      promises.push(
-        ...req.body.hobby_name.map((hobby, index) => {
-          return contactInstance.getHobbies().then((hobbyInstance) => {
-            return hobbyInstance[index].update({ hobby_name: hobby });
-          });
-        })
-      );
-
-      return Promise.all(promises);
-    })
-    .then((updatedContact) => {
-      console.log(updatedContact);
-      return res.json(updatedContact);
-    })
-    .catch((err) => {
-      console.log(err);
-      return res.status(404).send(err);
-    });
+        return Promise.all(promises);
+      })
+      .then((updatedContact) => {
+        console.log("++++DONE+++");
+        console.log(updatedContact);
+        return res.json(updatedContact);
+      })
+      .catch((err) => {
+        // console.log(err);
+        return res.status(404).send(err);
+      });
+  });
 }
 
 function deleteAll(req, res) {
@@ -219,45 +336,45 @@ function deleteOne(req, res) {
     .findByPk(userId)
     .then((userInstance) => {
       return Promise.all([
-        userInstance.destroy(),
-
         userInstance.getEmployment_detail().then((employmentInstance) => {
-          employmentInstance?.destroy();
+          employmentInstance.destroy();
         }),
-
         userInstance
           .getParenthood_detail()
-          .then((parentHoodInstance) => parentHoodInstance?.destroy()),
+          .then((parentHoodInstance) => parentHoodInstance.destroy()),
 
         userInstance.getEmails().then((emailInstances) => {
           emailInstances.map((emailInstance) => {
-            return emailInstance?.destroy();
+            emailInstance.destroy();
           });
         }),
 
         userInstance.getContact_phone_numbers().then((numberInstances) => {
           numberInstances.map((numberInstance) => {
-            return numberInstance?.destroy();
+            return numberInstance.destroy();
           });
         }),
 
         userInstance.getCategories().then((categoryInstances) => {
           categoryInstances.map((categoryInstance) => {
-            return categoryInstance?.destroy();
+            return categoryInstance.destroy();
           });
         }),
 
         userInstance.getHobbies().then((hobbyInstances) => {
           hobbyInstances.map((hobbyInstance) => {
-            return hobbyInstance?.destroy();
+            return hobbyInstance.destroy();
           });
         }),
+
+        userInstance.destroy(),
       ]);
     })
     .then((done) => {
       res.send("Contact deleted");
     })
     .catch((err) => {
+      console.log(err);
       res.status(err.status || 500).send({
         status: "error",
         error: {
@@ -366,7 +483,7 @@ async function addOne(req, res) {
 
     return res.status(202).send(result);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(404).json({
       status: "error",
       error: {
@@ -376,153 +493,6 @@ async function addOne(req, res) {
       },
     });
   }
-}
-
-function testAdd(req, res) {
-  db.contact
-    .create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      birthday: new Date(req.body.birthday),
-      marital_status: req.body.marital_status,
-      is_employed: req.body.is_employed,
-      is_parent: req.body.is_parent,
-    })
-    .then((contact) => res.send(contact))
-    .catch((err) => res.send(err));
-}
-// function add(req, res) {
-//   db.sequelize.transaction((t) => {
-//     return db.contact
-//       .findOne({
-//         where: {
-//           [Op.and]: [
-//             { first_name: req.body.first_name },
-//             { last_name: req.body.last_name },
-//           ],
-//         },
-//         transaction: t,
-//       })
-//       .then((contactInstance) => {
-//         if (contactInstance) {
-//           console.log("contact exists");
-//           return res.send({
-//             status: "error",
-//             error: { message: "contact exists" },
-//           });
-//         }
-//         return db.contact
-//           .create(
-//             {
-//               first_name: req.body.first_name,
-//               last_name: req.body.last_name,
-//               birthday: new Date(req.body.birthday),
-//               marital_status: req.body.marital_status,
-//               is_employed: req.body.is_employed === "Employed",
-//               is_parent: req.body.is_Parent === "Parent",
-//             },
-//             { transaction: t }
-//           )
-//           .then((contactInstance) => {
-//             const contactId = contactInstance.id;
-//             const promises = [];
-//             promises.push(
-//               contactInstance
-//                 .createParenthood_detail(
-//                   {
-//                     daughter_count: req.body.daughter_count,
-//                     son_count: req.body.son_count,
-//                   },
-//                   { transaction: t }
-//                 )
-//                 .catch((err) => {
-//                   return err;
-//                 }),
-
-//               contactInstance
-//                 .createEmployment_detail(
-//                   {
-//                     company_name: req.body.company_name,
-//                     company_industry: req.body.company_industry,
-//                     role: req.body.role,
-//                   },
-//                   { transaction: t }
-//                 )
-//                 .catch((err) => {
-//                   return err;
-//                 }),
-
-//               for (element of req.body.phone_number) {
-//                 promises.push(
-//                   contactInstance.createContact_phone_number(
-//                     {
-//                       phone_number: element,
-//                     },
-//                     { transaction: t }
-//                   )
-//                 );
-//               }
-
-//               for (element of req.body.email) {
-//                 promises.push(
-//                   contactInstance.createEmail(
-//                     { email_address: element },
-//                     { transaction: t }
-//                   )
-//                 );
-//               }
-
-//               for (element of req.body.category) {
-//                 promises.push(
-//                   contactInstance.createCategory(
-//                     { category_name: element },
-//                     { transaction: t }
-//                   )
-//                 );
-//               }
-
-//               for (element of req.body.hobby_name) {
-//                 promises.push(
-//                   contactInstance.createHobby(
-//                     { hobby_name: element },
-//                     { transaction: t }
-//                   )
-//                 );
-//               }
-//             )
-//             return [Promise.all(promises), contactId];
-//           })
-//           .then(([promises, contactId]) => {
-//             console.log("+++++++");
-//             console.log(contactId);
-//             console.log("+++++++");
-//             return res.send({ contact_id: contactId });
-//           })
-//           .catch((err) => {
-//             console.log("======");
-//             console.log("error has been reached!!!!!!!!!");
-//             console.log("======");
-
-//             return res.send(err);
-//           });
-//       });
-//   });
-// }
-
-function testQuery(req, res) {
-  db.category
-    .findAll({
-      attributes: [
-        "category_name",
-
-        [
-          sequelize.fn("COUNT", sequelize.col("category_name")),
-          "category_count",
-        ],
-      ],
-      group: ["category_name"],
-    })
-    .then((data) => res.send(data));
 }
 
 module.exports = {

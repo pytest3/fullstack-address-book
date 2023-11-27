@@ -87,7 +87,7 @@ export default function ConditionalParentField({
                   onChange={handleInput}
                   required={isRequired}
                   className={styles.indented}
-                  value={inputs[name] || ""}
+                  value={inputs[name]}
                 ></input>
               );
             }
