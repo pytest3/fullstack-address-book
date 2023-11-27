@@ -140,7 +140,7 @@ export default function Page({ params }) {
             <span className={styles.smallText}>Marital status</span>
           </div>
         </section>
-        {is_parent && (
+        {is_parent === "parent" ? (
           <section className={styles.section}>
             <Baby className={styles.icon} />
             <div className={styles.row}>
@@ -151,6 +151,11 @@ export default function Page({ params }) {
               <span>{daughter_count}</span>
               <span className={styles.smallText}>Daughter(s)</span>
             </div>
+          </section>
+        ) : (
+          <section className={styles.section}>
+            <Baby className={styles.icon} />
+            <div className={styles.row}>Not a parent</div>
           </section>
         )}
 

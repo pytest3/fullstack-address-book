@@ -23,8 +23,12 @@ export default function MultiLineField({
   const { user, isLoading } = useUser(id);
 
   function handleAddItem(e) {
-    setInputs([...inputs, { id: crypto.randomUUID(), input: e.target.value }]);
+    setInputs([...inputs, { id: crypto.randomUUID(), email_address: "" }]);
   }
+
+  // console.log("+++++++++");
+  // console.log(name);
+  // console.log(inputs);
 
   function handleItemInput(e, inputId) {
     const updatedItemList = inputs?.map((input) => {
