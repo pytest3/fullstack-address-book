@@ -72,16 +72,16 @@ function updateAll(req, res) {
           )
         );
         promises.push(
-          contactInstance.getEmployment_detail().then((employmentInstance) =>
-            employmentInstance.update(
+          contactInstance.getEmployment_detail().then((employmentInstance) => {
+            return employmentInstance.update(
               {
                 company_industry: req.body.company_industry,
                 company_name: req.body.company_name,
                 role: req.body.role,
               },
               { transaction: t }
-            )
-          )
+            );
+          })
         );
         promises.push(
           contactInstance.getParenthood_detail().then((parentHoodInstance) =>
@@ -151,19 +151,23 @@ function updateAll(req, res) {
           contactInstance
             .getEmails()
             .then((emailInstances) => {
-              for (const instance of emailInstances) {
-                instance.destroy({ transaction: t });
-              }
+              return Promise.all(
+                emailInstances.map((instance) => {
+                  return instance.destroy({ transaction: t });
+                })
+              );
             })
             .then(() => {
-              req.body.email.map((item) => {
-                return contactInstance.createEmail(
-                  {
-                    email_address: item,
-                  },
-                  { transaction: t }
-                );
-              });
+              return Promise.all(
+                req.body.email.map((item) => {
+                  return contactInstance.createEmail(
+                    {
+                      email_address: item,
+                    },
+                    { transaction: t }
+                  );
+                })
+              );
             })
         );
         // promises.push(
