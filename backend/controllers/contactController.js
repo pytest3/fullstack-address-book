@@ -43,7 +43,6 @@ function findById(req, res) {
 
 function updateAll(req, res) {
   const { userId } = req.params;
-
   db.sequelize.transaction((t) => {
     return db.contact
       .findByPk(userId)
@@ -94,59 +93,29 @@ function updateAll(req, res) {
             )
           )
         );
-        // promises.push(
-        //   contactInstance.getContact_phone_numbers().then((phoneInstances) => {
-        //     for (const index in phoneInstances) {
-        //       const phoneInstance = phoneInstances[index];
-        //       return phoneInstance.update({
-        //         phone_number: req.body.phone_number[index],
-        //       });
-        //     }
-        //   })
-        // );
-
-        // promises.push(
-        //   ...req.body.phone_number.map((phone, index) => {
-        //     return contactInstance
-        //       .getContact_phone_numbers()
-        //       .then((numberInstances) => {
-        //         return numberInstances[index].update({
-        //           phone_number: phone,
-        //         });
-        //       });
-        //   })
-        // );
         promises.push(
           contactInstance
             .getContact_phone_numbers()
             .then((numberInstances) => {
-              const nbrPromises = [];
-              for (const instance of numberInstances) {
-                nbrPromises.push(instance.destroy({ transaction: t }));
-              }
-              return nbrPromises;
+              return Promise.all(
+                numberInstances.map((instance) => {
+                  return instance.destroy({ transaction: t });
+                })
+              );
             })
             .then(() => {
-              console.log(req.body.phone_number);
-              req.body.phone_number.map((item) => {
-                return contactInstance.createContact_phone_number(
-                  {
-                    phone_number: item,
-                  },
-                  { transaction: t }
-                );
-              });
+              return Promise.all(
+                req.body.phone_number.map((item) => {
+                  return contactInstance.createContact_phone_number(
+                    {
+                      phone_number: item,
+                    },
+                    { transaction: t }
+                  );
+                })
+              );
             })
         );
-        // promises.push(
-        //   ...req.body.email.map((email, index) => {
-        //     return contactInstance.getEmails().then((emailInstances) => {
-        //       return emailInstances[index].update({
-        //         email_address: email,
-        //       });
-        //     });
-        //   })
-        // );
         promises.push(
           contactInstance
             .getEmails()
@@ -170,63 +139,41 @@ function updateAll(req, res) {
               );
             })
         );
-        // promises.push(
-        //   ...req.body.category.map((category, index) => {
-        //     return contactInstance.getCategories().then((categoryInstances) => {
-        //       return categoryInstances[index].update({ category_name: category });
-        //     });
-        //   })
-        // );
         promises.push(
           contactInstance
             .getCategories()
             .then((categoryInstances) => {
-              console.log("*********");
-              console.log(categoryInstances);
               return Promise.all(
                 categoryInstances.map((instance) => {
-                  instance.destroy({ transaction: t });
+                  return instance.destroy({ transaction: t });
                 })
               );
             })
             .then(() => {
-              console.log("+++++++++++");
-              console.log(req.body.category);
-              req.body.category.map((item) => {
-                return contactInstance.createCategory(
-                  {
-                    category_name: item,
-                  },
-                  { transaction: t }
-                );
-              });
+              return Promise.all(
+                req.body.category.map((item) => {
+                  return contactInstance.createCategory(
+                    {
+                      category_name: item,
+                    },
+                    { transaction: t }
+                  );
+                })
+              );
             })
         );
-        // promises.push(
-        //   ...req.body.hobby_name.map((hobby, index) => {
-        //     return contactInstance.getHobbies().then((hobbyInstance) => {
-        //       return hobbyInstance[index].update({ hobby_name: hobby });
-        //     });
-        //   })
-        // );
         promises.push(
           contactInstance
             .getHobbies()
             .then((hobbyInstances) => {
-              console.log("+++++1. Hobby+++++++");
-              console.log(hobbyInstances);
-              console.log("++++++2. Hobby++++++++");
               const hobbyPromises = [];
               for (const instance of hobbyInstances) {
-                console.log(">>>>>>>", instance);
                 hobbyPromises.push(instance.destroy({ transaction: t }));
               }
-              console.log("?????????");
               return Promise.all(hobbyPromises);
             })
             .then(() => {
               const newHobbyPromises = [];
-              console.log("OMGGG");
               for (element of req.body.hobby_name) {
                 newHobbyPromises.push(
                   contactInstance.createHobby(
@@ -235,30 +182,16 @@ function updateAll(req, res) {
                   )
                 );
               }
-
               return Promise.all(newHobbyPromises);
-              // req.body.hobby_name.map((item, idx) => {
-              //   console.log("======hobby name========");
-              //   console.log(req.body.hobby_name[idx]);
-              //   return contactInstance.createHobby(
-              //     {
-              //       hobby_name: item[idx],
-              //     },
-              //     { transaction: t }
-              //   );
-              // });
             })
         );
 
         return Promise.all(promises);
       })
       .then((updatedContact) => {
-        console.log("++++DONE+++");
-        console.log(updatedContact);
         return res.json(updatedContact);
       })
       .catch((err) => {
-        // console.log(err);
         return res.status(404).send(err);
       });
   });
