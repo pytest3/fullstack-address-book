@@ -1,10 +1,11 @@
 export default function CreateIntersectionObserver(
   querySelector,
   callback,
-  config = { rootMargin: "0px", threshold: 0 }
+  config = { rootMargin: "20px", threshold: 0.2 }
 ) {
   let options = {
-    root: document.querySelector(querySelector),
+    // root: document.querySelector(querySelector),
+    root: null,
     config,
   };
 

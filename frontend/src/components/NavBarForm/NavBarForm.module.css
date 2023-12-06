@@ -1,28 +1,30 @@
 .wrapper {
-    display: flex;
-    align-items: baseline
+  display: flex;
+  align-items: baseline;
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 
 .leftActionsWrapper {
-    flex: 1;
+  flex: 1;
 }
 
 .rightActionWrapper {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .saveBtn {
-    padding: 0px;
-    text-decoration: none;
-    border: none;
-    background: inherit;
-    width: auto;
-    color: var(--color-blue-7);    
+  padding: 0px;
+  text-decoration: none;
+  border: none;
+  background: inherit;
+  width: auto;
+  color: var(--color-blue-7);
 }
 .cancelBtn {
-    text-decoration: none;
-    color: var(--color-blue-7);
+  text-decoration: none;
+  color: var(--color-blue-7);
 }
-

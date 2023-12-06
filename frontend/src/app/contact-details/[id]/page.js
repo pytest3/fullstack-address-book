@@ -20,6 +20,10 @@ import { capitalizeFirstLetter } from "@/utils";
 export default function Page({ params }) {
   const { id } = params;
 
+  const targetElement = React.useRef();
+  const [showNameInNav, setShowNameInNav] = React.useState(false);
+  const [nameInNavOpacity, setNameInNavOpacity] = React.useState(0);
+
   const fetcher = async (...args) =>
     fetch(...args).then((res) => {
       if (!res.ok) {
@@ -54,14 +58,54 @@ export default function Page({ params }) {
   const daughter_count = data?.parenthood_detail?.daughter_count;
   const son_count = data?.parenthood_detail?.son_count;
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  let options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: [0.01, 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9, 1],
+  };
+
+  const [fontColor, setFontColor] = React.useState("black");
+
+  let observer = new IntersectionObserver((entries, observer) => {
+    const [entry] = entries;
+    entry.target.style.opacity = entry.intersectionRatio;
+    if (entry.intersectionRatio > 0.2) {
+      setShowNameInNav(false);
+      setNameInNavOpacity(entry.intersectionRatio);
+    } else {
+      setShowNameInNav(true);
+      entry.target.style.opacity = 0;
+    }
+  }, options);
+
+  React.useEffect(() => {
+    const target = targetElement.current;
+    if (!target) {
+      return;
+    }
+    observer.observe(target);
+    return () => observer.unobserve(target);
+  }, [isLoading]);
+
+  if (error) {
+    console.log("error");
+    return <div>failed to load</div>;
+  }
+  if (isLoading) {
+    console.log("loading");
+    return <div>loading...</div>;
+  }
 
   return (
     <div className={styles.wrapper}>
+      <NavBarDetails
+        name={{ first_name, last_name }}
+        showNameInNav={showNameInNav}
+        opacity={nameInNavOpacity}
+      />
+
       <div className={styles.greyBG}>
-        <NavBarDetails />
-        <div className={styles.userSummary}>
+        <div ref={targetElement} className={styles.userSummary}>
           <InitialsAvatar
             firstName={first_name}
             lastName={last_name}
@@ -70,7 +114,7 @@ export default function Page({ params }) {
             className={styles.avatar}
             fontClassName={styles.avatarFont}
           ></InitialsAvatar>
-          <div className={styles.fullName}>
+          <div className={styles.fullName} style={{ color: fontColor }}>
             {capitalizeFirstLetter(first_name)}{" "}
             {capitalizeFirstLetter(last_name)}
           </div>
@@ -84,13 +128,13 @@ export default function Page({ params }) {
         </div>
       </div>
 
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
+      {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
         <path
           fill="var(--color-gray-2)"
           fillOpacity="1"
           d="M0,128L60,144C120,160,240,192,360,192C480,192,600,160,720,128C840,96,960,64,1080,53.3C1200,43,1320,53,1380,58.7L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
         ></path>
-      </svg>
+      </svg> */}
 
       <main className={styles.whiteBG}>
         <section className={styles.section}>
