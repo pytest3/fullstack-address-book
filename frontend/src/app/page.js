@@ -18,6 +18,8 @@ export default function Home() {
     setSelectedContacts([]);
   }
 
+  const [showContactsInNav, setShowContactsInNav] = React.useState(false);
+
   function updateSelectedContacts(e) {
     let nextSelectedContacts;
     if (!e.target) {
@@ -43,12 +45,17 @@ export default function Home() {
 
   return (
     <main className={styles.wrapper}>
-      <NavBarMain toggleEdit={toggleEdit} isEdit={isEdit}></NavBarMain>
+      <NavBarMain
+        toggleEdit={toggleEdit}
+        isEdit={isEdit}
+        showContactsInNav={showContactsInNav}
+      ></NavBarMain>
       <SearchBar
         isEdit={isEdit}
         selectedCount={selectedCount}
         handleSearch={handleSearch}
         searchTerm={searchTerm}
+        setShowContactsInNav={setShowContactsInNav}
       />
       <NameList
         isEdit={isEdit}

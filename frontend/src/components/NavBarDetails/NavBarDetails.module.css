@@ -1,9 +1,12 @@
 .wrapper {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   background-color: var(--color-gray-2);
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  position: sticky;
+  top: 0;
 }
 
 .icon {
@@ -12,4 +15,26 @@
   stroke-width: 2;
   flex: 1;
   margin-left: -4px;
+}
+
+.rightActions {
+  position: absolute;
+  right: 20px;
+  top: 28px;
+}
+.leftActions {
+  position: absolute;
+  left: 20px;
+  top: 30px;
+}
+
+/* .hideName {
+  color: var(--color-gray-2);
+  position: absolute;
+} */
+
+.navName {
+  color: black;
+  font-weight: 600;
+  /* position: absolute; */
 }

@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./NameList.module.css";
+
 import { Trash2 } from "lucide-react";
 import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
@@ -67,7 +68,7 @@ export default function NameList({
   }
 
   return (
-    <form className={styles.wrapper} onSubmit={handleSubmit}>
+    <form className={styles.nameListWrapper} onSubmit={handleSubmit}>
       {filteredContacts?.map(({ id, first_name, last_name }) => {
         return (
           <div key={id} className={styles.row}>

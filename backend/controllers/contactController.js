@@ -192,6 +192,7 @@ function updateAll(req, res) {
         return res.json(updatedContact);
       })
       .catch((err) => {
+        console.log(err);
         return res.status(404).send(err);
       });
   });
