@@ -80,6 +80,7 @@ export default function Page({ params }) {
 
   React.useEffect(() => {
     const target = targetElement.current;
+
     if (!target) {
       return;
     }

@@ -49,6 +49,7 @@ export default function Home() {
         toggleEdit={toggleEdit}
         isEdit={isEdit}
         showContactsInNav={showContactsInNav}
+        selectedCount={selectedCount}
       ></NavBarMain>
       <SearchBar
         isEdit={isEdit}

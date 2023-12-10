@@ -140,7 +140,7 @@ export default function Page() {
           icon={Briefcase}
           name="isEmployed"
           fetchedData={{
-            ...fetchedUser.employment_detail,
+          ...fetchedUser.employment_detail,
             employmentStatus: fetchedUser.is_employed,
           }}
           required={isRequired}

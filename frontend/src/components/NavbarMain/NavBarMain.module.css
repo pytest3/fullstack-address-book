@@ -34,3 +34,55 @@
   color: black;
   flex: 1;
 }
+
+/* @keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+} */
+
+.trashIcon {
+  background-color: white;
+  border: none;
+  padding: 0px;
+}
+
+/* .rotate {
+  animation: rotate 300ms both;
+  animation-iteration-count: 2;
+} */
+
+@keyframes vibrate {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.vibrate {
+  animation: vibrate 500ms both linear;
+  animation-iteration-count: 5;
+}
