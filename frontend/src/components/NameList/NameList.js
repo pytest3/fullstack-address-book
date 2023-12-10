@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./NameList.module.css";
 
-import { Trash2 } from "lucide-react";
+import { MoveUp, Trash2 } from "lucide-react";
 import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
@@ -46,6 +46,58 @@ export default function NameList({
   const { sendRequest, response } = useHttp(
     "http://localhost:3000/api/contacts"
   );
+  const [showButton, setShowButton] = React.useState(false);
+  const [buttonNode, setButtonNode] = React.useState(null);
+
+  let options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 1,
+  };
+
+  const titleRef = React.useState(null);
+  const observerRef = React.useRef(null);
+  const buttonRef = React.useCallback((node) => {
+    if (node !== null) {
+      setButtonNode(node);
+    }
+  }, []);
+
+  function getObserver() {
+    // IntersectionObserver is created lazily once
+    if (observerRef.current === null) {
+      observerRef.current = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          setShowButton(true);
+          console.log("intersecting");
+        } else {
+          setShowButton(false);
+          console.log("NOT intersecting");
+        }
+      }, options);
+    }
+    return observerRef.current;
+  }
+
+  React.useEffect(() => {
+    const observer = getObserver();
+
+    if (buttonNode) {
+      observer.observe(buttonNode);
+    }
+
+    return () => observer.disconnect();
+  }, [buttonNode]);
+
+  function handleUpButtonClick(e) {
+    e.preventDefault();
+    const target = document.querySelector(".SearchBar_header__IE462");
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -68,12 +120,24 @@ export default function NameList({
   }
 
   return (
-    <form className={styles.nameListWrapper} onSubmit={handleSubmit}>
-      {filteredContacts?.map(({ id, first_name, last_name }) => {
-        return (
-          <div key={id} className={styles.row}>
-            {isEdit && (
-              <div className={styles.checkBox}>
+    <>
+      <form
+        className={styles.nameListWrapper}
+        id="edit-form"
+        onSubmit={handleSubmit}
+      >
+        {filteredContacts?.map(({ id, first_name, last_name }) => {
+          return (
+            <div key={id} className={styles.row}>
+              <div
+                style={{
+                  opacity: isEdit ? 1 : 0,
+                  transition: "opacity",
+                  transitionDuration: isEdit ? "600ms" : "100ms",
+                  transitionDelay: isEdit ? "150ms" : "50ms",
+                }}
+                className={styles.checkBox}
+              >
                 <input
                   name={id}
                   type="checkbox"
@@ -81,40 +145,67 @@ export default function NameList({
                   onChange={(e) => updateSelectedContacts(e)}
                 ></input>
               </div>
-            )}
-            <Link href={`./contact-details/${id}`} className={styles.link}>
-              <article key={id} className={styles.card}>
-                <InitialsAvatar
-                  firstName={first_name}
-                  lastName={last_name}
-                  className={styles.initialsAvatar}
-                  fontSize="20px"
-                  circleSize="52px"
-                />
-                <div className={styles.name}>{first_name}</div>
-                <div className={styles.job}>{last_name}</div>
-              </article>
-            </Link>
-          </div>
-        );
-      })}
-      {isEdit && (
-        <button disabled={selectedCount === 0} className={styles.footer}>
-          <Trash2></Trash2>
-          <span>
-            Delete
-            {selectedCount > 1 ? (
-              <>
-                <strong> {selectedCount}</strong> contacts
-              </>
-            ) : selectedCount === 1 ? (
-              <>
-                <strong> {selectedCount}</strong> contact
-              </>
-            ) : null}
-          </span>
+
+              <Link href={`./contact-details/${id}`} className={styles.link}>
+                <article
+                  key={id}
+                  style={{
+                    willChange: "transform",
+                    transform: isEdit ? "translateX(0)" : "translateX(-32px)",
+                    transition: "transform 500ms",
+                    transitionTimingFunction: isEdit
+                      ? "cubic-bezier(.09,.69,.52,1.32)"
+                      : "cubic-bezier(.09,.69,.52,1)",
+                  }}
+                  className={styles.card}
+                >
+                  <InitialsAvatar
+                    firstName={first_name}
+                    lastName={last_name}
+                    className={styles.initialsAvatar}
+                    fontSize="20px"
+                    circleSize="52px"
+                  />
+                  <div className={styles.name}>{first_name}</div>
+                  <div className={styles.job}>{last_name}</div>
+                </article>
+              </Link>
+            </div>
+          );
+        })}
+        {/* {isEdit && (
+          <button disabled={selectedCount === 0} className={styles.footer}>
+            <Trash2></Trash2>
+            <span>
+              Delete
+              {selectedCount > 1 ? (
+                <>
+                  <strong> {selectedCount}</strong> contacts
+                </>
+              ) : selectedCount === 1 ? (
+                <>
+                  <strong> {selectedCount}</strong> contact
+                </>
+              ) : null}
+            </span>
+          </button>
+        )} */}
+        <button
+          ref={buttonRef}
+          className={styles.backToTopBtn}
+          style={{
+            opacity: showButton ? 1 : 0,
+            transform: showButton ? "translateY(-05px)" : "translateY(0px)",
+            transition:
+              "opacity 600ms, transform 650ms cubic-bezier(.17,.67,.71,8.86)",
+          }}
+          type="button"
+          onClick={handleUpButtonClick}
+        >
+          <MoveUp className={styles.upIcon} strokeWidth={1.5} />
+          <span>To top</span>
         </button>
-      )}
-    </form>
+      </form>
+    </>
   );
 }

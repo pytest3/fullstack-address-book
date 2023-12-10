@@ -1,6 +1,8 @@
 .nameListWrapper {
   display: flex;
   flex-direction: column;
+  position: relative;
+  transform: scale(1);
 }
 
 .card {
@@ -70,3 +72,29 @@
   font-size: 20px;
   color: var(--color-gray-5);
 }
+
+.backToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 0px;
+  z-index: 10;
+  background-color: white;
+  border: 1px solid hsl(0, 0%, 70%);
+  border-radius: 8px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: hsl(0, 0%, 20%);
+  font-size: 14px;
+}
+
+.upIcon {
+  height: 18px;
+  width: 18px;
+  color: hsl(0, 0%, 40%);
+}
+
+/* .pageWrapper {
+  position: relative;
+} */

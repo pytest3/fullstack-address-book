@@ -31,7 +31,6 @@ export default function SearchBar({
 
   React.useEffect(() => {
     const target = document.querySelector(`.${styles.searchBarWrapper}`);
-    console.log(target);
     let observer = new IntersectionObserver(intersectionCallback, options);
     observer.observe(target);
 
