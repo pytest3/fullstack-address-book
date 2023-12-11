@@ -41,7 +41,6 @@ export default function Home() {
   }
 
   function updateContactListCount(count) {
-    console.log(count);
     setContactListCount(count);
   }
 
