@@ -32,11 +32,7 @@ export default function NameList({
 
     const contacts = await res.json();
 
-    console.log(contacts);
-
     updateContactListCount(contacts.length);
-
-    console.log(contacts.length);
 
     return contacts;
   }
@@ -92,9 +88,8 @@ export default function NameList({
     const observer = getObserver();
 
     if (contactListCount < 12) {
-      /* manual cleanup */
-      console.log("less than 12 ran to disconnect observer");
       setShowButton(false);
+      /* manual cleanup of intersection observer and early return*/
       observer?.disconnect();
       return;
     }
@@ -162,6 +157,7 @@ export default function NameList({
                   type="checkbox"
                   className={styles.radio}
                   onChange={(e) => updateSelectedContacts(e)}
+                  checked={selectedContacts.includes(id)}
                 ></input>
               </div>
 
