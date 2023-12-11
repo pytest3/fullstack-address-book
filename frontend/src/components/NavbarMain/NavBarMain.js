@@ -55,9 +55,9 @@ export default function NavBarMain({
         </button>
 
         <Link href="/new-contact">
-          <Plus className={styles.icon} />
+          <Plus className={`${styles.icon} ${styles.plusIcon}`} />
         </Link>
-        <UserCircle className={styles.icon} />
+        <UserCircle className={`${styles.icon} ${styles.userCircle}`} />
       </div>
     </NavBarWrapper>
   );
