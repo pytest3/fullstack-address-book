@@ -12,6 +12,7 @@ export default function Home() {
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
+  const [contactListCount, setContactListCount] = React.useState(0);
 
   function toggleEdit() {
     setIsEdit(!isEdit);
@@ -37,6 +38,11 @@ export default function Home() {
     }
     nextSelectedContacts = [...selectedContacts, +e.target.name];
     setSelectedContacts(nextSelectedContacts);
+  }
+
+  function updateContactListCount(count) {
+    console.log(count);
+    setContactListCount(count);
   }
 
   function handleSearch(userInput) {
@@ -67,6 +73,8 @@ export default function Home() {
         key={refreshKey}
         toggleRefresh={setRefreshKey}
         searchTerm={searchTerm}
+        contactListCount={contactListCount}
+        updateContactListCount={updateContactListCount}
       />
     </main>
   );

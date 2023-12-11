@@ -35,6 +35,17 @@
   flex: 1;
 }
 
+.userCircle {
+  width: 23.5px;
+  height: 23.5px;
+}
+
+.plusIcon {
+  width: 26px;
+  height: 26px;
+  padding-bottom: 1px;
+}
+
 /* @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -74,7 +85,7 @@
   50% {
     transform: translateX(-5px);
   }
-75% {
+  75% {
     transform: translateX(5px);
   }
   100% {

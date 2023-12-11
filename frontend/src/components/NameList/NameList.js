@@ -14,7 +14,8 @@ export default function NameList({
   toggleEdit,
   updateSelectedContacts,
   selectedContacts,
-  selectedCount,
+  contactListCount,
+  updateContactListCount,
   toggleRefresh,
   searchTerm = "",
 }) {
@@ -29,7 +30,15 @@ export default function NameList({
       throw error;
     }
 
-    return res.json();
+    const contacts = await res.json();
+
+    console.log(contacts);
+
+    updateContactListCount(contacts.length);
+
+    console.log(contacts.length);
+
+    return contacts;
   }
 
   const { data, error, isLoading } = useSWR(
@@ -82,12 +91,22 @@ export default function NameList({
   React.useEffect(() => {
     const observer = getObserver();
 
+    if (contactListCount < 12) {
+      /* manual cleanup */
+      console.log("less than 12 ran to disconnect observer");
+      setShowButton(false);
+      observer?.disconnect();
+      return;
+    }
+
     if (buttonNode) {
       observer.observe(buttonNode);
     }
 
-    return () => observer.disconnect();
-  }, [buttonNode]);
+    return () => {
+      observer?.disconnect();
+    };
+  }, [buttonNode, contactListCount]);
 
   function handleUpButtonClick(e) {
     e.preventDefault();
