@@ -21,4 +21,3 @@ This address book app contains contacts and their personal information. Users ar
 ## ERD
 
 ![Alt text](backend/drawSQL-phonebook-export-2023-10-31.png)
-gi
