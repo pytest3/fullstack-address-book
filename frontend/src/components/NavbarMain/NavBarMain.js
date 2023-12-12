@@ -10,6 +10,7 @@ export default function NavBarMain({
   isEdit,
   showContactsInNav,
   selectedCount,
+  setShowModal,
 }) {
   const [vibrate, setVibrate] = React.useState(false);
 
@@ -33,7 +34,6 @@ export default function NavBarMain({
       </div>
       <div className={styles.rightActions}>
         <button
-          form="edit-form"
           onClick={(e) => {
             if (selectedCount === 0) {
               e.preventDefault();
@@ -41,7 +41,9 @@ export default function NavBarMain({
               setTimeout(() => {
                 setVibrate(false);
               }, 550);
+              return;
             }
+            setShowModal(true);
           }}
           className={`${styles.trashIcon} ${vibrate && styles.vibrate}`}
         >
@@ -55,9 +57,9 @@ export default function NavBarMain({
         </button>
 
         <Link href="/new-contact">
-          <Plus className={`${styles.icon} ${styles.plusIcon}`} />
+          <Plus className={styles.icon} />
         </Link>
-        <UserCircle className={`${styles.icon} ${styles.userCircle}`} />
+        <UserCircle className={styles.icon} />
       </div>
     </NavBarWrapper>
   );

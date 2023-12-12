@@ -8,6 +8,7 @@ import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
 import { useHttp } from "@/hooks/useHttp";
+import Modal from "../Modal";
 
 export default function NameList({
   isEdit,
@@ -18,6 +19,8 @@ export default function NameList({
   updateContactListCount,
   toggleRefresh,
   searchTerm = "",
+  showModal,
+  setShowModal,
 }) {
   async function fetcher(...args) {
     const res = await fetch(...args, {
@@ -53,6 +56,10 @@ export default function NameList({
   );
   const [showButton, setShowButton] = React.useState(false);
   const [buttonNode, setButtonNode] = React.useState(null);
+
+  function handleCloseModal() {
+    setShowModal(false);
+  }
 
   let options = {
     root: null,
@@ -127,6 +134,7 @@ export default function NameList({
     toggleRefresh(crypto.randomUUID()); // to force client side re-render on form submit
     updateSelectedContacts([]); // to reset selected contacts as part of client side re-render
     toggleEdit(!isEdit);
+    handleCloseModal();
   }
 
   if (filteredContacts.length === 0) {
@@ -135,6 +143,18 @@ export default function NameList({
 
   return (
     <>
+      <Modal
+        title="Delete contact"
+        isOpen={showModal}
+        handleCloseModal={handleCloseModal}
+        description="Are you sure you want to delete the contact? This action cannot be undone."
+      >
+        <div className={styles.deleteButtonWrapper}>
+          <button className={styles.deleteContactButton} form={"edit-form"}>
+            Delete
+          </button>
+        </div>
+      </Modal>
       <form
         className={styles.nameListWrapper}
         id="edit-form"
@@ -188,23 +208,6 @@ export default function NameList({
             </div>
           );
         })}
-        {/* {isEdit && (
-          <button disabled={selectedCount === 0} className={styles.footer}>
-            <Trash2></Trash2>
-            <span>
-              Delete
-              {selectedCount > 1 ? (
-                <>
-                  <strong> {selectedCount}</strong> contacts
-                </>
-              ) : selectedCount === 1 ? (
-                <>
-                  <strong> {selectedCount}</strong> contact
-                </>
-              ) : null}
-            </span>
-          </button>
-        )} */}
         <button
           ref={buttonRef}
           className={styles.backToTopBtn}
