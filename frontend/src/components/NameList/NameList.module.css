@@ -23,7 +23,7 @@
 
 .name {
   line-height: 1;
-  align-self: end;
+  align-self: flex-end;
   font-weight: 500;
 }
 
@@ -98,3 +98,17 @@
 /* .pageWrapper {
   position: relative;
 } */
+
+.deleteButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteContactButton {
+  background-color: rgb(188, 71, 73);
+  color: white;
+  border-radius: 6px;
+  padding: 8px 24px;
+  border: none;
+}

@@ -13,6 +13,7 @@ export default function Home() {
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
   const [contactListCount, setContactListCount] = React.useState(0);
+  const [showModal, setShowModal] = React.useState(false);
 
   function toggleEdit() {
     setIsEdit(!isEdit);
@@ -55,6 +56,7 @@ export default function Home() {
         isEdit={isEdit}
         showContactsInNav={showContactsInNav}
         selectedCount={selectedCount}
+        setShowModal={setShowModal}
       ></NavBarMain>
       <SearchBar
         isEdit={isEdit}
@@ -74,6 +76,8 @@ export default function Home() {
         searchTerm={searchTerm}
         contactListCount={contactListCount}
         updateContactListCount={updateContactListCount}
+        showModal={showModal}
+        setShowModal={setShowModal}
       />
     </main>
   );

@@ -1,0 +1,44 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  height: 100%;
+  z-index: 1000;
+}
+
+.backDrop {
+  position: fixed;
+  background: hsl(0deg 0% 0% / 0.75);
+  inset: 0;
+}
+
+.dialog {
+  position: relative;
+  background: hsl(0, 0%, 100%);
+  width: 300px;
+  max-width: 85vw;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.closeButton {
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(-100%);
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  padding: 12px 0px;
+  cursor: pointer;
+}
+
+.modalTitle {
+  margin-bottom: 20px;
+}
+
+.modalDescription {
+  margin-bottom: 28px;
+}
