@@ -2,7 +2,7 @@
 
 ## Summary
 
-This address book app database that contains contacts and their personal information. Users are able to use react/nextjs ui to interact (create, retrive, update and delete contacts) directly with a postgres DB.
+This address book app contains contacts and their personal information. Users are able to use react/nextjs ui to interact (create, retrive, update and delete contacts) directly with a postgres DB.
 
 ## REST API
 
