@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
+const PORT = process.env.PORT || 3000;
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -41,7 +42,11 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(3000, () => {
+app.listen(PORT, (err) => {
+  if (err) {
+    console.log("Error listening: ", err);
+    return;
+  }
   console.log(`Example app listening on port ${3000}`);
 });
 

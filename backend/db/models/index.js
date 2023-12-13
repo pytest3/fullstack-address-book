@@ -5,16 +5,45 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const process = require("process");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "development"; // fallback to production environment
 const config = require(__dirname + "/../../config/database.js")[env];
 const db = {};
 
+require("dotenv").config();
+// imports environment variables from .env file and exposes them via the process.env object
+
 let sequelize;
 
-if (config.use_env_variable) {
+// create a new Sequelize instance to connect to sequelize
+/* 
+  new Sequelize constructor accepts the following:
+  new Sequelize(
+    database: string, 
+    username: string, 
+    password: string, 
+    options: object) 
+*/
+
+if (process.env.DATABASE_URL) {
+  // not sure why DATABASE_URL is never used....
+  sequelize = new Sequelize(
+    process.env.DATABASE,
+    process.env.USERNAME,
+    process.env.PASSWORD,
+    {
+      host: process.env.HOST,
+      dialect: process.env.DIALECT,
+    }
+  );
+} else if (config.use_env_variable) {
+  // check if config object has a use_env_variable property set
+  // config object is set to production object as per lines 8 and 9 above
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
+  console.log(config);
+
   sequelize = new Sequelize(
+    // passing params separately to connect to db
     config.database,
     config.username,
     config.password,

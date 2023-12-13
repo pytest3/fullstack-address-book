@@ -18,7 +18,7 @@ module.exports = {
           model: "contact",
           key: "id",
         },
-        unique: true,
+        // unique: true,
       },
       company_name: {
         type: Sequelize.STRING,
