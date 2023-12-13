@@ -14,7 +14,7 @@ module.exports = {
       },
       {
         phone_number: 98776838,
-        contact_id: 1,
+        contact_id: 2,
       },
     ]);
   },

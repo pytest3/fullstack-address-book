@@ -121,21 +121,13 @@ export default function Page({ params }) {
           </div>
           <div className={styles.jobInfo}>
             <span className={styles.jobText}>
-              {role}
+              {capitalizeFirstLetter(role)}
               {!role || !company_name ? " " : ", "}
-              {company_name}
+              {capitalizeFirstLetter(company_name)}
             </span>
           </div>
         </div>
       </div>
-
-      {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
-        <path
-          fill="var(--color-gray-2)"
-          fillOpacity="1"
-          d="M0,128L60,144C120,160,240,192,360,192C480,192,600,160,720,128C840,96,960,64,1080,53.3C1200,43,1320,53,1380,58.7L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
-        ></path>
-      </svg> */}
 
       <main className={styles.whiteBG}>
         <section className={styles.section}>
@@ -169,15 +161,19 @@ export default function Page({ params }) {
             );
           })}
         </section>
-        {is_employed === "employed" && (
-          <section className={styles.section}>
-            <Briefcase className={styles.icon} />
-            <div className={styles.row}>
-              <span>{company_industry}</span>
-              <span className={styles.smallText}>Job industry</span>
-            </div>
-          </section>
-        )}
+        <section className={styles.section}>
+          <Briefcase className={styles.icon} />
+          <div className={styles.row}>
+            {is_employed === "employed  " ? (
+              <>
+                <span>{company_industry}</span>
+                <span className={styles.smallText}>Job industry</span>
+              </>
+            ) : (
+              "Unemployed"
+            )}
+          </div>
+        </section>
         <section className={styles.section}>
           <Heart className={styles.icon} />
           <div className={styles.row}>
@@ -226,9 +222,7 @@ export default function Page({ params }) {
             return (
               <div key={idx} className={`${className} ${styles.row}`}>
                 <span>{category_name}</span>
-                <span className={styles.smallText}>
-                  Contact category {idx + 1}
-                </span>
+                <span className={styles.smallText}>Contact category</span>
               </div>
             );
           })}

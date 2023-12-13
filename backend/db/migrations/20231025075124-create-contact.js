@@ -27,11 +27,11 @@ module.exports = {
         allowNull: false,
       },
       is_parent: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       is_employed: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {
