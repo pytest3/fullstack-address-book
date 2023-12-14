@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "@/app/constants";
 import useSWR from "swr";
 
 export default function useUser(id) {
@@ -19,7 +20,7 @@ export default function useUser(id) {
     }
   }
   const { data, error, isLoading, mutate } = useSWR(
-    `http://localhost:3000/api/contacts/${id}`,
+    `${BACKEND_URL}/api/contacts/${id}`,
     fetcher
   );
 

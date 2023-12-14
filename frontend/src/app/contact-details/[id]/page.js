@@ -16,6 +16,7 @@ import useSWR from "swr";
 import NavBarDetails from "@/components/NavBarDetails";
 import InitialsAvatar from "@/components/InitialsAvatar";
 import { capitalizeFirstLetter } from "@/utils";
+import { BACKEND_URL } from "@/app/constants";
 
 export default function Page({ params }) {
   const { id } = params;
@@ -35,7 +36,7 @@ export default function Page({ params }) {
     });
 
   const { data, error, isLoading } = useSWR(
-    `http://localhost:3000/api/contacts/${id}`,
+    `${BACKEND_URL}/api/contacts/${id}`,
     fetcher
   );
 
