@@ -9,6 +9,7 @@ import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
 import { useHttp } from "@/hooks/useHttp";
 import Modal from "../Modal";
+import { BACKEND_URL } from "@/app/constants";
 
 export default function NameList({
   isEdit,
@@ -41,7 +42,7 @@ export default function NameList({
   }
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:3000/api/contacts",
+    `${BACKEND_URL}/api/contacts`,
     fetcher
   );
 
@@ -51,9 +52,7 @@ export default function NameList({
       contact.last_name.includes(searchTerm)
   );
 
-  const { sendRequest, response } = useHttp(
-    "http://localhost:3000/api/contacts"
-  );
+  const { sendRequest, response } = useHttp(`${BACKEND_URL}/api/contacts`);
   const [showButton, setShowButton] = React.useState(false);
   const [buttonNode, setButtonNode] = React.useState(null);
 

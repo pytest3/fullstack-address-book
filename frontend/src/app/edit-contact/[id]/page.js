@@ -26,13 +26,14 @@ import NameProvider from "@/components/EditContactForm/NameProvider";
 import NameFieldInput from "@/components/EditContactForm/NameFieldInput";
 import ConditionalEmploymentField from "@/components/EditContactForm/ConditionalEmploymentField";
 import ConditionalParentField from "@/components/EditContactForm/ConditionalParentField";
+import { BACKEND_URL } from "@/app/constants";
 export default function Page() {
   const isRequired = true;
   const router = useRouter();
   const { id } = useParams();
 
   const { isError: isUpdateError, sendRequest } = useHttp(
-    `http://localhost:3000/api/contacts/${id}`
+    `${BACKEND_URL}/contacts/${id}`
   );
   const { isLoading, user, isError } = useUser(id);
   const [fetchedUser, setFetchedUser] = React.useState({});
@@ -140,7 +141,7 @@ export default function Page() {
           icon={Briefcase}
           name="isEmployed"
           fetchedData={{
-          ...fetchedUser.employment_detail,
+            ...fetchedUser.employment_detail,
             employmentStatus: fetchedUser.is_employed,
           }}
           required={isRequired}

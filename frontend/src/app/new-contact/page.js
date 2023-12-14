@@ -20,6 +20,7 @@ import NavBarForm from "@/components/NavBarForm";
 import InitialsAvatar from "@/components/InitialsAvatar";
 import { useHttp } from "@/hooks/useHttp";
 import { useRouter } from "next/navigation";
+import { BACKEND_URL } from "../constants";
 
 export default function Page() {
   const isRequired = true;
@@ -27,7 +28,7 @@ export default function Page() {
   const router = useRouter();
 
   const { isLoading, isError, sendRequest } = useHttp(
-    "http://localhost:3000/api/contacts"
+    `${BACKEND_URL}/api/contacts`
   );
 
   const [name, setName] = React.useState({ firstName: "", lastName: "" });
