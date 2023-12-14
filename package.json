@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@headlessui/react": "^0.0.0-insiders.c2096b0"
-  },
-  "devDependencies": {
-    "eslint": "^8.55.0"
-  }
-}
