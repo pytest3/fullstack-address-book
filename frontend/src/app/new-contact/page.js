@@ -127,7 +127,10 @@ export default function Page() {
     }
 
     const createdUser = await sendRequest("POST", reqBody);
-    router.push(`/contact-details/${createdUser.id}`);
+
+    console.log(createdUser);
+
+    router.push(`/contact-details/${createdUser?.id}`);
   }
 
   if (isLoading) {

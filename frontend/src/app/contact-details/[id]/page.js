@@ -67,24 +67,24 @@ export default function Page({ params }) {
 
   const [fontColor, setFontColor] = React.useState("black");
 
-  let observer = new IntersectionObserver((entries, observer) => {
-    const [entry] = entries;
-    entry.target.style.opacity = entry.intersectionRatio;
-    if (entry.intersectionRatio > 0.2) {
-      setShowNameInNav(false);
-      setNameInNavOpacity(entry.intersectionRatio);
-    } else {
-      setShowNameInNav(true);
-      entry.target.style.opacity = 0;
-    }
-  }, options);
-
   React.useEffect(() => {
     const target = targetElement.current;
 
     if (!target) {
       return;
     }
+
+    let observer = new IntersectionObserver((entries, observer) => {
+      const [entry] = entries;
+      entry.target.style.opacity = entry.intersectionRatio;
+      if (entry.intersectionRatio > 0.2) {
+        setShowNameInNav(false);
+        setNameInNavOpacity(entry.intersectionRatio);
+      } else {
+        setShowNameInNav(true);
+        entry.target.style.opacity = 0;
+      }
+    }, options);
     observer.observe(target);
     return () => observer.unobserve(target);
   }, [isLoading]);

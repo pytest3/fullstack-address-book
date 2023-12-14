@@ -267,61 +267,6 @@ async function deleteContact(req, res) {
   }
 }
 
-function deleteOne(req, res) {
-  const { userId } = req.params;
-
-  db.contact
-    .findByPk(userId)
-    .then((userInstance) => {
-      return Promise.all([
-        userInstance.getEmployment_detail().then((employmentInstance) => {
-          employmentInstance.destroy();
-        }),
-        userInstance
-          .getParenthood_detail()
-          .then((parentHoodInstance) => parentHoodInstance.destroy()),
-
-        userInstance.getEmails().then((emailInstances) => {
-          emailInstances.map((emailInstance) => {
-            emailInstance.destroy();
-          });
-        }),
-
-        userInstance.getContact_phone_numbers().then((numberInstances) => {
-          numberInstances.map((numberInstance) => {
-            return numberInstance.destroy();
-          });
-        }),
-
-        userInstance.getCategories().then((categoryInstances) => {
-          categoryInstances.map((categoryInstance) => {
-            return categoryInstance.destroy();
-          });
-        }),
-
-        userInstance.getHobbies().then((hobbyInstances) => {
-          hobbyInstances.map((hobbyInstance) => {
-            return hobbyInstance.destroy();
-          });
-        }),
-
-        userInstance.destroy(),
-      ]);
-    })
-    .then((done) => {
-      res.send("Contact deleted");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(err.status || 500).send({
-        status: "error",
-        error: {
-          message: err.message || "cannot delete contact",
-        },
-      });
-    });
-}
-
 function findByName(req, res) {
   const { first_name } = req.params;
   db.contact
@@ -433,6 +378,61 @@ async function addOne(req, res) {
   }
 }
 
+// function deleteOne(req, res) {
+//   const { userId } = req.params;
+
+//   db.contact
+//     .findByPk(userId)
+//     .then((userInstance) => {
+//       return Promise.all([
+//         userInstance.getEmployment_detail().then((employmentInstance) => {
+//           employmentInstance.destroy();
+//         }),
+//         userInstance
+//           .getParenthood_detail()
+//           .then((parentHoodInstance) => parentHoodInstance.destroy()),
+
+//         userInstance.getEmails().then((emailInstances) => {
+//           emailInstances.map((emailInstance) => {
+//             emailInstance.destroy();
+//           });
+//         }),
+
+//         userInstance.getContact_phone_numbers().then((numberInstances) => {
+//           numberInstances.map((numberInstance) => {
+//             return numberInstance.destroy();
+//           });
+//         }),
+
+//         userInstance.getCategories().then((categoryInstances) => {
+//           categoryInstances.map((categoryInstance) => {
+//             return categoryInstance.destroy();
+//           });
+//         }),
+
+//         userInstance.getHobbies().then((hobbyInstances) => {
+//           hobbyInstances.map((hobbyInstance) => {
+//             return hobbyInstance.destroy();
+//           });
+//         }),
+
+//         userInstance.destroy(),
+//       ]);
+//     })
+//     .then((done) => {
+//       res.send("Contact deleted");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(err.status || 500).send({
+//         status: "error",
+//         error: {
+//           message: err.message || "cannot delete contact",
+//         },
+//       });
+//     });
+// }
+
 module.exports = {
   findAll,
   findByName,
@@ -440,6 +440,5 @@ module.exports = {
   deleteAll,
   addOne,
   updateAll,
-  deleteOne,
   deleteContact,
 };
