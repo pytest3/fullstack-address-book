@@ -17,7 +17,7 @@ module.exports = {
           key: "id",
         },
         // foreignKey: true,
-        unique: true,
+        // unique: true,
       },
       son_count: {
         type: Sequelize.INTEGER,

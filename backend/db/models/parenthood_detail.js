@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       daughter_count: { type: DataTypes.INTEGER, allowNull: false },
       contact_id: {
         type: DataTypes.INTEGER,
-        // foreignKey: true,
         references: {
           model: "contact",
           key: "id",
         },
-        unique: true,
+        // foreignKey: true,
+        // unique: true,
       },
     },
     { freezeTableName: true, underscored: true }

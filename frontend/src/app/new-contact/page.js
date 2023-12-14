@@ -107,8 +107,8 @@ export default function Page() {
       last_name: data.get("lastName"),
       birthday: data.get("birthday"),
       marital_status: data.get("maritalStatus"),
-      is_employed: data.get("isEmployed"),
-      is_parent: data.get("isParent"),
+      is_employed: data.get("isEmployed"), // employed or unemployed
+      is_parent: data.get("isParent"), //parent or notParent
       phone_number: data.getAll("phone"),
       son_count: data.get("isParent") !== "parent" ? 0 : data.get("sonCount"),
       daughter_count:
