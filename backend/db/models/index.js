@@ -1,15 +1,15 @@
 "use strict";
+require("dotenv").config();
 
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const process = require("process");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development"; // fallback to production environment
+const env = process.env.NODE_ENV;
 const config = require(__dirname + "/../../config/database.js")[env];
 const db = {};
 
-require("dotenv").config();
 // imports environment variables from .env file and exposes them via the process.env object
 
 let sequelize;
@@ -25,7 +25,7 @@ let sequelize;
 */
 
 if (process.env.DATABASE_URL) {
-  // not sure why DATABASE_URL is never used....
+  // not sure why but DATABASE_URL is never used....
   sequelize = new Sequelize(
     process.env.DATABASE,
     process.env.USERNAME,
@@ -40,8 +40,6 @@ if (process.env.DATABASE_URL) {
   // config object is set to production object as per lines 8 and 9 above
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  console.log(config);
-
   sequelize = new Sequelize(
     // passing params separately to connect to db
     config.database,
