@@ -129,6 +129,7 @@ export default function Page() {
     const createdUser = await sendRequest("POST", reqBody);
 
     console.log(createdUser);
+    console.log("here");
 
     router.push(`/contact-details/${createdUser?.id}`);
   }

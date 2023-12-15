@@ -76,6 +76,7 @@ export default function Page() {
 
     console.log(reqBody);
     const createdUser = await sendRequest("PUT", reqBody);
+
     // console.log("here");
     // console.log(createdUser);
 
