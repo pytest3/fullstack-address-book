@@ -214,10 +214,14 @@ function deleteAll(req, res) {
 
 async function deleteContact(req, res) {
   console.log("delete controller ran");
-  try {
-    const contactIds = req.body;
 
-    console.log("contactIds: ", req.body);
+  const { userId } = req.params;
+
+  console.log(userId);
+  console.log(typeof userId);
+
+  try {
+    const contactIds = userId;
 
     await db.sequelize.transaction(async (t) => {
       for (const contactId of contactIds) {

@@ -39,6 +39,8 @@ export function useHttp(url) {
     response: null,
   });
 
+  console.log(url);
+
   async function sendRequest(method = "GET", body) {
     const options = {
       method: method,

@@ -23,6 +23,8 @@ export default function NameList({
   showModal,
   setShowModal,
 }) {
+  console.log(selectedContacts);
+  console.log(typeof selectedContacts);
   async function fetcher(...args) {
     const res = await fetch(...args, {
       headers: { Accept: "application/json" },
@@ -52,7 +54,9 @@ export default function NameList({
       contact.last_name.includes(searchTerm)
   );
 
-  const { sendRequest, response } = useHttp(`${BACKEND_URL}/api/contacts`);
+  const { sendRequest, response } = useHttp(
+    `${BACKEND_URL}/api/contacts/${selectedContacts}`
+  );
   const [showButton, setShowButton] = React.useState(false);
   const [buttonNode, setButtonNode] = React.useState(null);
 

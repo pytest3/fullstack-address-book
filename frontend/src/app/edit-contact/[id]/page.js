@@ -46,10 +46,6 @@ export default function Page() {
     setFetchedUser(user);
   }, [user]);
 
-  console.log(user);
-
-  // const [name, setName] = React.useState({ firstName: "", lastName: "" });
-
   async function handleFormSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
