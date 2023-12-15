@@ -76,7 +76,7 @@ export default function Page() {
     // console.log("here");
     // console.log(createdUser);
 
-    // const { id } = createdUser;
+    const { id } = createdUser;
     router.push(`/contact-details/${id}`);
   }
   if (isError) {

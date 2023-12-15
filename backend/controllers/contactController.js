@@ -44,6 +44,7 @@ function findById(req, res) {
 }
 
 function updateAll(req, res) {
+  console.log("update controller ran");
   const { userId } = req.params;
   db.sequelize.transaction((t) => {
     return db.contact
