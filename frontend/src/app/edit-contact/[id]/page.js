@@ -76,8 +76,8 @@ export default function Page() {
     // console.log("here");
     // console.log(createdUser);
 
-    const { id } = createdUser;
-    router.push(`/contact-details/${id}`);
+    // const { id } = createdUser;
+    router.push(`/contact-details/${createdUser?.id}`);
   }
   if (isError) {
     return <div>Unable to load user</div>;
