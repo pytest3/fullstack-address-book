@@ -71,18 +71,9 @@ export default function Page() {
       hobby_name: data.getAll("hobby"),
       category: data.getAll("category"),
     };
-    // for (const pair of data.entries()) {
-    //   console.log(`${pair[0]}, ${pair[1]}`);
-    // }
-
-    console.log(reqBody);
-    const createdUser = await sendRequest("PUT", reqBody);
-
-    console.log("here");
-    console.log(createdUser);
-
-    const { id } = createdUser;
-    router.push(`/contact-details/${createdUser.id}`);
+    await sendRequest("PUT", reqBody);
+    const { id } = user;
+    router.push(`/contact-details/${id}`);
   }
   if (isError) {
     return <div>Unable to load user</div>;

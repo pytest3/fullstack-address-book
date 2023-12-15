@@ -57,7 +57,12 @@ export function useHttp(url) {
     try {
       dispatch({ type: "loading" });
 
-      console.log("url: ", url);
+      console.log(
+        "sending fetch request to url: ",
+        url,
+        "with method as: ",
+        method
+      );
       const response = await fetch(url, options);
 
       if (!response.ok) {
