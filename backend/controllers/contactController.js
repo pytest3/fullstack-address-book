@@ -210,6 +210,7 @@ function deleteAll(req, res) {
 }
 
 async function deleteContact(req, res) {
+  console.log("delete controller ran");
   try {
     const contactIds = req.body;
 
