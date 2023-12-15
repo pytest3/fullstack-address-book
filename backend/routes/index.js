@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router(); // gets an instance of express router
 const controllers = require("../controllers");
-
+import { BACKEND_URL } from "@/app/constants";
 const { contactController } = controllers;
 
 /* GET home page. */
@@ -17,7 +17,7 @@ router.delete("/api/contacts", contactController.deleteContact);
 
 router.get("/api/contacts/:id", contactController.findById);
 router.delete("/api/contacts/delete-all", contactController.deleteAll);
-router.delete("/test", contactController.test);
+router.delete(`${BACKEND_URL}/test`, contactController.test);
 /*Unused*/
 // router.delete("/api/contacts", contactController.deleteContact);
 // router.get("/api/contacts/:first_name", contactController.findByName);
