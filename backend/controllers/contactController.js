@@ -4,6 +4,10 @@ const db = require("../db/models");
 const { Op } = require("sequelize");
 import { useParams } from "next/navigation";
 
+function test(req, res) {
+  res.send("hi");
+}
+
 function findAll(req, res) {
   console.log("findAll controller ran");
 

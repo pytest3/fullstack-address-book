@@ -17,7 +17,7 @@ router.delete("/api/contacts", contactController.deleteContact);
 
 router.get("/api/contacts/:id", contactController.findById);
 router.delete("/api/contacts/delete-all", contactController.deleteAll);
-
+router.get("/test", contactController.test);
 /*Unused*/
 // router.delete("/api/contacts", contactController.deleteContact);
 // router.get("/api/contacts/:first_name", contactController.findByName);
