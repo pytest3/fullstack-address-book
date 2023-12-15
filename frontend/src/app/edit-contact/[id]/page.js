@@ -78,11 +78,11 @@ export default function Page() {
     console.log(reqBody);
     const createdUser = await sendRequest("PUT", reqBody);
 
-    // console.log("here");
-    // console.log(createdUser);
+    console.log("here");
+    console.log(createdUser);
 
-    // const { id } = createdUser;
-    router.push(`/contact-details/${createdUser?.id}`);
+    const { id } = createdUser;
+    router.push(`/contact-details/${createdUser.id}`);
   }
   if (isError) {
     return <div>Unable to load user</div>;
