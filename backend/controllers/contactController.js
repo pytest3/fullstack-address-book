@@ -2,6 +2,8 @@ const db = require("../db/models");
 const { Op } = require("sequelize");
 
 function findAll(req, res) {
+  console.log("findAll controller ran");
+
   db.contact
     .findAll({
       include: [db.email, db.contact_phone_number, db.employment_detail],
@@ -286,6 +288,8 @@ function findByName(req, res) {
 }
 
 async function addOne(req, res) {
+  console.log("addOne controller ran");
+
   try {
     const result = await db.sequelize.transaction(async (t) => {
       const existingContact = await db.contact.findOne({
