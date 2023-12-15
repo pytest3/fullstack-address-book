@@ -12,12 +12,14 @@ router.get("/", function (req, res, next) {
 /* Contact router */
 router.get("/api/contacts", contactController.findAll);
 router.post("/api/contacts", contactController.addOne);
-router.delete("/api/contacts", contactController.deleteContact);
 router.put("/api/contacts/:userId", contactController.updateAll);
+router.delete("/api/contacts/:userId", contactController.deleteContact);
+
 router.get("/api/contacts/:id", contactController.findById);
 router.delete("/api/contacts/delete-all", contactController.deleteAll);
 
 /*Unused*/
+// router.delete("/api/contacts", contactController.deleteContact);
 // router.get("/api/contacts/:first_name", contactController.findByName);
 // router.get("/api/test", contactController.testQuery);
 

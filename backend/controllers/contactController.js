@@ -1,5 +1,8 @@
+"use client";
+
 const db = require("../db/models");
 const { Op } = require("sequelize");
+import { useParams } from "next/navigation";
 
 function findAll(req, res) {
   console.log("findAll controller ran");
@@ -213,9 +216,10 @@ function deleteAll(req, res) {
 }
 
 async function deleteContact(req, res) {
-  console.log("OMGGGGGGGGGG");
   try {
     const contactIds = req.body;
+
+    // const contactIDs = useParams();
 
     await db.sequelize.transaction(async (t) => {
       for (const contactId of contactIds) {
