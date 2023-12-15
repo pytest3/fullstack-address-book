@@ -69,7 +69,7 @@ export function useHttp(url) {
 
       if (!response.ok) {
         dispatch({ type: "error" });
-        throw new Error("Network response was not OK");
+        throw new Error("Network response was not OK", `${url}`);
       }
 
       const data = await response.json();
