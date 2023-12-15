@@ -32,9 +32,12 @@ export default function Page() {
   const router = useRouter();
   const { id } = useParams();
 
-  const { isError: isUpdateError, sendRequest } = useHttp(
-    `${BACKEND_URL}/contacts/${id}`
-  );
+  const {
+    isError: isUpdateError,
+    isPending: isUpdatePending,
+    isLoading: isUpdateLoading,
+    sendRequest,
+  } = useHttp(`${BACKEND_URL}/contacts/${id}`);
   const { isLoading, user, isError } = useUser(id);
   const [fetchedUser, setFetchedUser] = React.useState({});
 
@@ -82,7 +85,13 @@ export default function Page() {
   if (isError) {
     return <div>Unable to load user</div>;
   }
-  if (isLoading || !fetchedUser || !user) {
+  if (
+    isLoading ||
+    !fetchedUser ||
+    !user ||
+    isUpdateLoading ||
+    isUpdatePending
+  ) {
     return <div>Loading....</div>;
   }
 
