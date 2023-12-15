@@ -54,6 +54,8 @@ export function useHttp(url) {
       options.body = JSON.stringify(body);
     }
 
+    console.log(body);
+
     dispatch({ type: "pending" });
 
     try {
