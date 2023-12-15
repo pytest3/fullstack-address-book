@@ -1,4 +1,4 @@
 export const BACKEND_URL =
   process.env.NODE_ENV === "production"
-    ? "https://addressbookapp-holy-violet-9908.fly.dev"
+    ? "https://fullstack-address-book.vercel.app"
     : "http://localhost:3000";
