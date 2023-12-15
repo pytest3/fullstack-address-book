@@ -5,7 +5,8 @@ const { Op } = require("sequelize");
 import { useParams } from "next/navigation";
 
 function test(req, res) {
-  res.send("hi");
+  console.log("testtest");
+  res.send("testtest");
 }
 
 function findAll(req, res) {
@@ -455,4 +456,5 @@ module.exports = {
   addOne,
   updateAll,
   deleteContact,
+  test,
 };
