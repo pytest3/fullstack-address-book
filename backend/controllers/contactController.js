@@ -213,6 +213,7 @@ function deleteAll(req, res) {
 }
 
 async function deleteContact(req, res) {
+  console.log("OMGGGGGGGGGG");
   try {
     const contactIds = req.body;
 
