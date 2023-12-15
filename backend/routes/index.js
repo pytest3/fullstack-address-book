@@ -6,7 +6,7 @@ const { contactController } = controllers;
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  return res.send("hello homepage");
+  return res.send("hello homepage!");
 });
 
 /* Contact router */
