@@ -37,7 +37,8 @@ export default function Page() {
     isPending: isUpdatePending,
     isLoading: isUpdateLoading,
     sendRequest,
-  } = useHttp(`${BACKEND_URL}/contacts/${id}`);
+  } = useHttp(`${BACKEND_URL}/api/contacts/${id}`);
+
   const { isLoading, user, isError } = useUser(id);
   const [fetchedUser, setFetchedUser] = React.useState({});
 
