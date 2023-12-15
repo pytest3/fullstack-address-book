@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 
 function test(req, res) {
   console.log("testtest");
-  res.send("testtest");
+  return res.send("testtest");
 }
 
 function findAll(req, res) {
