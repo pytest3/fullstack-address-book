@@ -57,6 +57,7 @@ export function useHttp(url) {
     try {
       dispatch({ type: "loading" });
 
+      console.log("url: ", url);
       const response = await fetch(url, options);
 
       if (!response.ok) {
