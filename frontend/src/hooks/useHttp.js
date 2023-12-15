@@ -69,9 +69,9 @@ export function useHttp(url) {
 
       if (!response.ok) {
         dispatch({ type: "error" });
-        // throw new Error(
-        //   `Network response was not OK at ${url}, with method ${method}`
-        // );
+        throw new Error(
+          `Network response was not OK at ${url}, with method ${method}`
+        );
       }
 
       const data = await response.json();
