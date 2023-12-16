@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router(); // gets an instance of express router
 const controllers = require("../controllers");
-import { BACKEND_URL } from "@/app/constants";
 const { contactController } = controllers;
 
 /* GET home page. */
