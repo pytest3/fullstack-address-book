@@ -27,6 +27,7 @@ export default function Page() {
   const isRequired = true;
 
   const birthdayRef = React.useRef();
+  const testBirthdayRef = React.useRef();
 
   const router = useRouter();
 
@@ -193,6 +194,7 @@ export default function Page() {
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
           <input
+            ref={birthdayRef}
             className={styles.birthdayInput}
             name="birthday"
             placeholder="Add Birthday"
@@ -221,12 +223,12 @@ export default function Page() {
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
           <input
-            ref={birthdayRef}
+            ref={testBirthdayRef}
             className={styles.testBirthdaySection}
             placeholder="Add birthday"
             type="date"
-            onFocus={() => (ref.current.type = "date")}
-            onBlur={() => (ref.current.type = "date")}
+            onFocus={() => (testBirthdayRef.current.type = "date")}
+            onBlur={() => (testBirthdayRef.current.type = "date")}
           />
         </section>
 
