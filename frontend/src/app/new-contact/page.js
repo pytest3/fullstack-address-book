@@ -50,6 +50,8 @@ export default function Page() {
     { id: crypto.randomUUID(), category: "" },
   ]);
 
+  const [birthdayInputType, setBirthdayInputType] = React.useState("text");
+
   const [birthday, setBirthday] = React.useState("");
   const [employmentStatus, setEmploymentStatus] = React.useState({
     status: "",
@@ -205,6 +207,15 @@ export default function Page() {
             id="date"
             required={isRequired}
           ></input>
+        </section>
+        <section className={styles.birthdaySection}>
+          <Cake className={styles.icon} />
+          <input
+            placeholder="Add birthday"
+            type={birthdayInputType}
+            onFocus={() => setBirthdayInputType("date")}
+            onBlur={() => setBirthdayInputType("text")}
+          />
         </section>
 
         {/* <section className={styles.birthdaySection}>
