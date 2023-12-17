@@ -218,6 +218,10 @@ export default function Page() {
             onBlur={() => setBirthdayInputType("text")}
           />
         </section>
+        <section className={styles.birthdaySection}>
+          <Cake className={styles.icon} />
+          <input placeholder="Add birthday" type="date" />
+        </section>
 
         {/* <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
