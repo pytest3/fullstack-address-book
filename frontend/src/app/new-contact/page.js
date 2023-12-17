@@ -193,12 +193,12 @@ export default function Page() {
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
           <input
-            ref={birthdayRef}
             className={styles.birthdayInput}
             name="birthday"
             placeholder="Add Birthday"
             type="text"
             onFocus={(e) => (birthdayRef.current.type = "date")}
+            onMouseOver={(e) => (birthdayRef.current.type = "date")}
             onBlur={(e) => (birthdayRef.current.type = "text")}
             onChange={(e) => {
               setBirthday(e.target.value);
@@ -220,7 +220,14 @@ export default function Page() {
         </section>
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
-          <input placeholder="Add birthday" type="date" />
+          <input
+            ref={birthdayRef}
+            className={styles.testBirthdaySection}
+            placeholder="Add birthday"
+            type="date"
+            onFocus={() => (ref.current.type = "date")}
+            onBlur={() => (ref.current.type = "date")}
+          />
         </section>
 
         {/* <section className={styles.birthdaySection}>

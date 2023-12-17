@@ -41,7 +41,6 @@
 }
 
 .birthdaySection {
-  border: 1px solid red;
 }
 
 .birthdayInput {
@@ -50,6 +49,10 @@
   height: 2rem;
 }
 
+.testBirthdaySection {
+  -webkit-appearance: none;
+  border: 1px solid red;
+}
 .maritalStatus {
   border: none;
   width: 100%;
