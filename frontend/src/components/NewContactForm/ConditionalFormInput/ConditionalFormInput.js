@@ -24,7 +24,7 @@ export default function ConditionalFormInput({
           setInputs({ ...inputs, status: e.target.value });
         }}
         style={{
-          color: inputs.status === "" ? "grey" : "black",
+          color: inputs.status === "" ? "#D3D3D3" : "black",
         }}
         {...props}
       >

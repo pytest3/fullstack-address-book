@@ -271,7 +271,7 @@ export default function Page() {
             className={styles.maritalStatus}
             onChange={(e) => setMaritalStatus(e.target.value)}
             required={isRequired}
-            style={{ color: maritalStatus === "" ? "grey" : "black" }}
+            style={{ color: maritalStatus === "" ? "#D3D3D3" : "black" }}
           >
             <option value="" disabled>
               Add marital status
