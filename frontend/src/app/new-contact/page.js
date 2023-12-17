@@ -200,7 +200,7 @@ export default function Page() {
             placeholder="Add Birthday"
             type="text"
             onFocus={(e) => (birthdayRef.current.type = "date")}
-            onMouseOver={(e) => (birthdayRef.current.type = "date")}
+            // onMouseOver={(e) => (birthdayRef.current.type = "date")}
             onBlur={(e) => (birthdayRef.current.type = "text")}
             onChange={(e) => {
               setBirthday(e.target.value);
@@ -210,37 +210,6 @@ export default function Page() {
             required={isRequired}
           ></input>
         </section>
-        <section className={styles.birthdaySection}>
-          <Cake className={styles.icon} />
-          <input
-            className={styles.birthdayInput}
-            placeholder="Add birthday"
-            type={birthdayInputType}
-            onFocus={() => setBirthdayInputType("date")}
-            onBlur={() => setBirthdayInputType("text")}
-          />
-        </section>
-        <section className={styles.birthdaySection}>
-          <Cake className={styles.icon} />
-          <input
-            ref={testBirthdayRef}
-            className={styles.testBirthdaySection}
-            placeholder="Add birthday"
-            type="date"
-            onFocus={() => (testBirthdayRef.current.type = "date")}
-            onBlur={() => (testBirthdayRef.current.type = "date")}
-          />
-        </section>
-
-        {/* <section className={styles.birthdaySection}>
-          <Cake className={styles.icon} />
-          <DatePicker
-            selected={birthday}
-            onChange={(date) => setBirthday(date)}
-            disabledKeyboardNavigation
-            placeholderText="This has disabled keyboard navigation"
-          />
-        </section> */}
 
         <MultiLineFormInput
           icon={Mail}
