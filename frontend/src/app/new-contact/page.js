@@ -200,7 +200,7 @@ export default function Page() {
             placeholder="Add Birthday"
             type="text"
             onFocus={(e) => (birthdayRef.current.type = "date")}
-            // onMouseOver={(e) => (birthdayRef.current.type = "date")}
+            onMouseOver={(e) => (birthdayRef.current.type = "date")}
             onBlur={(e) => (birthdayRef.current.type = "text")}
             onChange={(e) => {
               setBirthday(e.target.value);
@@ -210,6 +210,16 @@ export default function Page() {
             required={isRequired}
           ></input>
         </section>
+
+        {/* <section className={styles.birthdaySection}>
+          <Cake className={styles.icon} />
+          <DatePicker
+            selected={birthday}
+            onChange={(date) => setBirthday(date)}
+            disabledKeyboardNavigation
+            placeholderText="This has disabled keyboard navigation"
+          />
+        </section> */}
 
         <MultiLineFormInput
           icon={Mail}
