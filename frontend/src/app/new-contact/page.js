@@ -211,6 +211,7 @@ export default function Page() {
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
           <input
+            className={styles.birthdayInput}
             placeholder="Add birthday"
             type={birthdayInputType}
             onFocus={() => setBirthdayInputType("date")}
