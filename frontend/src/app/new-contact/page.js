@@ -26,6 +26,8 @@ import { BACKEND_URL } from "../constants";
 export default function Page() {
   const isRequired = true;
 
+  const birthdayRef = React.useRef();
+
   const router = useRouter();
 
   const { isLoading, isError, sendRequest } = useHttp(
@@ -189,12 +191,13 @@ export default function Page() {
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
           <input
+            ref={birthdayRef}
             className={styles.birthdayInput}
             name="birthday"
             placeholder="Add Birthday"
             type="text"
-            onFocus={(e) => (e.target.type = "date")}
-            onBlur={(e) => (e.target.type = "text")}
+            onFocus={(e) => (birthdayRef.current.type = "date")}
+            onBlur={(e) => (birthdayRef.current.type = "text")}
             onChange={(e) => {
               setBirthday(e.target.value);
             }}
