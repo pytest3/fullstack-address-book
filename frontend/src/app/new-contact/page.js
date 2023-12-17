@@ -26,8 +26,8 @@ import { BACKEND_URL } from "../constants";
 export default function Page() {
   const isRequired = true;
 
-  const birthdayRef = React.useRef();
-  const testBirthdayRef = React.useRef();
+  const birthdayRef = React.useRef("text");
+  const testBirthdayRef = React.useRef("text");
 
   const router = useRouter();
 
