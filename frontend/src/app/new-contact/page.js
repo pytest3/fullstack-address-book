@@ -14,6 +14,7 @@ import {
   Baby,
 } from "lucide-react";
 
+import DatePicker from "react-datepicker";
 import MultiLineFormInput from "@/components/NewContactForm/MultiLineFormInput";
 import ConditionalFormInput from "@/components/NewContactForm/ConditionalFormInput";
 import NavBarForm from "@/components/NavBarForm";
@@ -47,6 +48,7 @@ export default function Page() {
     { id: crypto.randomUUID(), category: "" },
   ]);
 
+  const [birthday, setBirthday] = React.useState("");
   const [employmentStatus, setEmploymentStatus] = React.useState({
     status: "",
     organization: null,
@@ -192,10 +194,24 @@ export default function Page() {
             type="text"
             onFocus={(e) => (e.target.type = "date")}
             onBlur={(e) => (e.target.type = "text")}
+            onChange={(e) => {
+              setBirthday(e.target.value);
+            }}
+            value={birthday}
             id="date"
             required={isRequired}
           ></input>
         </section>
+
+        {/* <section className={styles.birthdaySection}>
+          <Cake className={styles.icon} />
+          <DatePicker
+            selected={birthday}
+            onChange={(date) => setBirthday(date)}
+            disabledKeyboardNavigation
+            placeholderText="This has disabled keyboard navigation"
+          />
+        </section> */}
 
         <MultiLineFormInput
           icon={Mail}
