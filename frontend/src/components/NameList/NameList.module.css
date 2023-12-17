@@ -46,8 +46,21 @@
   gap: 0px 20px;
 }
 
-.checkBox {
+.checkBoxWrapper {
   padding-bottom: 15px;
+}
+.checkBox {
+  position: relative;
+}
+
+.checkBox::after {
+  --tap-increment: -8px;
+  position: absolute;
+  content: "";
+  top: var(--tap-increment);
+  left: var(--tap-increment);
+  right: var(--tap-increment);
+  bottom: var(--tap-increment);
 }
 
 .footer {

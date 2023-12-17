@@ -169,12 +169,12 @@ export default function NameList({
                   transitionDuration: isEdit ? "600ms" : "100ms",
                   transitionDelay: isEdit ? "150ms" : "50ms",
                 }}
-                className={styles.checkBox}
+                className={styles.checkBoxWrapper}
               >
                 <input
                   name={id}
                   type="checkbox"
-                  className={styles.radio}
+                  className={styles.checkBox}
                   onChange={(e) => updateSelectedContacts(e)}
                   checked={selectedContacts.includes(id)}
                 ></input>
