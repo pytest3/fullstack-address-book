@@ -211,16 +211,6 @@ export default function Page() {
           ></input>
         </section>
 
-        {/* <section className={styles.birthdaySection}>
-          <Cake className={styles.icon} />
-          <DatePicker
-            selected={birthday}
-            onChange={(date) => setBirthday(date)}
-            disabledKeyboardNavigation
-            placeholderText="This has disabled keyboard navigation"
-          />
-        </section> */}
-
         <MultiLineFormInput
           icon={Mail}
           name="email"
