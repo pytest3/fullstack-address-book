@@ -189,6 +189,7 @@ export default function Page() {
         <section className={styles.birthdaySection}>
           <Cake className={styles.icon} />
           <input
+            classNAME={styles.birthdayInput}
             name="birthday"
             placeholder="Add Birthday"
             type="text"
