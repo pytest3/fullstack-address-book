@@ -59,6 +59,7 @@
   background-image: url("/chevron-down.svg");
   background-repeat: no-repeat;
   background-position: right;
+  background-color: white;
 }
 
 .avatarWrapper {
