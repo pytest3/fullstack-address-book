@@ -22,7 +22,7 @@ export default function NavBarDetails({ name, showNameInNav, opacity }) {
           transform: showNameInNav ? "translateY(0%)" : "translateY(100%)",
           opacity: showNameInNav ? 1 : 0,
           transition: showNameInNav
-            ? "opacity 800ms 100ms, transform 500ms"
+            ? "opacity 800ms, transform 500ms"
             : "opacity 200ms, transform 500ms",
         }}
       >
