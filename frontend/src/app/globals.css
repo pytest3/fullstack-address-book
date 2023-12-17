@@ -6,6 +6,9 @@
 
 * {
   margin: 0;
+
+  /* remove tap rectangle */
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
