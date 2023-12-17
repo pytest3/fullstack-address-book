@@ -79,28 +79,28 @@ body,
 
 ::-webkit-input-placeholder {
   /* WebKit, Blink, Edge */
-  color: #d3d3d3;
+  color: #a9a9a9;
 }
 :-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #d3d3d3;
+  color: #a9a9a9;
   opacity: 1;
 }
 ::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #d3d3d3;
+  color: #a9a9a9;
   opacity: 1;
 }
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #d3d3d3;
+  color: #a9a9a9;
 }
 ::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #d3d3d3;
+  color: #a9a9a9;
 }
 
 ::placeholder {
   /* Most modern browsers support this now. */
-  color: #d3d3d3;
+  color: #a9a9a9;
 }
