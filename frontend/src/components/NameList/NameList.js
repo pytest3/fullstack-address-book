@@ -23,10 +23,8 @@ export default function NameList({
   showModal,
   setShowModal,
 }) {
-  async function fetcher(...args) {
-    const res = await fetch(...args, {
-      headers: { Accept: "application/json" },
-    });
+  async function fetcher([url, options]) {
+    const res = await fetch(url, options);
 
     if (!res.ok) {
       const error = new Error("An error occurred while fetching the data");
@@ -41,8 +39,15 @@ export default function NameList({
     return contacts;
   }
 
+  const config = React.useMemo(
+    () => ({
+      headers: { "ngrok-skip-browser-warning": true },
+    }),
+    []
+  );
+
   const { data, error, isLoading } = useSWR(
-    `${BACKEND_URL}/api/contacts`,
+    [`${BACKEND_URL}/api/contacts`, config],
     fetcher
   );
 
@@ -139,6 +144,8 @@ export default function NameList({
   if (filteredContacts.length === 0) {
     return <div className={styles.noContacts}>No contacts found</div>;
   }
+
+  console.log(filteredContacts);
 
   return (
     <>
