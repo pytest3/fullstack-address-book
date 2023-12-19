@@ -42,7 +42,12 @@ export default function SearchBar({
       <div className={styles.header}>
         <div
           className={styles.selectedCount}
-          style={{ opacity: isEdit ? 1 : 0, transition: "opacity 400ms" }}
+          style={{
+            opacity: isEdit ? 1 : 0,
+            transition: "opacity",
+            transitionDuration: isEdit ? "400ms" : "10ms",
+            transitionDelay: isEdit ? "150ms" : "0  ",
+          }}
         >
           {selectedCount}
         </div>
@@ -50,7 +55,7 @@ export default function SearchBar({
           className={styles.wordings}
           style={{
             display: "inline-block",
-            transform: isEdit ? "translateX(30px)" : "translateX(0px)",
+            transform: isEdit ? "translateX(35px)" : "translateX(0px)",
             transition: "transform 500ms",
             transitionTimingFunction: isEdit
               ? "cubic-bezier(.09,.69,.52,1.32)"

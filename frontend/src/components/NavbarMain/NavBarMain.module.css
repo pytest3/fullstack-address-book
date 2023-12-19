@@ -9,17 +9,22 @@
 .leftActions {
   color: var(--color-blue-7);
   flex: 1;
-  -webkit-tap-highlight-color: transparent;
+  align-self: baseline;
 }
 
 .wrapper {
   display: flex;
   width: 100%;
-  align-items: center;
+  align-items: baseline;
   position: sticky;
   top: 0px;
   background-color: white;
   z-index: 3;
+}
+
+.subRightActions {
+  display: flex;
+  gap: 10px;
 }
 
 .icon {
