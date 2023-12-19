@@ -16,12 +16,12 @@ export default function NameList({
   toggleEdit,
   updateSelectedContacts,
   selectedContacts,
-  contactListCount,
   updateContactListCount,
   toggleRefresh,
   searchTerm = "",
   showModal,
   setShowModal,
+  selectedCount,
 }) {
   async function fetcher([url, options]) {
     const res = await fetch(url, options);
@@ -114,10 +114,15 @@ export default function NameList({
   return (
     <>
       <Modal
-        title="Delete contact"
+        title={`Delete ${selectedCount} ${
+          selectedCount > 1 ? "contacts" : "contact"
+        }`}
         isOpen={showModal}
         handleCloseModal={handleCloseModal}
-        description="Are you sure you want to delete the contact? This action cannot be undone."
+        description={`Are you sure you want to delete the ${
+          selectedCount > 1 ? "contacts?" : "contact?"
+        } This action cannot be undone.`}
+        selectedCount={selectedCount}
       >
         <div className={styles.deleteButtonWrapper}>
           <button className={styles.deleteContactButton} form={"edit-form"}>
