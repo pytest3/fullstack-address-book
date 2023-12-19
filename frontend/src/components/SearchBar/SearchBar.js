@@ -40,7 +40,25 @@ export default function SearchBar({
   return (
     <div className={styles.searchBarWrapper}>
       <div className={styles.header}>
-        {isEdit ? `${selectedCount} Selected` : "Contacts"}
+        <div
+          className={styles.selectedCount}
+          style={{ opacity: isEdit ? 1 : 0, transition: "opacity 400ms" }}
+        >
+          {selectedCount}
+        </div>
+        <span
+          className={styles.wordings}
+          style={{
+            display: "inline-block",
+            transform: isEdit ? "translateX(30px)" : "translateX(0px)",
+            transition: "transform 500ms",
+            transitionTimingFunction: isEdit
+              ? "cubic-bezier(.09,.69,.52,1.32)"
+              : "cubic-bezier(.09,.69,.52,1)",
+          }}
+        >
+          {isEdit ? "Selected" : "Contacts"}
+        </span>
       </div>
       <form>
         <input
