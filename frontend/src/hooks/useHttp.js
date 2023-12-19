@@ -39,14 +39,13 @@ export function useHttp(url) {
     response: null,
   });
 
-  console.log(url);
-
   async function sendRequest(method = "GET", body) {
     const options = {
       method: method,
       headers: {
         Accept: "application/json", // for get request
         "Content-Type": "application/json", // for put / post
+        "ngrok-skip-browser-warning": true, // bypass ngrok browser warning
       },
     };
 
@@ -77,6 +76,8 @@ export function useHttp(url) {
       }
 
       const data = await response.json();
+
+      console.log(data);
 
       dispatch({ type: "success", data });
 

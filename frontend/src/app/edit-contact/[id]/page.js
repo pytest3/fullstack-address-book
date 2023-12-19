@@ -96,7 +96,7 @@ export default function Page() {
         "--inner-vertical-spacing": "10px",
       }}
     >
-      <NavBarForm />
+      <NavBarForm title="Edit Contact" />
       <form
         id="new-user-form"
         className={styles.form}
@@ -124,7 +124,7 @@ export default function Page() {
           icon={Cake}
           required={isRequired}
           fetchedData={fetchedUser.birthday}
-          // description={'Birthday | dd/mm/yyyy'}
+          // description={"Birthday | dd/mm/yyyy"}
         />
         <MultiLineField
           icon={Mail}

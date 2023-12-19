@@ -25,8 +25,8 @@ export default function Page({ params }) {
   const [showNameInNav, setShowNameInNav] = React.useState(false);
   const [nameInNavOpacity, setNameInNavOpacity] = React.useState(0);
 
-  const fetcher = async (...args) =>
-    fetch(...args).then((res) => {
+  const fetcher = async ([url, options]) =>
+    fetch(url, options).then((res) => {
       if (!res.ok) {
         const error = new Error();
         error.message = "An error occurred while loading user details page";
@@ -36,7 +36,14 @@ export default function Page({ params }) {
     });
 
   const { data, error, isLoading } = useSWR(
-    `${BACKEND_URL}/api/contacts/${id}`,
+    [
+      `${BACKEND_URL}/api/contacts/${id}`,
+      {
+        headers: {
+          "ngrok-skip-browser-warning": true, // bypass ngrok browser warning
+        },
+      },
+    ],
     fetcher
   );
 

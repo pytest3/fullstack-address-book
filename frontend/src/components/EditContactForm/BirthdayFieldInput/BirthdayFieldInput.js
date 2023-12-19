@@ -9,7 +9,7 @@ export default function BirthdayFieldInput({
   const [input, setInput] = React.useState("");
 
   React.useEffect(() => {
-    const userBirthday = new Date(fetchedData).toLocaleDateString("en-CA");
+    const userBirthday = fetchedData?.split("T")[0];
     setInput(userBirthday);
   }, [fetchedData]);
 
@@ -17,15 +17,18 @@ export default function BirthdayFieldInput({
     setInput(e.target.value);
   }
 
+  console.log(input);
+
   return (
     <section className={styles.nameSection}>
       <Icon className={styles.icon} />
       <input
+        className={styles.birthdayInput}
         name="birthday"
         type="date"
         onChange={handleNameInput}
         required={required}
-        value={input}
+        value={input || ""}
       ></input>
     </section>
   );

@@ -19,4 +19,16 @@
   display: grid;
   grid-template-columns: 30px 1fr;
   gap: 10px var(--horizontal-spacing);
+  width: 100%;
+}
+.birthdayInput {
+  width: 100%;
+  background-color: white;
+  -webkit-appearance: none;
+  text-align: left;
+  color: black;
+}
+
+.birthdayInput::-webkit-date-and-time-value {
+  text-align: left;
 }
