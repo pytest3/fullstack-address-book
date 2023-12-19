@@ -65,7 +65,7 @@ export default function NameList({
 
   React.useEffect(() => {
     function handleScrollButtonVisibility() {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 150) {
         setShowScrollButton(true);
       } else {
         setShowScrollButton(false);
