@@ -32,7 +32,16 @@ export default function NavBarMain({
       >
         Contacts
       </div>
-      <div className={styles.rightActions}>
+      <div
+        className={styles.rightActions}
+        style={{
+          transform: isEdit ? "translateX(70px)" : "translateX(0)",
+          transition: "transform 500ms",
+          transitionTimingFunction: isEdit
+            ? "ease-in"
+            : "cubic-bezier(.17,.67,.76,1.14)",
+        }}
+      >
         <button
           onClick={(e) => {
             if (selectedCount === 0) {
@@ -52,14 +61,28 @@ export default function NavBarMain({
               opacity: isEdit ? 1 : 0,
               color: selectedCount > 0 ? "#bc4749" : "var(--color-gray-3)",
               transition: "opacity 700ms",
+              transitionDuration: isEdit ? "700ms" : "200ms",
+              transitionDelay: isEdit ? "200ms" : 0,
             }}
           ></Trash2>
         </button>
 
-        <Link href="/new-contact">
-          <Plus className={styles.icon} />
-        </Link>
-        <UserCircle className={styles.icon} />
+        <div
+          className={styles.subRightActions}
+          style={{
+            opacity: isEdit ? 0 : 1,
+            transition: "opacity 300ms",
+            transitionDelay: isEdit ? "0ms" : "100ms",
+            transitionTimingFunction: isEdit
+              ? "ease-in"
+              : "cubic-bezier(0,.95,.68,1.9)",
+          }}
+        >
+          <Link href="/new-contact">
+            <Plus className={styles.icon} />
+          </Link>
+          <UserCircle className={styles.icon} />
+        </div>
       </div>
     </NavBarWrapper>
   );
