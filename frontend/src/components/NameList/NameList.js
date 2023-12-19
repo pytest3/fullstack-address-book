@@ -57,60 +57,24 @@ export default function NameList({
       contact.last_name.includes(searchTerm)
   );
 
-  const [showButton, setShowButton] = React.useState(false);
-  const [buttonNode, setButtonNode] = React.useState(null);
+  const [showScrollButton, setShowScrollButton] = React.useState(false);
 
   function handleCloseModal() {
     setShowModal(false);
   }
 
-  let options = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1,
-  };
-
-  const observerRef = React.useRef(null);
-  const buttonRef = React.useCallback((node) => {
-    if (node !== null) {
-      setButtonNode(node);
-    }
-  }, []);
-
-  function getObserver() {
-    // IntersectionObserver is created lazily once
-    if (observerRef.current === null) {
-      observerRef.current = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          setShowButton(true);
-          console.log("intersecting");
-        } else {
-          setShowButton(false);
-          console.log("NOT intersecting");
-        }
-      }, options);
-    }
-    return observerRef.current;
-  }
-
   React.useEffect(() => {
-    const observer = getObserver();
-
-    if (contactListCount < 12) {
-      setShowButton(false);
-      /* manual cleanup of intersection observer and early return*/
-      observer?.disconnect();
-      return;
+    function handleScrollButtonVisibility() {
+      if (window.scrollY > 300) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
     }
-
-    if (buttonNode) {
-      observer.observe(buttonNode);
-    }
-
-    return () => {
-      observer?.disconnect();
-    };
-  }, [buttonNode, contactListCount]);
+    document.addEventListener("scroll", handleScrollButtonVisibility);
+    return () =>
+      document.removeEventListener("scroll", handleScrollButtonVisibility);
+  }, []);
 
   const { sendRequest, response } = useHttp(`${BACKEND_URL}/api/contacts`);
 
@@ -214,14 +178,21 @@ export default function NameList({
             </div>
           );
         })}
+
         <button
-          ref={buttonRef}
-          className={styles.backToTopBtn}
+          className={styles.scrollTopBtn}
           style={{
-            opacity: showButton ? 1 : 0,
-            transform: showButton ? "translateY(-05px)" : "translateY(0px)",
-            transition:
-              "opacity 600ms, transform 650ms cubic-bezier(.17,.67,.71,8.86)",
+            opacity: showScrollButton ? 1 : 0,
+            transform: showScrollButton
+              ? "translateY(0px)"
+              : "translateY(100px)",
+            transition: "opacity, transform ",
+            transitionTimingFunction: showScrollButton
+              ? "linear, cubic-bezier(0,1.47,.82,1.56)"
+              : "linear, ease-in",
+            transitionDuration: showScrollButton
+              ? "300ms, 400ms"
+              : "300ms, 400ms",
           }}
           type="button"
           onClick={handleUpButtonClick}

@@ -19,7 +19,7 @@ export default function NavBarDetails({ name, showNameInNav, opacity }) {
       <div
         className={styles.navName}
         style={{
-          transform: showNameInNav ? "translateY(0%)" : "translateY(100%)",
+          transform: showNameInNav ? "translateY(0%)" : "translateY(40%)",
           opacity: showNameInNav ? 1 : 0,
           transition: showNameInNav
             ? "opacity 500ms, transform 500ms"
