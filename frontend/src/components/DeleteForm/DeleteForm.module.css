@@ -1,0 +1,144 @@
+.nameListWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* transform: scale(1); */
+}
+
+.card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px 20px;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.initialsAvatar {
+  padding-bottom: 0px;
+  grid-row: 1/-1;
+  grid-column: 1/2;
+}
+
+.nameListWrapper .row:last-of-type .card {
+  padding-bottom: 0px;
+}
+
+.name {
+  line-height: 1;
+  align-self: flex-end;
+  font-weight: 500;
+}
+
+.job {
+  line-height: 1;
+  align-self: start;
+  font-size: 14px;
+  color: rgb(148, 142, 142);
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0px 20px;
+}
+
+.row .checkBoxWrapper {
+  padding-bottom: 15px;
+}
+.checkBox {
+  position: relative;
+}
+
+.checkBox::after {
+  --tap-increment: -8px;
+  position: absolute;
+  content: "";
+  top: var(--tap-increment);
+  left: var(--tap-increment);
+  right: var(--tap-increment);
+  bottom: var(--tap-increment);
+}
+
+.footer {
+  display: flex;
+  margin-top: auto;
+  background-color: var(--color-gray-3);
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 0px;
+  border-radius: 10px;
+  border: none;
+}
+
+.error {
+  width: 100%;
+}
+
+.noContacts {
+  display: grid;
+  justify-content: center;
+  padding-top: 30%;
+  font-size: 20px;
+  color: var(--color-gray-5);
+}
+
+.backToTopBtn {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 10;
+  background-color: white;
+  border: 1px solid hsl(0, 0%, 70%);
+  border-radius: 8px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: hsl(0, 0%, 20%);
+  font-size: 14px;
+}
+
+.scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  background-color: white;
+  border: 1px solid hsl(0, 0%, 70%);
+  border-radius: 8px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: hsl(0, 0%, 20%);
+  font-size: 14px;
+}
+
+.upIcon {
+  height: 18px;
+  width: 18px;
+  color: hsl(0, 0%, 40%);
+}
+
+.deleteButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteContactButton {
+  background-color: rgb(188, 71, 73);
+  color: white;
+  border-radius: 6px;
+  padding: 8px 24px;
+  border: none;
+}

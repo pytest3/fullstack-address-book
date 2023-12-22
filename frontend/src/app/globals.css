@@ -10,10 +10,19 @@
   /* remove tap rectangle */
   -webkit-tap-highlight-color: transparent;
 }
+html {
+  scrollbar-gutter: stable;
+}
 
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  margin: 0;
+  /* width: calc(100% - var(--removed-body-scroll-bar-size, 0px)); */
+}
+
+body[style] {
+  margin-right: 0px !important;
 }
 
 img,
@@ -67,6 +76,19 @@ h6 {
   --color-blue-3: #90e0efff;
   --color-blue-2: #ade8f4ff;
   --color-blue-1: #caf0f8ff;
+
+  --color-red-1: #fffcfc;
+  --color-red-2: #fff7f7;
+  --color-red-3: #feebec;
+  --color-red-4: #ffdbdc;
+  --color-red-5: #ffcdce;
+  --color-red-6: #fdbdbe;
+  --color-red-7: #f4a9aa;
+  --color-red-8: #eb8e90;
+  --color-red-9: #e5484d;
+  --color-red-10: #dc3e42;
+  --color-red-11: #ce2c31;
+  --color-red-12: #641723;
 }
 
 td {

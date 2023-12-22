@@ -12,8 +12,6 @@ export default function Home() {
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [contactListCount, setContactListCount] = React.useState(0);
-  const [showModal, setShowModal] = React.useState(false);
 
   function toggleEdit() {
     setIsEdit(!isEdit);
@@ -41,10 +39,6 @@ export default function Home() {
     setSelectedContacts(nextSelectedContacts);
   }
 
-  function updateContactListCount(count) {
-    setContactListCount(count);
-  }
-
   function handleSearch(userInput) {
     setSearchTerm(userInput);
   }
@@ -52,11 +46,13 @@ export default function Home() {
   return (
     <main className={styles.wrapper}>
       <NavBarMain
-        toggleEdit={toggleEdit}
         isEdit={isEdit}
+        toggleEdit={toggleEdit}
+        toggleRefresh={setRefreshKey}
         showContactsInNav={showContactsInNav}
         selectedCount={selectedCount}
-        setShowModal={setShowModal}
+        selectedContacts={selectedContacts}
+        updateSelectedContacts={updateSelectedContacts}
       ></NavBarMain>
       <SearchBar
         isEdit={isEdit}
@@ -66,18 +62,11 @@ export default function Home() {
         setShowContactsInNav={setShowContactsInNav}
       />
       <NameList
-        isEdit={isEdit}
-        toggleEdit={toggleEdit}
-        updateSelectedContacts={updateSelectedContacts}
-        selectedCount={selectedCount}
-        selectedContacts={selectedContacts}
         key={refreshKey}
-        toggleRefresh={setRefreshKey}
+        isEdit={isEdit}
+        updateSelectedContacts={updateSelectedContacts}
+        selectedContacts={selectedContacts}
         searchTerm={searchTerm}
-        contactListCount={contactListCount}
-        updateContactListCount={updateContactListCount}
-        showModal={showModal}
-        setShowModal={setShowModal}
       />
     </main>
   );

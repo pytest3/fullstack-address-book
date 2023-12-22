@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
     "lucide-react": "^0.292.0",
     "next": "13.4.9",
     "react": "^18",

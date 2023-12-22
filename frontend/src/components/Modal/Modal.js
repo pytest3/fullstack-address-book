@@ -11,10 +11,10 @@ export default function Modal({
   children,
 }) {
   return (
-    <Transition show={isOpen} as={Fragment}>
+    <Transition show={isOpen}>
       <Dialog onClose={handleCloseModal} className={styles.wrapper}>
         <Transition.Child
-          as={Fragment}
+          // as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
           enterTo="opacity-90"
@@ -25,7 +25,7 @@ export default function Modal({
           <div className={styles.backDrop} />
         </Transition.Child>
         <Transition.Child
-          as={Fragment}
+          // as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0 scale-95"
           enterTo="opacity-100 scale-100"
