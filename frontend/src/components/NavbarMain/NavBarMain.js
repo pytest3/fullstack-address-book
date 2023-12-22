@@ -4,22 +4,34 @@ import { Plus, UserCircle } from "lucide-react";
 import NavBarWrapper from "../NavBarWrapper";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
+import Modal2 from "../Modal2";
+import { useHttp } from "@/hooks/useHttp";
+import { BACKEND_URL } from "@/app/constants";
 
 export default function NavBarMain({
-  toggleEdit,
   isEdit,
+  toggleEdit,
+  toggleRefresh,
   showContactsInNav,
   selectedCount,
-  setShowModal,
+  selectedContacts,
+  updateSelectedContacts,
 }) {
+  const { sendRequest, response } = useHttp(`${BACKEND_URL}/api/contacts`);
   const [vibrate, setVibrate] = React.useState(false);
+
+  async function handleDeleteContact() {
+    await sendRequest("DELETE", selectedContacts);
+    toggleRefresh(crypto.randomUUID()); // to force client side re-render on form submit
+    updateSelectedContacts([]); // to reset selected contacts as part of client side re-render
+    toggleEdit(!isEdit);
+  }
 
   return (
     <NavBarWrapper className={styles.wrapper}>
       <div className={styles.leftActions} onClick={toggleEdit}>
         {isEdit ? "Done" : "Edit"}
       </div>
-      {/* {showContactsInNav ? <div className={styles.header}>Contacts</div> : null} */}
       <div
         className={styles.header}
         style={{
@@ -42,30 +54,40 @@ export default function NavBarMain({
             : "cubic-bezier(.17,.67,.76,1.14)",
         }}
       >
-        <button
-          onClick={(e) => {
-            if (selectedCount === 0) {
-              e.preventDefault();
-              setVibrate(true);
-              setTimeout(() => {
-                setVibrate(false);
-              }, 550);
-              return;
-            }
-            setShowModal(true);
-          }}
-          className={`${styles.trashIcon} ${vibrate && styles.vibrate}`}
+        <Modal2
+          title={`Delete ${selectedCount} ${
+            selectedCount > 1 ? "contacts?" : "contact?"
+          }`}
+          description={`Are you sure you want to delete the ${
+            selectedCount > 1 ? "contacts?" : "contact?"
+          } This action cannot be undone.`}
+          selectedCount={selectedCount}
+          handleDeleteContact={handleDeleteContact}
         >
-          <Trash2
-            style={{
-              opacity: isEdit ? 1 : 0,
-              color: selectedCount > 0 ? "#bc4749" : "var(--color-gray-3)",
-              transition: "opacity 700ms",
-              transitionDuration: isEdit ? "700ms" : "200ms",
-              transitionDelay: isEdit ? "200ms" : 0,
+          <button
+            onClick={(e) => {
+              if (selectedCount === 0) {
+                e.preventDefault();
+                setVibrate(true);
+                setTimeout(() => {
+                  setVibrate(false);
+                }, 550);
+                return;
+              }
             }}
-          ></Trash2>
-        </button>
+            className={`${styles.trashIcon} ${vibrate && styles.vibrate}`}
+          >
+            <Trash2
+              style={{
+                opacity: isEdit ? 1 : 0,
+                color: selectedCount > 0 ? "#bc4749" : "var(--color-gray-3)",
+                transition: "opacity 700ms",
+                transitionDuration: isEdit ? "700ms" : "200ms",
+                transitionDelay: isEdit ? "200ms" : 0,
+              }}
+            ></Trash2>
+          </button>
+        </Modal2>
 
         <div
           className={styles.subRightActions}

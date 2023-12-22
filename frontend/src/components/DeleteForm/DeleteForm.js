@@ -1,90 +1,26 @@
-"use client";
-
 import React from "react";
-import styles from "./NameList.module.css";
-import { MoveUp } from "lucide-react";
-import useSWR from "swr";
-import InitialsAvatar from "../InitialsAvatar";
+import styles from "./DeleteForm.module.css";
 import Link from "next/link";
-import { BACKEND_URL } from "@/app/constants";
+import InitialsAvatar from "../InitialsAvatar";
+import { MoveUp } from "lucide-react";
 
-export default function NameList({
+export default function DeleteForm({
+  onSubmit,
+  filteredContacts,
   isEdit,
-  updateSelectedContacts,
   selectedContacts,
-  searchTerm = "",
+  updateSelectedContacts,
+  showScrollButton,
+  handleUpButtonClick,
+  ...rest
 }) {
-  async function fetcher([url, options]) {
-    const res = await fetch(url, options);
-
-    if (!res.ok) {
-      const error = new Error("An error occurred while fetching the data");
-      error.status = res.status;
-      throw error;
-    }
-
-    const contacts = await res.json();
-
-    return contacts;
-  }
-
-  const config = React.useMemo(
-    () => ({
-      headers: { "ngrok-skip-browser-warning": true },
-    }),
-    []
-  );
-
-  const { data, error, isLoading } = useSWR(
-    [`${BACKEND_URL}/api/contacts`, config],
-    fetcher
-  );
-
-  const filteredContacts = data?.filter(
-    (contact) =>
-      contact.first_name.includes(searchTerm) ||
-      contact.last_name.includes(searchTerm)
-  );
-
-  const [showScrollButton, setShowScrollButton] = React.useState(false);
-
-  React.useEffect(() => {
-    function handleScrollButtonVisibility() {
-      if (window.scrollY > 120) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    }
-    document.addEventListener("scroll", handleScrollButtonVisibility);
-    return () =>
-      document.removeEventListener("scroll", handleScrollButtonVisibility);
-  }, []);
-
-  function handleUpButtonClick(e) {
-    e.preventDefault();
-    const target = document.querySelector(".SearchBar_header__IE462");
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div className={styles.error}>{error.message}</div>;
-  }
-
-  if (filteredContacts.length === 0) {
-    return <div className={styles.noContacts}>No contacts found</div>;
-  }
-
   return (
-    <form className={styles.nameListWrapper} id="edit-form">
+    <form
+      className={styles.nameListWrapper}
+      id="edit-form"
+      onSubmit={onSubmit}
+      {...rest}
+    >
       {filteredContacts?.map(({ id, first_name, last_name }) => {
         return (
           <div key={id} className={styles.row}>
