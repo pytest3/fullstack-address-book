@@ -12,13 +12,14 @@
 }
 html {
   scrollbar-gutter: stable;
+  overflow-x: hidden; /* prevent horizontal scroll when applying translateX to rightActions on navbar */
 }
 
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   margin: 0;
-  /* width: calc(100% - var(--removed-body-scroll-bar-size, 0px)); */
+  overflow-x: hidden; /* prevent horizontal scroll when applying translateX to rightActions on navbar */
 }
 
 body[style] {
