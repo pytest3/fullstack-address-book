@@ -1,8 +1,42 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .overlay {
   position: fixed;
   background: hsl(0deg 0% 0% / 0.75);
   inset: 0;
   z-index: 1000;
+  opacity: 0;
+}
+
+.overlay[data-state="open"] {
+  animation: fade-in 400ms both ease-out;
+}
+
+.content[data-state="open"] {
+  animation: fade-in 500ms 200ms both ease-out;
+}
+
+.overlay[data-state="closed"] {
+  animation: fade-out 300ms 100ms both ease-in;
+}
+
+.content[data-state="closed"] {
+  animation: fade-out 300ms both ease-in;
 }
 
 .content {
