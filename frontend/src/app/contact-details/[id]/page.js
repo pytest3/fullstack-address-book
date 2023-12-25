@@ -17,6 +17,7 @@ import NavBarDetails from "@/components/NavBarDetails";
 import InitialsAvatar from "@/components/InitialsAvatar";
 import { capitalizeFirstLetter } from "@/utils";
 import { BACKEND_URL } from "@/app/constants";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 
 export default function Page({ params }) {
   const { id } = params;
@@ -136,106 +137,107 @@ export default function Page({ params }) {
           </div>
         </div>
       </div>
-
-      <main className={styles.whiteBG}>
-        <section className={styles.section}>
-          <Cake className={styles.icon} />
-          <div className={styles.row}>
-            <span>{new Date(birthday).toLocaleDateString()}</span>
-            <span className={styles.smallText}>Birthday | dd/mm/yyyy</span>
-          </div>
-        </section>
-        <section className={styles.section}>
-          <Phone className={styles.icon} />
-          {contact_phone_numbers.map(({ phone_number }, idx) => {
-            let className = `${styles.row}`;
-            if (idx != 0) className = `${styles.row} ${styles.indented}`;
-            return (
-              <div key={idx} className={className}>
-                {phone_number}
-              </div>
-            );
-          })}
-        </section>
-        <section className={styles.section}>
-          <Mail className={styles.icon} />
-          {emails.map(({ email_address }, idx) => {
-            let className = `${styles.row}`;
-            if (idx != 0) className = `${styles.row} ${styles.indented}`;
-            return (
-              <div key={idx} className={className}>
-                {email_address}
-              </div>
-            );
-          })}
-        </section>
-        <section className={styles.section}>
-          <Briefcase className={styles.icon} />
-          <div className={styles.row}>
-            {is_employed === "employed  " ? (
-              <>
-                <span>{company_industry}</span>
-                <span className={styles.smallText}>Job industry</span>
-              </>
-            ) : (
-              "Unemployed"
-            )}
-          </div>
-        </section>
-        <section className={styles.section}>
-          <Heart className={styles.icon} />
-          <div className={styles.row}>
-            <span>{marital_status}</span>
-            <span className={styles.smallText}>Marital status</span>
-          </div>
-        </section>
-        {is_parent === "parent" ? (
+      <MaxWidthWrapper>
+        <main className={styles.whiteBG}>
           <section className={styles.section}>
-            <Baby className={styles.icon} />
+            <Cake className={styles.icon} />
             <div className={styles.row}>
-              <span>{son_count}</span>
-              <span className={styles.smallText}>Son(s)</span>
-            </div>
-            <div className={`${styles.row} ${styles.indented}`}>
-              <span>{daughter_count}</span>
-              <span className={styles.smallText}>Daughter(s)</span>
+              <span>{new Date(birthday).toLocaleDateString()}</span>
+              <span className={styles.smallText}>Birthday | dd/mm/yyyy</span>
             </div>
           </section>
-        ) : (
           <section className={styles.section}>
-            <Baby className={styles.icon} />
-            <div className={styles.row}>Not a parent</div>
+            <Phone className={styles.icon} />
+            {contact_phone_numbers.map(({ phone_number }, idx) => {
+              let className = `${styles.row}`;
+              if (idx != 0) className = `${styles.row} ${styles.indented}`;
+              return (
+                <div key={idx} className={className}>
+                  {phone_number}
+                </div>
+              );
+            })}
           </section>
-        )}
-
-        <section className={styles.section}>
-          <Gamepad2 className={styles.icon} />
-          {hobbies.map(({ hobby_name }, idx) => {
-            let className = `${styles.row}`;
-            if (idx != 0) className = `${styles.row} ${styles.indented}`;
-            return (
-              <div key={idx} className={`${styles.row} ${styles.indented}`}>
-                <span>{hobby_name}</span>
-                <span className={styles.smallText}>Hobby {idx + 1}</span>
+          <section className={styles.section}>
+            <Mail className={styles.icon} />
+            {emails.map(({ email_address }, idx) => {
+              let className = `${styles.row}`;
+              if (idx != 0) className = `${styles.row} ${styles.indented}`;
+              return (
+                <div key={idx} className={className}>
+                  {email_address}
+                </div>
+              );
+            })}
+          </section>
+          <section className={styles.section}>
+            <Briefcase className={styles.icon} />
+            <div className={styles.row}>
+              {is_employed === "employed  " ? (
+                <>
+                  <span>{company_industry}</span>
+                  <span className={styles.smallText}>Job industry</span>
+                </>
+              ) : (
+                "Unemployed"
+              )}
+            </div>
+          </section>
+          <section className={styles.section}>
+            <Heart className={styles.icon} />
+            <div className={styles.row}>
+              <span>{marital_status}</span>
+              <span className={styles.smallText}>Marital status</span>
+            </div>
+          </section>
+          {is_parent === "parent" ? (
+            <section className={styles.section}>
+              <Baby className={styles.icon} />
+              <div className={styles.row}>
+                <span>{son_count}</span>
+                <span className={styles.smallText}>Son(s)</span>
               </div>
-            );
-          })}
-        </section>
-
-        <section className={styles.section}>
-          <PersonStanding className={styles.icon} />
-          {categories?.map(({ category_name }, idx) => {
-            let className = `${styles.row}`;
-            if (idx != 0) className = `${styles.row} ${styles.indented}`;
-            return (
-              <div key={idx} className={`${className} ${styles.row}`}>
-                <span>{category_name}</span>
-                <span className={styles.smallText}>Contact category</span>
+              <div className={`${styles.row} ${styles.indented}`}>
+                <span>{daughter_count}</span>
+                <span className={styles.smallText}>Daughter(s)</span>
               </div>
-            );
-          })}
-        </section>
-      </main>
+            </section>
+          ) : (
+            <section className={styles.section}>
+              <Baby className={styles.icon} />
+              <div className={styles.row}>Not a parent</div>
+            </section>
+          )}
+
+          <section className={styles.section}>
+            <Gamepad2 className={styles.icon} />
+            {hobbies.map(({ hobby_name }, idx) => {
+              let className = `${styles.row}`;
+              if (idx != 0) className = `${styles.row} ${styles.indented}`;
+              return (
+                <div key={idx} className={`${styles.row} ${styles.indented}`}>
+                  <span>{hobby_name}</span>
+                  <span className={styles.smallText}>Hobby {idx + 1}</span>
+                </div>
+              );
+            })}
+          </section>
+
+          <section className={styles.section}>
+            <PersonStanding className={styles.icon} />
+            {categories?.map(({ category_name }, idx) => {
+              let className = `${styles.row}`;
+              if (idx != 0) className = `${styles.row} ${styles.indented}`;
+              return (
+                <div key={idx} className={`${className} ${styles.row}`}>
+                  <span>{category_name}</span>
+                  <span className={styles.smallText}>Contact category</span>
+                </div>
+              );
+            })}
+          </section>
+        </main>
+      </MaxWidthWrapper>
     </div>
   );
 }

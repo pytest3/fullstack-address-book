@@ -22,6 +22,7 @@ import InitialsAvatar from "@/components/InitialsAvatar";
 import { useHttp } from "@/hooks/useHttp";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "../constants";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 
 export default function Page() {
   const isRequired = true;
@@ -167,122 +168,124 @@ export default function Page() {
           circleSize="100px"
         />
       </div>
-      <form
-        id="new-user-form"
-        className={styles.form}
-        onSubmit={handleFormSubmit}
-      >
-        <section className={styles.nameSection}>
-          <User className={styles.icon} />
-          <input
-            name="firstName"
-            type="text"
-            placeholder="First name"
-            onChange={handleNameInput}
+      <MaxWidthWrapper>
+        <form
+          id="new-user-form"
+          className={styles.form}
+          onSubmit={handleFormSubmit}
+        >
+          <section className={styles.nameSection}>
+            <User className={styles.icon} />
+            <input
+              name="firstName"
+              type="text"
+              placeholder="First name"
+              onChange={handleNameInput}
+              required={isRequired}
+            ></input>
+            <input
+              name="lastName"
+              type="text"
+              placeholder="Last name"
+              onChange={handleNameInput}
+              className={styles.indented}
+              required={isRequired}
+            ></input>
+          </section>
+
+          <section className={styles.birthdaySection}>
+            <Cake className={styles.icon} />
+            <input
+              ref={birthdayRef}
+              className={styles.birthdayInput}
+              name="birthday"
+              placeholder="Add Birthday"
+              type="text"
+              onFocus={(e) => (birthdayRef.current.type = "date")}
+              onMouseOver={(e) => (birthdayRef.current.type = "date")}
+              onBlur={(e) => (birthdayRef.current.type = "text")}
+              onChange={(e) => {
+                setBirthday(e.target.value);
+              }}
+              value={birthday}
+              id="date"
+              required={isRequired}
+            ></input>
+          </section>
+
+          <MultiLineFormInput
+            icon={Mail}
+            name="email"
+            type="email"
+            inputs={emailList}
+            setInputs={setEmailList}
             required={isRequired}
-          ></input>
-          <input
-            name="lastName"
-            type="text"
-            placeholder="Last name"
-            onChange={handleNameInput}
-            className={styles.indented}
+          />
+
+          <ConditionalFormInput
+            icon={Briefcase}
+            name="isEmployed"
+            inputs={employmentStatus}
+            setInputs={setEmploymentStatus}
+            config={employmentConfig}
             required={isRequired}
-          ></input>
-        </section>
+          />
 
-        <section className={styles.birthdaySection}>
-          <Cake className={styles.icon} />
-          <input
-            ref={birthdayRef}
-            className={styles.birthdayInput}
-            name="birthday"
-            placeholder="Add Birthday"
-            type="text"
-            onFocus={(e) => (birthdayRef.current.type = "date")}
-            onMouseOver={(e) => (birthdayRef.current.type = "date")}
-            onBlur={(e) => (birthdayRef.current.type = "text")}
-            onChange={(e) => {
-              setBirthday(e.target.value);
-            }}
-            value={birthday}
-            id="date"
+          <ConditionalFormInput
+            icon={Baby}
+            name="isParent"
+            inputs={parentHoodStatus}
+            setInputs={setParentHoodStatus}
+            config={parentHoodConfig}
             required={isRequired}
-          ></input>
-        </section>
+          />
 
-        <MultiLineFormInput
-          icon={Mail}
-          name="email"
-          type="email"
-          inputs={emailList}
-          setInputs={setEmailList}
-          required={isRequired}
-        />
-
-        <ConditionalFormInput
-          icon={Briefcase}
-          name="isEmployed"
-          inputs={employmentStatus}
-          setInputs={setEmploymentStatus}
-          config={employmentConfig}
-          required={isRequired}
-        />
-
-        <ConditionalFormInput
-          icon={Baby}
-          name="isParent"
-          inputs={parentHoodStatus}
-          setInputs={setParentHoodStatus}
-          config={parentHoodConfig}
-          required={isRequired}
-        />
-
-        <MultiLineFormInput
-          icon={Phone}
-          name="phone"
-          type="number"
-          inputs={phoneList}
-          setInputs={setPhoneList}
-          required={isRequired}
-        />
-
-        <MultiLineFormInput
-          icon={Gamepad2}
-          name="hobby"
-          inputs={hobbyList}
-          setInputs={setHobbyList}
-          required={isRequired}
-        />
-
-        <MultiLineFormInput
-          icon={PersonStanding}
-          name="category"
-          inputs={categoryList}
-          setInputs={setCategoryList}
-          required={isRequired}
-        />
-
-        <section className={styles.maritalSection}>
-          <Heart className={styles.icon} />
-          <select
-            name="maritalStatus"
-            value={maritalStatus}
-            className={styles.maritalStatus}
-            onChange={(e) => setMaritalStatus(e.target.value)}
+          <MultiLineFormInput
+            icon={Phone}
+            name="phone"
+            type="number"
+            inputs={phoneList}
+            setInputs={setPhoneList}
             required={isRequired}
-            style={{ color: maritalStatus === "" ? "#a9a9a9" : "black" }}
-          >
-            <option value="" disabled>
-              Add marital status
-            </option>
-            <option value="single">Single</option>
-            <option value="married">Married</option>
-            <option value="divorced">Divorced</option>
-            <option value="not applicable">Not applicable</option>
-          </select>
-        </section>
-      </form>
+          />
+
+          <MultiLineFormInput
+            icon={Gamepad2}
+            name="hobby"
+            inputs={hobbyList}
+            setInputs={setHobbyList}
+            required={isRequired}
+          />
+
+          <MultiLineFormInput
+            icon={PersonStanding}
+            name="category"
+            inputs={categoryList}
+            setInputs={setCategoryList}
+            required={isRequired}
+          />
+
+          <section className={styles.maritalSection}>
+            <Heart className={styles.icon} />
+            <select
+              name="maritalStatus"
+              value={maritalStatus}
+              className={styles.maritalStatus}
+              onChange={(e) => setMaritalStatus(e.target.value)}
+              required={isRequired}
+              style={{ color: maritalStatus === "" ? "#a9a9a9" : "black" }}
+            >
+              <option value="" disabled>
+                Add marital status
+              </option>
+              <option value="single">Single</option>
+              <option value="married">Married</option>
+              <option value="divorced">Divorced</option>
+              <option value="not applicable">Not applicable</option>
+            </select>
+          </section>
+        </form>
+      </MaxWidthWrapper>
     </div>
   );
 }

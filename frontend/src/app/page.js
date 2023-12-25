@@ -5,6 +5,7 @@ import NameList from "@/components/NameList";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import NavBarMain from "@/components/NavbarMain";
 import React from "react";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 
 export default function Home() {
   const [isEdit, setIsEdit] = React.useState(false);
