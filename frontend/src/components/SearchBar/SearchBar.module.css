@@ -6,14 +6,26 @@
   padding-bottom: 15px;
   padding-top: 25px;
   z-index: 2;
+
+  /* display: flex;
+  flex-direction: column; */
+
   /* border-bottom: 1px solid var(--color-gray-2); */
   /* margin-bottom: 15px; */
+}
+
+@media (min-width: 600px) {
+  .searchBarWrapper {
+    margin-top: -35px;
+    /* padding-top: 0px; */
+  }
 }
 
 .header {
   font-size: 35px;
   font-weight: 600;
   position: relative;
+  max-width: 800px;
   /* margin-bottom: 5px; */
 }
 

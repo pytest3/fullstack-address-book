@@ -11,8 +11,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 html {
-  scrollbar-gutter: stable;
-  overflow-x: hidden; /* prevent horizontal scroll when applying translateX to rightActions on navbar */
+  /* scrollbar-gutter: stable; */
+  overflow: hidden; /* prevent horizontal scroll when applying translateX to rightActions on navbar */
 }
 
 body {

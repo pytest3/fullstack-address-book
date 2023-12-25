@@ -27,6 +27,7 @@ import NameFieldInput from "@/components/EditContactForm/NameFieldInput";
 import ConditionalEmploymentField from "@/components/EditContactForm/ConditionalEmploymentField";
 import ConditionalParentField from "@/components/EditContactForm/ConditionalParentField";
 import { BACKEND_URL } from "@/app/constants";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 export default function Page() {
   const isRequired = true;
   const router = useRouter();
@@ -97,97 +98,99 @@ export default function Page() {
       }}
     >
       <NavBarForm title="Edit Contact" />
-      <form
-        id="new-user-form"
-        className={styles.form}
-        onSubmit={handleFormSubmit}
-      >
-        <NameProvider
-          fetchedName={{
-            firstName: user.first_name,
-            lastName: user.last_name,
-          }}
+      <MaxWidthWrapper>
+        <form
+          id="new-user-form"
+          className={styles.form}
+          onSubmit={handleFormSubmit}
         >
-          <div className={styles.avatarWrapper}>
-            <InitialsAvatarEdit fontSize="35px" circleSize="100px" />
-          </div>
-          <NameFieldInput
-            icon={User}
+          <NameProvider
+            fetchedName={{
+              firstName: user.first_name,
+              lastName: user.last_name,
+            }}
+          >
+            <div className={styles.avatarWrapper}>
+              <InitialsAvatarEdit fontSize="35px" circleSize="100px" />
+            </div>
+            <NameFieldInput
+              icon={User}
+              fetchedData={{
+                first_name: user.first_name,
+                last_name: user.last_name,
+              }}
+              required={isRequired}
+            />
+          </NameProvider>
+          <BirthdayFieldInput
+            icon={Cake}
+            required={isRequired}
+            fetchedData={fetchedUser.birthday}
+            // description={"Birthday | dd/mm/yyyy"}
+          />
+          <MultiLineField
+            icon={Mail}
+            name="email"
+            type="email"
+            fetchedData={fetchedUser.emails}
+            inputName="email_address"
+            required={isRequired}
+            // description={""}
+          />
+          <ConditionalEmploymentField
+            icon={Briefcase}
+            name="isEmployed"
             fetchedData={{
-              first_name: user.first_name,
-              last_name: user.last_name,
+              ...fetchedUser.employment_detail,
+              employmentStatus: fetchedUser.is_employed,
             }}
             required={isRequired}
+            // description={""}
           />
-        </NameProvider>
-        <BirthdayFieldInput
-          icon={Cake}
-          required={isRequired}
-          fetchedData={fetchedUser.birthday}
-          // description={"Birthday | dd/mm/yyyy"}
-        />
-        <MultiLineField
-          icon={Mail}
-          name="email"
-          type="email"
-          fetchedData={fetchedUser.emails}
-          inputName="email_address"
-          required={isRequired}
-          // description={""}
-        />
-        <ConditionalEmploymentField
-          icon={Briefcase}
-          name="isEmployed"
-          fetchedData={{
-            ...fetchedUser.employment_detail,
-            employmentStatus: fetchedUser.is_employed,
-          }}
-          required={isRequired}
-          // description={""}
-        />
-        <ConditionalParentField
-          icon={Baby}
-          name="isParent"
-          fetchedData={{
-            ...fetchedUser.parenthood_detail,
-            parentStatus: fetchedUser.is_parent,
-          }}
-          isRequired={isRequired}
-        />
-        <MultiLineField
-          icon={Phone}
-          name="phone"
-          type="number"
-          fetchedData={fetchedUser.contact_phone_numbers}
-          inputName="phone_number"
-          required={isRequired}
-          // description={""}
-        />
-        <MultiLineField
-          icon={Gamepad2}
-          name="hobby"
-          type="text"
-          fetchedData={fetchedUser.hobbies}
-          inputName="hobby_name"
-          required={isRequired}
-          // description={"Hobby"}
-        />
-        <MultiLineField
-          icon={PersonStanding}
-          name="category"
-          type="text"
-          fetchedData={fetchedUser.categories}
-          inputName="category_name"
-          required={isRequired}
-          // description={"Contact category"}
-        />
-        <DropDownFieldInput
-          icon={Heart}
-          fetchedData={fetchedUser.marital_status}
-          required={isRequired}
-          // description={"Marital status"}
-        />
-      </form>
+          <ConditionalParentField
+            icon={Baby}
+            name="isParent"
+            fetchedData={{
+              ...fetchedUser.parenthood_detail,
+              parentStatus: fetchedUser.is_parent,
+            }}
+            isRequired={isRequired}
+          />
+          <MultiLineField
+            icon={Phone}
+            name="phone"
+            type="number"
+            fetchedData={fetchedUser.contact_phone_numbers}
+            inputName="phone_number"
+            required={isRequired}
+            // description={""}
+          />
+          <MultiLineField
+            icon={Gamepad2}
+            name="hobby"
+            type="text"
+            fetchedData={fetchedUser.hobbies}
+            inputName="hobby_name"
+            required={isRequired}
+            // description={"Hobby"}
+          />
+          <MultiLineField
+            icon={PersonStanding}
+            name="category"
+            type="text"
+            fetchedData={fetchedUser.categories}
+            inputName="category_name"
+            required={isRequired}
+            // description={"Contact category"}
+          />
+          <DropDownFieldInput
+            icon={Heart}
+            fetchedData={fetchedUser.marital_status}
+            required={isRequired}
+            // description={"Marital status"}
+          />
+        </form>
+      </MaxWidthWrapper>
     </div>
   );
 }

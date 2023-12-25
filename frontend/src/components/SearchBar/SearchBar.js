@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./SearchBar.module.css";
+import MaxWidthWrapper from "../MaxWidthWrapper/MaxWidthWrapper";
 
 export default function SearchBar({
   isEdit,
@@ -39,43 +40,45 @@ export default function SearchBar({
 
   return (
     <div className={styles.searchBarWrapper}>
-      <div className={styles.header}>
-        <div
-          className={styles.selectedCount}
-          style={{
-            opacity: isEdit ? 1 : 0,
-            transition: "opacity",
-            transitionDuration: isEdit ? "400ms" : "10ms",
-            transitionDelay: isEdit ? "150ms" : "0  ",
-          }}
-        >
-          {selectedCount}
+      <MaxWidthWrapper>
+        <div className={styles.header}>
+          <div
+            className={styles.selectedCount}
+            style={{
+              opacity: isEdit ? 1 : 0,
+              transition: "opacity",
+              transitionDuration: isEdit ? "400ms" : "10ms",
+              transitionDelay: isEdit ? "150ms" : "0  ",
+            }}
+          >
+            {selectedCount}
+          </div>
+          <span
+            className={styles.wordings}
+            style={{
+              display: "inline-block",
+              transform: isEdit ? "translateX(35px)" : "translateX(0px)",
+              transition: "transform 500ms",
+              transitionTimingFunction: isEdit
+                ? "cubic-bezier(.09,.69,.52,1.32)"
+                : "cubic-bezier(.09,.69,.52,1)",
+            }}
+          >
+            {isEdit ? "Selected" : "Contacts"}
+          </span>
         </div>
-        <span
-          className={styles.wordings}
-          style={{
-            display: "inline-block",
-            transform: isEdit ? "translateX(35px)" : "translateX(0px)",
-            transition: "transform 500ms",
-            transitionTimingFunction: isEdit
-              ? "cubic-bezier(.09,.69,.52,1.32)"
-              : "cubic-bezier(.09,.69,.52,1)",
-          }}
-        >
-          {isEdit ? "Selected" : "Contacts"}
-        </span>
-      </div>
-      <form>
-        <input
-          className={styles.input}
-          value={searchTerm}
-          placeholder="Search contacts"
-          onChange={(e) => {
-            handleSearch(e.target.value);
-          }}
-          type="text"
-        ></input>
-      </form>
+        <form>
+          <input
+            className={styles.input}
+            value={searchTerm}
+            placeholder="Search contacts"
+            onChange={(e) => {
+              handleSearch(e.target.value);
+            }}
+            type="text"
+          ></input>
+        </form>
+      </MaxWidthWrapper>
     </div>
   );
 }

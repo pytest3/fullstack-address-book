@@ -7,6 +7,7 @@ import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
 import { BACKEND_URL } from "@/app/constants";
+import MaxWidthWrapper from "../MaxWidthWrapper/MaxWidthWrapper";
 
 export default function NameList({
   isEdit,
@@ -49,16 +50,22 @@ export default function NameList({
   const [showScrollButton, setShowScrollButton] = React.useState(false);
 
   React.useEffect(() => {
+    const scrollContainer = document.querySelector(".__className_e66fe9");
+
     function handleScrollButtonVisibility() {
-      if (window.scrollY > 120) {
+      console.log(scrollContainer.scrollTop);
+      if (scrollContainer.scrollTop > 120) {
         setShowScrollButton(true);
       } else {
         setShowScrollButton(false);
       }
     }
-    document.addEventListener("scroll", handleScrollButtonVisibility);
+    scrollContainer.addEventListener("scroll", handleScrollButtonVisibility);
     return () =>
-      document.removeEventListener("scroll", handleScrollButtonVisibility);
+      scrollContainer.removeEventListener(
+        "scroll",
+        handleScrollButtonVisibility
+      );
   }, []);
 
   function handleUpButtonClick(e) {

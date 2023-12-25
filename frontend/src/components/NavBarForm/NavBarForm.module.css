@@ -23,6 +23,7 @@
   background: inherit;
   width: auto;
   color: var(--color-blue-7);
+  cursor: pointer;
 }
 .cancelBtn {
   text-decoration: none;
