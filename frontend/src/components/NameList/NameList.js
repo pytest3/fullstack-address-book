@@ -8,6 +8,7 @@ import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
 import { BACKEND_URL } from "@/app/constants";
 import MaxWidthWrapper from "../MaxWidthWrapper/MaxWidthWrapper";
+import LoadingScreen from "../LoadingScreen";
 
 export default function NameList({
   isEdit,
@@ -79,7 +80,7 @@ export default function NameList({
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   if (error) {

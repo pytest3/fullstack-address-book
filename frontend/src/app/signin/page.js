@@ -38,9 +38,9 @@ export default function page() {
             <img src="/google-icon.svg" className={styles.googleIcon}></img>
             Sign in with Google
           </button>
-          <button className={`${styles.button} ${styles.guestBtn}`}>
+          {/* <button className={`${styles.button} ${styles.guestBtn}`}>
             Continue as guest
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@ import InitialsAvatar from "@/components/InitialsAvatar";
 import { capitalizeFirstLetter } from "@/utils";
 import { BACKEND_URL } from "@/app/constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Page({ params }) {
   const { id } = params;
@@ -102,8 +103,7 @@ export default function Page({ params }) {
     return <div>failed to load</div>;
   }
   if (isLoading) {
-    console.log("loading");
-    return <div>loading...</div>;
+    return <LoadingScreen />;
   }
 
   return (
