@@ -6,7 +6,6 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import NavBarMain from "@/components/NavbarMain";
 import React from "react";
 import { useSession } from "next-auth/react";
-import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Home() {
   const [isEdit, setIsEdit] = React.useState(false);
