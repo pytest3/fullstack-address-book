@@ -1,0 +1,32 @@
+.wrapper {
+  display: grid;
+  place-content: center;
+  height: 100vh; /* fallback */
+  height: 100dvh;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+
+  25% {
+    transform: rotate(1turn) scale(1);
+  }
+
+  50% {
+    transform: rotate(1turn) scale(1.5);
+  }
+
+  75% {
+    transform: rotate(0) scale(1.5);
+  }
+
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+
+.spinner {
+  animation: 1700ms rotate infinite linear both;
+}
