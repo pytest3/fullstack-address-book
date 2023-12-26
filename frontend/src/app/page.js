@@ -5,7 +5,7 @@ import NameList from "@/components/NameList";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import NavBarMain from "@/components/NavbarMain";
 import React from "react";
-import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const [isEdit, setIsEdit] = React.useState(false);
@@ -13,6 +13,7 @@ export default function Home() {
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
+  const { data: session } = useSession({ required: true });
 
   function toggleEdit() {
     setIsEdit(!isEdit);
