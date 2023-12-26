@@ -14,7 +14,6 @@ import {
   Baby,
 } from "lucide-react";
 
-import DatePicker from "react-datepicker";
 import MultiLineFormInput from "@/components/NewContactForm/MultiLineFormInput";
 import ConditionalFormInput from "@/components/NewContactForm/ConditionalFormInput";
 import NavBarForm from "@/components/NavBarForm";
@@ -23,15 +22,13 @@ import { useHttp } from "@/hooks/useHttp";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "../constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
+import { useSession } from "next-auth/react";
 
 export default function Page() {
+  const { data: session } = useSession({ required: true });
   const isRequired = true;
-
   const birthdayRef = React.useRef("text");
-  const testBirthdayRef = React.useRef("text");
-
   const router = useRouter();
-
   const { isLoading, isError, sendRequest } = useHttp(
     `${BACKEND_URL}/api/contacts`
   );
@@ -47,13 +44,9 @@ export default function Page() {
   const [hobbyList, setHobbyList] = React.useState([
     { id: crypto.randomUUID(), hobby: "" },
   ]);
-
   const [categoryList, setCategoryList] = React.useState([
     { id: crypto.randomUUID(), category: "" },
   ]);
-
-  const [birthdayInputType, setBirthdayInputType] = React.useState("text");
-
   const [birthday, setBirthday] = React.useState("");
   const [employmentStatus, setEmploymentStatus] = React.useState({
     status: "",
@@ -61,13 +54,11 @@ export default function Page() {
     industry: null,
     jobTitle: null,
   });
-
   const [parentHoodStatus, setParentHoodStatus] = React.useState({
     status: "",
     daughterCount: null,
     sonCount: null,
   });
-
   const employmentConfig = {
     showCondition: "employed",
     options: [
@@ -174,6 +165,7 @@ export default function Page() {
           className={styles.form}
           onSubmit={handleFormSubmit}
         >
+          <div>{session?.user?.name}</div>
           <section className={styles.nameSection}>
             <User className={styles.icon} />
             <input

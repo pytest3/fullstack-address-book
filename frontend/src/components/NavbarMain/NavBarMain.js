@@ -7,6 +7,7 @@ import { Trash2 } from "lucide-react";
 import Modal2 from "../Modal2";
 import { useHttp } from "@/hooks/useHttp";
 import { BACKEND_URL } from "@/app/constants";
+import { signOut } from "next-auth/react";
 
 export default function NavBarMain({
   isEdit,
@@ -103,7 +104,7 @@ export default function NavBarMain({
           <Link href="/new-contact">
             <Plus className={styles.icon} />
           </Link>
-          <UserCircle className={styles.icon} />
+          <UserCircle className={styles.icon} onClick={signOut} />
         </div>
       </div>
     </NavBarWrapper>
