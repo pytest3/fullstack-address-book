@@ -6,6 +6,7 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import NavBarMain from "@/components/NavbarMain";
 import React from "react";
 import { useSession } from "next-auth/react";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Home() {
   const [isEdit, setIsEdit] = React.useState(false);
@@ -13,7 +14,9 @@ export default function Home() {
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
-  const { data: session } = useSession({ required: true });
+  const { data: session, status } = useSession({
+    required: true,
+  });
 
   function toggleEdit() {
     setIsEdit(!isEdit);
@@ -43,6 +46,10 @@ export default function Home() {
 
   function handleSearch(userInput) {
     setSearchTerm(userInput);
+  }
+
+  if (status != "authenticated" || !session) {
+    return <LoadingScreen></LoadingScreen>;
   }
 
   return (

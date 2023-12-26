@@ -25,7 +25,6 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 import { useSession } from "next-auth/react";
 
 export default function Page() {
-  const { data: session } = useSession({ required: true });
   const isRequired = true;
   const birthdayRef = React.useRef("text");
   const router = useRouter();
@@ -165,7 +164,6 @@ export default function Page() {
           className={styles.form}
           onSubmit={handleFormSubmit}
         >
-          <div>{session?.user?.name}</div>
           <section className={styles.nameSection}>
             <User className={styles.icon} />
             <input

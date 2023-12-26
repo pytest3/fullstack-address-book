@@ -3,16 +3,18 @@
 import React from "react";
 import styles from "./signIn.module.css";
 import { signIn } from "next-auth/react";
-import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function page() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.hero}>
         <div className={styles.circleFlourish}></div>
-        <div className={styles.squareFlourish}></div>
         <article className={styles.heroImageWrapper}>
+          <div className={styles.squareFlourish}></div>
+
           <div className={styles.heroImageBG}></div>
+
           <img className={styles.heroImage} src="/hero-image.svg"></img>
         </article>
       </div>
@@ -27,9 +29,14 @@ export default function page() {
         </article>
         <div className={styles.actions}>
           <button
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() =>
+              signIn("google", {
+                callbackUrl: "/",
+              })
+            }
             className={`${styles.signInBtn} ${styles.button}`}
           >
+            <img src="/google-icon.svg" className={styles.googleIcon}></img>
             Sign in with Google
           </button>
           <button className={`${styles.button} ${styles.guestBtn}`}>
