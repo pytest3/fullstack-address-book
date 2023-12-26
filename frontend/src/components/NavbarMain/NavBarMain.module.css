@@ -33,6 +33,12 @@
   color: var(--color-blue-7);
 }
 
+.logOutIcon {
+  height: 22px;
+  width: 22px;
+  padding-top: 2.5px;
+}
+
 .header {
   /* margin-left: auto;
   margin-right: auto; */
