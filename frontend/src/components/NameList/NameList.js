@@ -7,7 +7,6 @@ import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
 import { BACKEND_URL } from "@/app/constants";
-import MaxWidthWrapper from "../MaxWidthWrapper/MaxWidthWrapper";
 import LoadingScreen from "../LoadingScreen";
 
 export default function NameList({

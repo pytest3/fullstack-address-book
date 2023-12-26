@@ -21,8 +21,8 @@
   background-color: var(--color-gray-1);
   border-radius: 50%;
   right: 0;
-  top: 110px;
-  transform: translateX(50%);
+  top: 0;
+  transform: translate(70%, -25%);
   position: absolute;
   opacity: 0.6;
 }
@@ -38,7 +38,7 @@
 }
 
 .heroImageWrapper {
-  bottom: 15%;
+  bottom: 10.5%;
   position: absolute;
   width: clamp(200px, 300px, 500px);
 }

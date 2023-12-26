@@ -8,12 +8,10 @@ export default function page() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.hero}>
-        <div className={styles.circleFlourish}></div>
         <article className={styles.heroImageWrapper}>
           <div className={styles.squareFlourish}></div>
-
+          <div className={styles.circleFlourish}></div>
           <div className={styles.heroImageBG}></div>
-
           <img className={styles.heroImage} src="/hero-image.svg"></img>
         </article>
       </div>
