@@ -13,7 +13,9 @@ export default function Home() {
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
-  const { data: session } = useSession({ required: true });
+  const { data: session, status } = useSession({
+    required: true,
+  });
 
   function toggleEdit() {
     setIsEdit(!isEdit);
@@ -43,6 +45,10 @@ export default function Home() {
 
   function handleSearch(userInput) {
     setSearchTerm(userInput);
+  }
+
+  if (status != "authenticated" || !session) {
+    return <div>loading...</div>;
   }
 
   return (
