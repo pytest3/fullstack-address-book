@@ -47,7 +47,7 @@ export default function Home() {
     setSearchTerm(userInput);
   }
 
-  if (status != "authenticated" || !session) {
+  if (status != "authenticated" || !session || !status) {
     return <div>loading...</div>;
   }
 
