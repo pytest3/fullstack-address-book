@@ -48,7 +48,7 @@ export default function Home() {
   }
 
   if (status != "authenticated" || !session) {
-    return <LoadingScreen></LoadingScreen>;
+    return <div>loading...</div>;
   }
 
   return (

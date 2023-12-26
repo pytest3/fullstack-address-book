@@ -3,7 +3,6 @@
 import React from "react";
 import styles from "./signIn.module.css";
 import { signIn } from "next-auth/react";
-import LoadingScreen from "@/components/LoadingScreen";
 
 export default function page() {
   return (
