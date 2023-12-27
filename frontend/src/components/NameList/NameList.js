@@ -50,22 +50,18 @@ export default function NameList({
   const [showScrollButton, setShowScrollButton] = React.useState(false);
 
   React.useEffect(() => {
-    const scrollContainer = document.querySelector(".__className_e66fe9");
+    // const scrollContainer = document.querySelector(".__className_e66fe9");
 
     function handleScrollButtonVisibility() {
-      console.log(scrollContainer.scrollTop);
-      if (scrollContainer.scrollTop > 120) {
+      if (window.scrollY > 120) {
         setShowScrollButton(true);
       } else {
         setShowScrollButton(false);
       }
     }
-    scrollContainer.addEventListener("scroll", handleScrollButtonVisibility);
+    window.addEventListener("scroll", handleScrollButtonVisibility);
     return () =>
-      scrollContainer.removeEventListener(
-        "scroll",
-        handleScrollButtonVisibility
-      );
+      window.removeEventListener("scroll", handleScrollButtonVisibility);
   }, []);
 
   function handleUpButtonClick(e) {
