@@ -12,7 +12,8 @@
 }
 html {
   /* scrollbar-gutter: stable; */
-  overflow: hidden; /* prevent horizontal scroll when applying translateX to rightActions on navbar */
+  /* prevent horizontal scroll when applying translateX to rightActions on navbar */
+  /* overflow-x: hidden; */
 }
 
 body {
@@ -100,7 +101,9 @@ html,
 body,
 #root, /* for create-react-app */
 #__next /* for Next.js */ {
-  height: 100%;
+  /* height: 100%; */
+  /* height: 100dvh; */
+  /* min-height: -webkit-fill-available; */
 }
 
 ::-webkit-input-placeholder {

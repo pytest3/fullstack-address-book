@@ -4,6 +4,8 @@
   gap: 10px;
   flex: 1;
   justify-content: right;
+  align-self: end;
+  padding-bottom: 3px;
 }
 
 .leftActions {
@@ -18,9 +20,11 @@
   width: 100%;
   align-items: baseline;
   position: sticky;
-  top: 0px;
+  top: 0;
+  right: 0;
   background-color: white;
   z-index: 3;
+  overflow: hidden;
 }
 
 .subRightActions {
