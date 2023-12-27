@@ -60,6 +60,7 @@ export default function Home() {
 
   return (
     <main className={styles.wrapper}>
+      <div>{process.env.NODE_ENV}</div>
       <NavBarMain
         isEdit={isEdit}
         toggleEdit={toggleEdit}
