@@ -1,6 +1,10 @@
 .wrapper {
   width: 100%;
-  min-height: 100svh;
+  min-height: 100dvh;
+  /* min-height: 100vh; */
+
+  /* min-height: -webkit-fill-available; */
+
   padding: 20px;
   padding-top: 0px;
   display: grid;

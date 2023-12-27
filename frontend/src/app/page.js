@@ -15,13 +15,17 @@ export default function Home() {
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
   const { data: session, status } = useSession({
-    required: true,
+    required: process.env.NODE_ENV === "development" ? false : true,
   });
 
   function toggleEdit() {
     setIsEdit(!isEdit);
     setSelectedContacts([]);
   }
+
+  React.useEffect(() => {
+    window.scrollTo(0, 1);
+  }, []);
 
   const [showContactsInNav, setShowContactsInNav] = React.useState(false);
 
@@ -48,8 +52,10 @@ export default function Home() {
     setSearchTerm(userInput);
   }
 
-  if (status != "authenticated" || !session || !status) {
-    return <LoadingScreen />;
+  if (process.env.NODE_ENV === "production") {
+    if (status != "authenticated" || !session || !status) {
+      return <LoadingScreen />;
+    }
   }
 
   return (

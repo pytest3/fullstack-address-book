@@ -67,17 +67,15 @@ export default function SearchBar({
             {isEdit ? "Selected" : "Contacts"}
           </span>
         </div>
-        <form>
-          <input
-            className={styles.input}
-            value={searchTerm}
-            placeholder="Search contacts"
-            onChange={(e) => {
-              handleSearch(e.target.value);
-            }}
-            type="text"
-          ></input>
-        </form>
+        <input
+          className={styles.input}
+          value={searchTerm}
+          placeholder="Search contacts"
+          onChange={(e) => {
+            handleSearch(e.target.value);
+          }}
+          type="text"
+        ></input>
       </MaxWidthWrapper>
     </div>
   );
