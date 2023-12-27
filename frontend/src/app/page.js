@@ -14,8 +14,12 @@ export default function Home() {
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
+  // const { data: session, status } = useSession({
+  //   required: process.env.NODE_ENV === "development" ? false : true,
+  // });
+
   const { data: session, status } = useSession({
-    required: process.env.NODE_ENV === "development" ? false : true,
+    required: true,
   });
 
   function toggleEdit() {
@@ -52,15 +56,18 @@ export default function Home() {
     setSearchTerm(userInput);
   }
 
-  if (process.env.NODE_ENV === "production") {
-    if (status != "authenticated" || !session || !status) {
-      return <LoadingScreen />;
-    }
+  // if (process.env.NODE_ENV === "production") {
+  //   if (status != "authenticated" || !session || !status) {
+  //     return <LoadingScreen />;
+  //   }
+  // }
+
+  if (status != "authenticated" || !session || !status) {
+    return <LoadingScreen />;
   }
 
   return (
     <main className={styles.wrapper}>
-      <div>{process.env.NODE_ENV}</div>
       <NavBarMain
         isEdit={isEdit}
         toggleEdit={toggleEdit}
