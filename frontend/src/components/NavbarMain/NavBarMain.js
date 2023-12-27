@@ -64,7 +64,7 @@ export default function NavBarMain({
       <div
         className={styles.rightActions}
         style={{
-          transform: isEdit ? "translateX(68px)" : "translateX(0)",
+          transform: isEdit ? "translateX(66px)" : "translateX(0)",
           transition: "transform 500ms",
           transitionTimingFunction: isEdit
             ? "ease-in"
