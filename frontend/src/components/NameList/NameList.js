@@ -129,8 +129,12 @@ export default function NameList({
                   fontSize="20px"
                   circleSize="52px"
                 />
-                <div className={styles.name}>{first_name}</div>
-                <div className={styles.job}>{last_name}</div>
+                <div className={`${styles.name} ${styles.contactInfo}`}>
+                  {first_name}
+                </div>
+                <div className={`${styles.job} ${styles.contactInfo}`}>
+                  {last_name}
+                </div>
               </article>
             </Link>
           </div>

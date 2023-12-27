@@ -215,6 +215,11 @@
   animation: rise-up-shake 900ms both;
 }
 
+.signInBtn:active,
+.signInBtn:hover {
+  transform: scale(0.5);
+}
+
 .googleIcon {
   width: 30px;
   height: 30px;

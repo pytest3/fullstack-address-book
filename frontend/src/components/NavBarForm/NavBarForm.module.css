@@ -25,7 +25,17 @@
   color: var(--color-blue-7);
   cursor: pointer;
 }
+
 .cancelBtn {
   text-decoration: none;
   color: var(--color-blue-7);
+}
+
+.leftActionWrapper:active .cancelBtn {
+  transform: scale(0.9);
+  border: 1px solid red;
+}
+
+.rightActionWrapper:active .saveBtn {
+  transform: scale(0.9);
 }

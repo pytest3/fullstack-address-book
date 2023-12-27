@@ -117,7 +117,7 @@ export default function NavBarMain({
               : "cubic-bezier(0,.95,.68,1.9)",
           }}
         >
-          <Link href="/new-contact">
+          <Link href="/new-contact" className={styles.plusIconWrapper}>
             <Plus className={styles.icon} />
           </Link>
           <LogOut
