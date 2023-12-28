@@ -4,19 +4,21 @@
   gap: 10px;
   flex: 1;
   justify-content: right;
-  align-self: end;
-  padding-bottom: 3px;
+  align-self: start;
+  margin-top: -3px;
 }
 
 .leftActions {
-  color: var(--color-blue-7);
+  color: var(--color-gray-7);
   flex: 1;
   align-self: baseline;
   cursor: pointer;
+  line-height: 1;
 }
 
 .leftActions:active {
   transform: scale(0.9);
+  transform-origin: -20px 0px;
 }
 
 .wrapper {
@@ -26,7 +28,7 @@
   position: sticky;
   top: 0;
   right: 0;
-  background-color: white;
+  background: var(--color-primary);
   z-index: 3;
   overflow: hidden;
   padding-left: 1px;
@@ -39,7 +41,7 @@
 
 .icon {
   stroke-width: 2px;
-  color: var(--color-blue-7);
+  color: var(--color-gray-7);
   cursor: pointer;
 }
 
@@ -92,7 +94,7 @@
 } */
 
 .trashIcon {
-  background-color: white;
+  /* background-color: var(--color-primary); */
   border: none;
   padding: 0px;
 }

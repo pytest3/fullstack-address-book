@@ -2,6 +2,10 @@
   grid-column: 2/-1;
 }
 
+.input {
+  background: var(--color-primary);
+}
+
 .inputSection {
   display: grid;
   grid-template-columns: 30px 1fr;

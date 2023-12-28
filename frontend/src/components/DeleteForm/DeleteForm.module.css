@@ -55,6 +55,7 @@
 }
 .checkBox {
   position: relative;
+  accent-color: red;
 }
 
 .checkBox::after {

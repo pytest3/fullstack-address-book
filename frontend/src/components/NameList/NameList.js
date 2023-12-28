@@ -140,13 +140,12 @@ export default function NameList({
           </div>
         );
       })}
-
       <button
         className={styles.scrollTopBtn}
         style={{
           opacity: showScrollButton ? 1 : 0,
           transform: showScrollButton ? "translateY(0px)" : "translateY(100px)",
-          transition: "opacity, transform ",
+          transition: "opacity, transform",
           transitionTimingFunction: showScrollButton
             ? "linear, cubic-bezier(0,1.47,.82,1.56)"
             : "linear, ease-in",

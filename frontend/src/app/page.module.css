@@ -9,4 +9,5 @@
   padding-top: 0px;
   display: grid;
   grid-template-rows: auto auto 1fr;
+  /* background: var(--color-primary); */
 }

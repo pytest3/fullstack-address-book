@@ -124,7 +124,7 @@ export default function Page({ params }) {
             className={styles.avatar}
             fontClassName={styles.avatarFont}
           ></InitialsAvatar>
-          <div className={styles.fullName} style={{ color: fontColor }}>
+          <div className={styles.fullName}>
             {capitalizeFirstLetter(first_name)}{" "}
             {capitalizeFirstLetter(last_name)}
           </div>

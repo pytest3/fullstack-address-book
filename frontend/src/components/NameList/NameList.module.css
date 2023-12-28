@@ -61,6 +61,7 @@
 }
 .checkBox {
   position: relative;
+  accent-color: var(--color-secondary);
 }
 
 .checkBox::after {
@@ -96,6 +97,17 @@
   color: var(--color-gray-5);
 }
 
+@keyframes shift-down {
+  100% {
+    transform: translateY(4px);
+  }
+}
+@keyframes shift-up {
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
 .scrollTopBtn {
   position: fixed;
   bottom: 20px;
@@ -111,8 +123,18 @@
   color: hsl(0, 0%, 20%);
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 0.38);
 }
 
+.scrollTopBtn:hover {
+  animation: shift-up forwards 150ms;
+  box-shadow: 5px 14px 9px hsl(0deg 0% 0% / 0.28);
+}
+
+.scrollTopBtn:active {
+  animation: shift-down forwards 50ms;
+  box-shadow: 2px 4px 6px hsl(0deg 0% 0% / 0.48);
+}
 .upIcon {
   height: 18px;
   width: 18px;
@@ -131,4 +153,8 @@
   border-radius: 6px;
   padding: 8px 24px;
   border: none;
+}
+
+.scrollTopBtn:active .innerScrollTopBtnWrapper {
+  transform: translateY(4px);
 }

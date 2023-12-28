@@ -67,6 +67,7 @@ export default function MultiLineField({
               onChange={(e) => handleItemInput(e, inputId)}
               name={name}
               value={item[`${inputName}`]}
+              className={styles.input}
               {...props}
             ></input>
             <div className={styles.buttonGroup}>

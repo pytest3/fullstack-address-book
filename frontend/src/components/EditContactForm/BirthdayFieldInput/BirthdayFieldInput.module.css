@@ -23,7 +23,7 @@
 }
 .birthdayInput {
   width: 100%;
-  background-color: white;
+  background: var(--color-primary);
   -webkit-appearance: none;
   text-align: left;
   color: black;

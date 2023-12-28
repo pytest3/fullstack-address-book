@@ -24,18 +24,20 @@ export default function page() {
             at your fingertips.
           </div>
         </article>
-        <div className={styles.actions}>
-          <button
-            onClick={() =>
-              signIn("google", {
-                callbackUrl: "/",
-              })
-            }
-            className={`${styles.signInBtn} ${styles.button}`}
-          >
-            <img src="/google-icon.svg" className={styles.googleIcon}></img>
-            Sign in with Google
-          </button>
+        <div className={styles.buttonWrapper}>
+          <div className={styles.innerButtonWrapper}>
+            <button
+              onClick={() =>
+                signIn("google", {
+                  callbackUrl: "/",
+                })
+              }
+              className={`${styles.signInBtn}`}
+            >
+              <img src="/google-icon.svg" className={styles.googleIcon}></img>
+              Sign in with Google
+            </button>
+          </div>
           {/* <button className={`${styles.button} ${styles.guestBtn}`}>
             Continue as guest
           </button> */}

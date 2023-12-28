@@ -20,3 +20,7 @@
   grid-template-columns: 30px 1fr;
   gap: 10px var(--horizontal-spacing);
 }
+
+.input {
+  background: var(--color-primary);
+}

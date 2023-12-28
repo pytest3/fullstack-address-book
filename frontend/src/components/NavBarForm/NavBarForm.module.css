@@ -4,16 +4,25 @@
   position: sticky;
   top: 0;
   background-color: white;
+  margin-right: -20px;
+  margin-left: -20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  background-color: var(--color-primary-2);
+  border-radius: 0% 0% 50% 50% / 10% 10% 19% 19%;
 }
 
 .leftActionsWrapper {
   flex: 1;
+  align-self: end;
 }
 
 .rightActionWrapper {
   display: flex;
   flex: 1;
   justify-content: flex-end;
+  align-self: end;
 }
 
 .saveBtn {
@@ -22,18 +31,17 @@
   border: none;
   background: inherit;
   width: auto;
-  color: var(--color-blue-7);
+  color: var(--color-gray-7);
   cursor: pointer;
 }
 
 .cancelBtn {
   text-decoration: none;
-  color: var(--color-blue-7);
+  color: var(--color-gray-7);
 }
 
 .leftActionWrapper:active .cancelBtn {
   transform: scale(0.9);
-  border: 1px solid red;
 }
 
 .rightActionWrapper:active .saveBtn {

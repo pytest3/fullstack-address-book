@@ -8,6 +8,7 @@
 
 .indented {
   grid-column: 2/-1;
+  background: var(--color-primary);
 }
 
 .icon {
@@ -28,7 +29,7 @@
   background-image: url("/chevron-down.svg");
   background-repeat: no-repeat;
   background-position: right;
-  background-color: white;
+  background: var(--color-primary);
 }
 
 .employmentStatus svg {

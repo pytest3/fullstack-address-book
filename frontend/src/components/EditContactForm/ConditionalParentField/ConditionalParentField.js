@@ -55,7 +55,7 @@ export default function ConditionalParentField({
       <Icon className={styles.icon} />
       <select
         value={inputs.status}
-        className={styles.employmentStatus}
+        className={styles.select}
         onChange={(e) => {
           setInputs({ ...inputs, status: e.target.value });
         }}

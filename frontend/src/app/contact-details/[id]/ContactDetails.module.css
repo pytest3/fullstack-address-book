@@ -3,6 +3,7 @@
   --horizontal-spacing: 20px;
   --vertical-spacing: 20px;
   --inner-vertical-spacing: 10px;
+  background-color: var(--color-primary);
 }
 
 .navbar {
@@ -10,7 +11,7 @@
 }
 
 .greyBG {
-  background-color: var(--color-gray-2);
+  background-color: var(--color-primary-2);
   padding: 20px;
   padding-bottom: 15px;
   padding-top: 0px;
@@ -30,7 +31,7 @@
 }
 
 .whiteBG {
-  background-color: white;
+  background: var(--color-primary);
   padding: 20px;
   padding-top: 40px;
   display: grid;
@@ -39,7 +40,7 @@
 
 .avatar {
   margin-bottom: 15px;
-  background-color: var(--color-gray-4);
+  background-color: var(--color-primary);
   border: inherit;
   z-index: 4;
 }
@@ -48,10 +49,11 @@
   font-weight: 00;
   font-size: 20px;
   z-index: 4;
+  color: var(--color-gray-7);
 }
 
 .avatarFont {
-  color: white;
+  color: var(--color-gray-6);
 }
 
 .avatar,

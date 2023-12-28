@@ -57,6 +57,7 @@ export default function SearchBar({
             className={styles.wordings}
             style={{
               display: "inline-block",
+              marginLeft: selectedCount > 9 ? "15px" : "0px",
               transform: isEdit ? "translateX(35px)" : "translateX(0px)",
               transition: "transform 500ms",
               transitionTimingFunction: isEdit

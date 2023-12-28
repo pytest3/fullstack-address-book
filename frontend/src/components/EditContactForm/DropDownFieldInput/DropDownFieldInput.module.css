@@ -20,7 +20,7 @@
   background-image: url("/chevron-down.svg");
   background-repeat: no-repeat;
   background-position: right;
-  background-color: white;
+  background: var(--color-primary);
 }
 
 .maritalSection {

@@ -97,7 +97,11 @@ export default function NavBarMain({
             <Trash2
               style={{
                 opacity: isEdit ? 1 : 0,
-                color: selectedCount > 0 ? "#bc4749" : "var(--color-gray-3)",
+                // color: selectedCount > 0 ? "#bc4749" : "var(--color-gray-5)",
+                color:
+                  selectedCount > 0
+                    ? "var(--color-gray-7"
+                    : "var(--color-gray-5)",
                 transition: "opacity 700ms",
                 transitionDuration: isEdit ? "700ms" : "200ms",
                 transitionDelay: isEdit ? "200ms" : 0,
