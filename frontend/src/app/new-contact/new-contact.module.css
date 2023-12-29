@@ -3,6 +3,23 @@
   padding-top: 0px;
 }
 
+/* .birthdayInput:-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  margin: 0px;
+  margin-right: 20px !important;
+  background-color: red;
+} */
+
+.wrapper input,
+.wrapper select {
+  background: var(--color-primary);
+}
+
+.wrapper svg:hover {
+  cursor: pointer;
+  color: var(--color-gray-6);
+}
+
 .form {
   display: grid;
   gap: var(--vertical-spacing) 0px;
@@ -47,8 +64,14 @@
 .birthdayInput {
   width: 100%;
   -webkit-appearance: none;
-  height: 1.15rem;
+  height: 1.2rem;
 }
+
+/* @media (pointer: fine) {
+  .birthdayInput {
+    pointer-events: none;
+  }
+} */
 
 .maritalStatus {
   border: none;
@@ -59,7 +82,7 @@
   background-image: url("/chevron-down.svg");
   background-repeat: no-repeat;
   background-position: right;
-  background-color: white;
+  background: var(--color-primary);
 }
 
 .avatarWrapper {

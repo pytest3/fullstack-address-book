@@ -191,8 +191,9 @@ export default function Page() {
               name="birthday"
               placeholder="Add Birthday"
               type="text"
+              onTouchStart={(e) => (birthdayRef.current.type = "date")}
               onFocus={(e) => (birthdayRef.current.type = "date")}
-              onMouseOver={(e) => (birthdayRef.current.type = "date")}
+              // onMouseOver={(e) => (birthdayRef.current.type = "date")}
               onBlur={(e) => (birthdayRef.current.type = "text")}
               onChange={(e) => {
                 setBirthday(e.target.value);
