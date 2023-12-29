@@ -156,8 +156,10 @@ export default function NameList({
         type="button"
         onClick={handleUpButtonClick}
       >
-        <MoveUp className={styles.upIcon} strokeWidth={1.5} />
-        <span>To top</span>
+        <div className={styles.scrollTopBtnContents}>
+          <MoveUp className={styles.upIcon} strokeWidth={1.5} />
+          <span>To top</span>
+        </div>
       </button>
     </form>
   );
