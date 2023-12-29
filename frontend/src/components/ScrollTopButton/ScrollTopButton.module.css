@@ -5,7 +5,6 @@
   cursor: pointer;
   padding: 0;
   border: none;
-  z-index: 200;
 }
 
 .scrollTopBtn:after {
@@ -13,7 +12,6 @@
   position: absolute;
   content: "";
   inset: var(--tap-increment);
-  z-index: 100;
 }
 
 .scrollTopBtnContents {
@@ -40,16 +38,18 @@
   }
 }
 
-.scrollTopBtn:hover .scrollTopBtnContents {
-  animation: shift-up forwards 150ms;
-  box-shadow: 5px 14px 9px hsl(0deg 0% 0% / 0.28);
-  pointer-events: none;
+@media (hover: hover) and (pointer: fine) {
+  .scrollTopBtn:hover .scrollTopBtnContents {
+    animation: shift-up forwards 150ms;
+    box-shadow: 5px 14px 9px hsl(0deg 0% 0% / 0.28);
+    /* pointer-events: none; */
+  }
 }
 
 .scrollTopBtn:active .scrollTopBtnContents {
   animation: shift-down forwards 450ms;
   box-shadow: 2px 4px 6px hsl(0deg 0% 0% / 0.48);
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .upIcon {

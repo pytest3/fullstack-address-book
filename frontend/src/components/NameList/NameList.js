@@ -44,16 +44,6 @@ export default function NameList({
       contact.last_name.includes(searchTerm)
   );
 
-  function handleScrollTopButtonClick(e) {
-    e.preventDefault();
-    const target = document.querySelector(".SearchBar_header__IE462");
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });
-  }
-
   if (isLoading) {
     return <LoadingScreen />;
   }
