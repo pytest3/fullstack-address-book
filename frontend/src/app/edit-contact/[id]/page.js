@@ -28,6 +28,7 @@ import ConditionalEmploymentField from "@/components/EditContactForm/Conditional
 import ConditionalParentField from "@/components/EditContactForm/ConditionalParentField";
 import { BACKEND_URL } from "@/app/constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
+import ScrollTopButton from "@/components/ScrollTopButton";
 export default function Page() {
   const isRequired = true;
   const router = useRouter();
@@ -191,6 +192,7 @@ export default function Page() {
           />
         </form>
       </MaxWidthWrapper>
+      <ScrollTopButton scrollTarget=".edit-contact_avatarWrapper__cYeAr" />
     </div>
   );
 }

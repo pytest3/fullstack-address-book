@@ -19,6 +19,7 @@ import { capitalizeFirstLetter } from "@/utils";
 import { BACKEND_URL } from "@/app/constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 import LoadingScreen from "@/components/LoadingScreen";
+import ScrollTopButton from "@/components/ScrollTopButton";
 
 export default function Page({ params }) {
   const { id } = params;
@@ -238,6 +239,7 @@ export default function Page({ params }) {
           </section>
         </main>
       </MaxWidthWrapper>
+      <ScrollTopButton scrollTarget=".ContactDetails_userSummary__kmexx" />
     </div>
   );
 }
