@@ -2,13 +2,12 @@
 
 import React from "react";
 import styles from "./NameList.module.css";
-import { MoveUp } from "lucide-react";
 import useSWR from "swr";
 import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
 import { BACKEND_URL } from "@/app/constants";
 import LoadingScreen from "../LoadingScreen";
-import useShowOnScroll from "@/hooks/useWindowScroll";
+import ScrollTopButton from "../ScrollTopButton";
 
 export default function NameList({
   isEdit,
@@ -27,10 +26,6 @@ export default function NameList({
     return contacts;
   }
 
-  const { isShown, setIsShown } = useShowOnScroll(120);
-
-  console.log(isShown);
-
   const config = React.useMemo(
     () => ({
       headers: { "ngrok-skip-browser-warning": true },
@@ -48,31 +43,6 @@ export default function NameList({
       contact.first_name.includes(searchTerm) ||
       contact.last_name.includes(searchTerm)
   );
-
-  const [showScrollButton, setShowScrollButton] = React.useState(false);
-
-  React.useEffect(() => {
-    function handleScrollButtonVisibility() {
-      if (window.scrollY > 120) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    }
-    window.addEventListener("scroll", handleScrollButtonVisibility);
-    return () =>
-      window.removeEventListener("scroll", handleScrollButtonVisibility);
-  }, []);
-
-  function handleUpButtonClick(e) {
-    e.preventDefault();
-    const target = document.querySelector(".SearchBar_header__IE462");
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });
-  }
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -140,27 +110,7 @@ export default function NameList({
           </div>
         );
       })}
-      <button
-        className={styles.scrollTopBtn}
-        style={{
-          opacity: showScrollButton ? 1 : 0,
-          transform: showScrollButton ? "translateY(0px)" : "translateY(100px)",
-          transition: "opacity, transform",
-          transitionTimingFunction: showScrollButton
-            ? "linear, cubic-bezier(0,1.47,.82,1.56)"
-            : "linear, ease-in",
-          transitionDuration: showScrollButton
-            ? "300ms, 400ms"
-            : "300ms, 400ms",
-        }}
-        type="button"
-        onClick={handleUpButtonClick}
-      >
-        <div className={styles.scrollTopBtnContents}>
-          <MoveUp className={styles.upIcon} strokeWidth={1.5} />
-          <span>To top</span>
-        </div>
-      </button>
+      <ScrollTopButton scrollTarget=".SearchBar_header__IE462" />
     </form>
   );
 }

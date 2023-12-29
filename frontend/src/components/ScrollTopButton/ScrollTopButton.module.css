@@ -1,0 +1,59 @@
+.scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
+
+.scrollTopBtn:after {
+  --tap-increment: -8px;
+  position: absolute;
+  content: "";
+  inset: var(--tap-increment);
+}
+
+.scrollTopBtnContents {
+  background-color: white;
+  border: 1px solid hsl(0, 0%, 70%);
+  border-radius: 8px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: hsl(0, 0%, 20%);
+  font-size: 14px;
+  box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 0.38);
+}
+
+@keyframes shift-down {
+  100% {
+    transform: translateY(4px);
+  }
+}
+@keyframes shift-up {
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scrollTopBtn:hover .scrollTopBtnContents {
+    animation: shift-up forwards 150ms;
+    box-shadow: 5px 14px 9px hsl(0deg 0% 0% / 0.28);
+    /* pointer-events: none; */
+  }
+}
+
+.scrollTopBtn:active .scrollTopBtnContents {
+  animation: shift-down forwards 450ms;
+  box-shadow: 2px 4px 6px hsl(0deg 0% 0% / 0.48);
+  /* pointer-events: none; */
+}
+
+.upIcon {
+  height: 18px;
+  width: 18px;
+  color: hsl(0, 0%, 40%);
+}
