@@ -193,7 +193,7 @@
   display: flex;
   flex-direction: column;
   gap: 9.5px;
-  background: hsl(236, 95%, 55%);
+  background: hsl(236, 95%, 45%);
   border: none;
   border-radius: 8px;
   animation: rise-up-shake 900ms both;

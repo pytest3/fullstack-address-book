@@ -94,7 +94,7 @@
 } */
 
 .trashIcon {
-  /* background-color: var(--color-primary); */
+  background-color: var(--color-primary);
   border: none;
   padding: 0px;
 }
