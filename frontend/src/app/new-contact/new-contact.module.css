@@ -52,7 +52,7 @@
 .maritalSection {
   display: grid;
   grid-template-columns: 30px 1fr;
-  gap: 0px var(--horizontal-spacing);
+  gap: 8px var(--horizontal-spacing);
   padding-top: var(--inner-vertical-spacing);
   border-top: 1px solid var(--color-gray-2);
 }

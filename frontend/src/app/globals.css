@@ -69,7 +69,7 @@ h6 {
 :root {
   --max-width: 450px;
   --color-primary: #f2ecec;
-  --color-primary: grey;
+  /* --color-primary: grey; */
   --color-primary-2: rgb(217, 214, 212);
   --color-secondary: #b07bac;
 

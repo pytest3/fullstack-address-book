@@ -19,7 +19,7 @@ export default function Home() {
   // });
 
   const { data: session, status } = useSession({
-    required: false,
+    required: true,
   });
 
   function toggleEdit() {
@@ -62,9 +62,9 @@ export default function Home() {
   //   }
   // }
 
-  // if (status != "authenticated" || !session || !status) {
-  //   return <LoadingScreen />;
-  // }
+  if (status != "authenticated" || !session || !status) {
+    return <LoadingScreen />;
+  }
 
   return (
     <main className={styles.wrapper}>

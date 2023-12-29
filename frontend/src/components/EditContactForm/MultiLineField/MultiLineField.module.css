@@ -18,7 +18,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 0px 10px;
+  gap: 8px 10px;
 }
 
 .buttonGroup {
