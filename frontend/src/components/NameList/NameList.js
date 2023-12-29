@@ -17,15 +17,12 @@ export default function NameList({
 }) {
   async function fetcher([url, options]) {
     const res = await fetch(url, options);
-
     if (!res.ok) {
       const error = new Error("An error occurred while fetching the data");
       error.status = res.status;
       throw error;
     }
-
     const contacts = await res.json();
-
     return contacts;
   }
 
@@ -50,8 +47,6 @@ export default function NameList({
   const [showScrollButton, setShowScrollButton] = React.useState(false);
 
   React.useEffect(() => {
-    // const scrollContainer = document.querySelector(".__className_e66fe9");
-
     function handleScrollButtonVisibility() {
       if (window.scrollY > 120) {
         setShowScrollButton(true);
@@ -156,8 +151,10 @@ export default function NameList({
         type="button"
         onClick={handleUpButtonClick}
       >
-        <MoveUp className={styles.upIcon} strokeWidth={1.5} />
-        <span>To top</span>
+        <div className={styles.scrollTopBtnContents}>
+          <MoveUp className={styles.upIcon} strokeWidth={1.5} />
+          <span>To top</span>
+        </div>
       </button>
     </form>
   );
