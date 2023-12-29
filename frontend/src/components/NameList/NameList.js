@@ -8,6 +8,7 @@ import InitialsAvatar from "../InitialsAvatar";
 import Link from "next/link";
 import { BACKEND_URL } from "@/app/constants";
 import LoadingScreen from "../LoadingScreen";
+import useShowOnScroll from "@/hooks/useWindowScroll";
 
 export default function NameList({
   isEdit,
@@ -25,6 +26,10 @@ export default function NameList({
     const contacts = await res.json();
     return contacts;
   }
+
+  const { isShown, setIsShown } = useShowOnScroll(120);
+
+  console.log(isShown);
 
   const config = React.useMemo(
     () => ({
