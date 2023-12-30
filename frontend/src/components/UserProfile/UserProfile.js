@@ -16,11 +16,11 @@ export default function UserProfile({ user, children }) {
           <span>{user.firstName}</span> <span>{user.lastName}</span>
         </div>
       </div>
-      <div className={styles.userEmail}>
+      {/* <div className={styles.userEmail}>
         <div className={styles.innerUserEmailWrapper}>
           <div>{user.email}</div>
         </div>
-      </div>
+      </div> */}
       <div className={styles.userContacts}>
         <div className={styles.innerUserContactsWrapper}>
           <div>3 contacts</div>
@@ -28,7 +28,7 @@ export default function UserProfile({ user, children }) {
       </div>
 
       <div className={styles.logout} onClick={signOut}>
-        <div className={styles.innerUserContactsWrapper}>Logout</div>
+        <div className={styles.innerLogoutWrapper}>Logout</div>
       </div>
     </div>
   );

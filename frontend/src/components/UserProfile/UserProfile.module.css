@@ -43,22 +43,20 @@
   animation: slide-up 850ms 150ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
-.userEmail {
-  /* grid-row: 2/3;
-  grid-column: 1/2; */
+/* .userEmail {
   overflow: hidden;
-}
+} */
 
-.innerUserEmailWrapper {
+/* .innerUserEmailWrapper {
   animation: slide-up 850ms 200ms cubic-bezier(0.65, 0, 0.35, 1) both;
-}
+} */
 
 .userContacts {
   overflow: hidden;
 }
 
 .innerUserContactsWrapper {
-  animation: slide-up 850ms 250ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation: slide-up 850ms 275ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 .logout {
