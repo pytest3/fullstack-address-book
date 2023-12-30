@@ -66,6 +66,8 @@ export default function Home() {
     return <LoadingScreen />;
   }
 
+  console.log(session);
+
   return (
     <main className={styles.wrapper}>
       <NavBarMain
@@ -76,6 +78,7 @@ export default function Home() {
         selectedCount={selectedCount}
         selectedContacts={selectedContacts}
         updateSelectedContacts={updateSelectedContacts}
+        session={session}
       ></NavBarMain>
       <SearchBar
         isEdit={isEdit}

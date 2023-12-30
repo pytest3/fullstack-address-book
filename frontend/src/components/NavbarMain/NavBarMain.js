@@ -7,6 +7,11 @@ import Modal2 from "../Modal2";
 import { useHttp } from "@/hooks/useHttp";
 import { BACKEND_URL } from "@/app/constants";
 import { signOut } from "next-auth/react";
+import {
+  ProfileModal,
+  ProfileModalContent,
+  ProfileModalTrigger,
+} from "../ProfileModal";
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +38,7 @@ export default function NavBarMain({
   selectedCount,
   selectedContacts,
   updateSelectedContacts,
+  session,
 }) {
   const { sendRequest, response } = useHttp(`${BACKEND_URL}/api/contacts`);
   const [vibrate, setVibrate] = React.useState(false);
@@ -124,10 +130,28 @@ export default function NavBarMain({
           <Link href="/new-contact" className={styles.plusIconWrapper}>
             <Plus className={styles.icon} />
           </Link>
-          <LogOut
+          {/* <LogOut
             className={`${styles.icon} ${styles.logOutIcon}`}
             onClick={signOut}
-          />
+          /> */}
+          <ProfileModal>
+            <ProfileModalTrigger
+              style={{
+                border: "none",
+                background: "var(--color-primary)",
+                transform: "translateY(-1px)",
+                paddingLeft: "0px",
+              }}
+            >
+              <button className={styles.profileAvatar}>
+                <div className={styles.profileAvatarContents}>
+                  {session?.user?.name.split(" ")[0][0].toUpperCase()}
+                  {session?.user?.name.split(" ")[1]?.[0].toUpperCase()}
+                </div>
+              </button>
+            </ProfileModalTrigger>
+            <ProfileModalContent />
+          </ProfileModal>
         </div>
       </div>
     </NavBarWrapper>
