@@ -147,3 +147,9 @@
   margin-top: 1px;
   margin-left: 0.8px;
 }
+
+.profileAvatarWrapper {
+  border: none;
+  padding: 0px;
+  margin: none;
+}
