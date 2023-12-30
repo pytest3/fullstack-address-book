@@ -5,7 +5,7 @@ import UserProfile from "../UserProfile";
 import { X } from "lucide-react";
 
 export const ProfileModalContent = React.forwardRef(
-  ({ children, ...props }, forwardedRef) => (
+  ({ children, user, ...props }, forwardedRef) => (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className={styles.overlay} />
       <DialogPrimitive.Content
@@ -13,7 +13,7 @@ export const ProfileModalContent = React.forwardRef(
         ref={forwardedRef}
         className={styles.content}
       >
-        <UserProfile>
+        <UserProfile user={user}>
           <DialogPrimitive.Close aria-label="Close" asChild>
             <X className={styles.closeBtn} />
           </DialogPrimitive.Close>
