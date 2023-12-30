@@ -173,7 +173,6 @@
   align-items: center;
   gap: 20px;
   width: 100%;
-  color: var(--color-primary);
 }
 
 .innerButtonWrapper {
@@ -190,17 +189,7 @@
   transform: translateY(0px);
 }
 
-@keyframes grow {
-  from {
-    width: 0%;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-/* .buttonWrapper {
+.buttonWrapper {
   display: flex;
   flex-direction: column;
   gap: 9.5px;
@@ -208,21 +197,37 @@
   border: none;
   border-radius: 8px;
   animation: rise-up-shake 900ms both;
-} */
+}
 
-.buttonWrapper {
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5px 20px;
-  animation: grow 1000ms both linear;
-  justify-content: center;
-  white-space: nowrap;
-  overflow: hidden;
-  border-radius: 18px;
-  gap: 9.5px;
+@keyframes rise-up-shake {
+  0% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(0%);
+    opacity: 0.6;
+  }
+  75% {
+    transform: rotate(2deg);
+    opacity: 0.8;
+  }
+  80% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  85% {
+    transform: rotate(-2deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+  95% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .googleIcon {
