@@ -1,0 +1,52 @@
+@keyframes slide-in {
+  0% {
+    transform: translateX(110%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: hsl(0deg 0% 0% / 0.75);
+  z-index: 1000;
+  animation: fade-in 500ms cubic-bezier(0.77, 0, 0.175, 1) both;
+}
+
+.content {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  animation: slide-in 700ms cubic-bezier(0.77, 0, 0.175, 1) both;
+}
+
+.content[data-state="closed"] {
+  animation: slide-out 300ms ease-in;
+}
+
+.closeBtn {
+  position: relative;
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+}

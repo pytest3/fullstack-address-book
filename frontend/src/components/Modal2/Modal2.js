@@ -4,14 +4,6 @@ import styles from "./Modal2.module.css";
 import { X } from "lucide-react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 
-const DeleteButton = React.forwardRef((props, ref) => {
-  return (
-    <button {...props} ref={ref} type="submit" form="edit-form">
-      Yes, delete
-    </button>
-  );
-});
-
 export default function Modal2({
   title,
   description,
