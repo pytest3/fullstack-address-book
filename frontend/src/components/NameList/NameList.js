@@ -58,7 +58,6 @@ export default function NameList({
 
   return (
     <form className={styles.nameListWrapper} id="edit-form">
-      {/* {session && JSON.stringify(session, null, 4)} */}
       {filteredContacts?.map(({ id, first_name, last_name }) => {
         return (
           <div key={id} className={styles.row}>

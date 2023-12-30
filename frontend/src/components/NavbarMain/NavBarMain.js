@@ -3,7 +3,7 @@ import styles from "./NavBarMain.module.css";
 import { Plus, UserCircle, LogOut, Trash2 } from "lucide-react";
 import NavBarWrapper from "../NavBarWrapper";
 import Link from "next/link";
-import Modal2 from "../Modal2";
+import ConfirmDeleteModal from "../ConfirmDeleteModal";
 import { useHttp } from "@/hooks/useHttp";
 import { BACKEND_URL } from "@/app/constants";
 import { signOut } from "next-auth/react";
@@ -69,7 +69,7 @@ export default function NavBarMain({
             : "cubic-bezier(.17,.67,.76,1.14)",
         }}
       >
-        <Modal2
+        <ConfirmDeleteModal
           title={`Delete ${selectedCount} ${
             selectedCount > 1 ? "contacts?" : "contact?"
           }`}
@@ -106,7 +106,7 @@ export default function NavBarMain({
               }}
             ></Trash2>
           </button>
-        </Modal2>
+        </ConfirmDeleteModal>
 
         <div
           className={styles.subRightActions}

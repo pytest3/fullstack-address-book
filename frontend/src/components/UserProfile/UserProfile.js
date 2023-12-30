@@ -10,15 +10,25 @@ export default function UserProfile({ user, children }) {
         <div className={styles.userName}>Bruce</div>
         <div className={styles.userEmail}>email@gmail.com</div>
       </article> */}
-
       <div>{children}</div>
       <div className={styles.userName}>
-        {user.firstName} {user.lastName}
+        <div className={styles.innerUserNameWrapper}>
+          <span>{user.firstName}</span> <span>{user.lastName}</span>
+        </div>
       </div>
-      <div className={styles.userEmail}>{user.email}</div>
-      <div>3 contacts</div>
+      <div className={styles.userEmail}>
+        <div className={styles.innerUserEmailWrapper}>
+          <div>{user.email}</div>
+        </div>
+      </div>
+      <div className={styles.userContacts}>
+        <div className={styles.innerUserContactsWrapper}>
+          <div>3 contacts</div>
+        </div>
+      </div>
+
       <div className={styles.logout} onClick={signOut}>
-        Logout
+        <div className={styles.innerUserContactsWrapper}>Logout</div>
       </div>
     </div>
   );

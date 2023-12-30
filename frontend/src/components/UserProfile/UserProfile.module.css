@@ -24,14 +24,41 @@
   grid-column: 1/2;
 }
 
+@keyframes slide-up {
+  0% {
+    transform: translateY(110%);
+    /* opacity: 0; */
+  }
+  100% {
+    transform: translateY(0%);
+    /* opacity: 1; */
+  }
+}
+
 .userName {
-  /* grid-row: 1/2;
-  grid-column: 2 / 3; */
+  overflow: hidden;
+}
+
+.innerUserNameWrapper {
+  animation: slide-up 850ms 150ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 .userEmail {
   /* grid-row: 2/3;
   grid-column: 1/2; */
+  overflow: hidden;
+}
+
+.innerUserEmailWrapper {
+  animation: slide-up 850ms 200ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.userContacts {
+  overflow: hidden;
+}
+
+.innerUserContactsWrapper {
+  animation: slide-up 850ms 250ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 .logout {
@@ -39,4 +66,10 @@
   justify-self: end;
   margin-top: auto;
   border-top: 1px solid var(--color-gray-4);
+  text-decoration: underline;
+  overflow: hidden;
+}
+
+.innerLogoutWrapper {
+  animation: slide-up 850ms 350ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }

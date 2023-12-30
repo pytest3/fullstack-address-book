@@ -73,7 +73,7 @@
 
 .content {
   position: fixed;
-  background: hsl(0, 0%, 100%);
+  background: var(--color-primary);
   border-radius: 8px;
   width: 90vw;
   max-width: 500px;

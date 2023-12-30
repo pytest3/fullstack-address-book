@@ -1,10 +1,8 @@
-import React, { Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import styles from "./Modal2.module.css";
-import { X } from "lucide-react";
+import React from "react";
+import styles from "./ConfirmDeleteModal.module.css";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 
-export default function Modal2({
+export default function ConfirmDeleteModal({
   title,
   description,
   children,
