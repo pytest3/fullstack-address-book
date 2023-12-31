@@ -13,7 +13,7 @@ export default function page() {
           <div className={styles.squareFlourish}></div>
           <div className={styles.circleFlourish}></div>
           <div className={styles.heroImageBG}></div>
-          <img className={styles.heroImage} src="/hero-image.svg"></img>
+          <img className={styles.heroImage} src="/hero-image-pink.svg"></img>
         </article>
       </div>
       <div className={styles.signInPanel}>
