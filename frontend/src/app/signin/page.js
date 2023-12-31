@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./signIn.module.css";
 import { signIn } from "next-auth/react";
+import MainSignInButton from "@/components/MainSignInButton";
 
 export default function page() {
   return (
@@ -24,7 +25,7 @@ export default function page() {
             at your fingertips.
           </div>
         </article>
-        <div className={styles.buttonWrapper}>
+        {/* <div className={styles.buttonWrapper}>
           <div className={styles.innerButtonWrapper}>
             <button
               onClick={() =>
@@ -35,13 +36,18 @@ export default function page() {
               className={`${styles.signInBtn}`}
             >
               <img src="/google-icon.svg" className={styles.googleIcon}></img>
-              Sign in with Google
+              <span className={styles.signInWordings}>Sign in with Google</span>
             </button>
           </div>
-          {/* <button className={`${styles.button} ${styles.guestBtn}`}>
-            Continue as guest
-          </button> */}
-        </div>
+        </div> */}
+
+        <MainSignInButton
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "/",
+            })
+          }
+        ></MainSignInButton>
       </div>
     </div>
   );

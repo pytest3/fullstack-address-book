@@ -94,7 +94,7 @@
   position: relative;
   max-width: 100%;
   aspect-ratio: 1/1;
-  /* animation: drop-down 900ms both cubic-bezier(0.09, 0.69, 0.49, 1.19); */
+  animation: drop-down 900ms both cubic-bezier(0.09, 0.69, 0.49, 1.19);
 }
 
 @keyframes fade-in {
@@ -123,6 +123,8 @@
   position: absolute;
   border-radius: 50%;
   animation: fade-in 1000ms 100ms both ease-out;
+  will-change: transform;
+
   /* animation: drop-down 900ms both cubic-bezier(0.09, 0.69, 0.49, 1.19); */
 }
 .welcomeMessage {
@@ -131,7 +133,7 @@
   text-align: center;
   gap: 13px;
   align-items: center;
-  animation: fade-in 2000ms 200ms both ease-out;
+  animation: fade-in 2000ms 400ms both ease-out;
 }
 
 .header {
@@ -160,7 +162,7 @@
 
 .signInBtn {
   border: none;
-  padding: 8px 20px;
+  padding: 8px 0px;
   border-radius: 8px;
   font-size: 15px;
   font-weight: 500;
@@ -173,12 +175,19 @@
   align-items: center;
   gap: 20px;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .innerButtonWrapper {
   transform: translateY(-4.5px);
   transition: transform 100ms;
   width: 100%;
+  white-space: no-wrap;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .innerButtonWrapper:hover {
@@ -188,6 +197,9 @@
 .innerButtonWrapper:active {
   transform: translateY(0px);
 }
+.signInWordings {
+  white-space: nowrap;
+}
 
 .buttonWrapper {
   display: flex;
@@ -196,10 +208,23 @@
   background: hsl(236, 95%, 45%);
   border: none;
   border-radius: 8px;
-  animation: rise-up-shake 900ms both;
+  /* animation: rise-up-shake 900ms both; */
+  animation: grow 1000ms both linear;
+  margin-left: auto;
+  margin-right: auto;
+  will-change: transform;
+}
+@keyframes grow {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
-@keyframes rise-up-shake {
+/* @keyframes rise-up-shake {
   0% {
     transform: translateY(200%);
     opacity: 0;
@@ -228,7 +253,7 @@
   100% {
     transform: rotate(0deg);
   }
-}
+} */
 
 .googleIcon {
   width: 30px;
