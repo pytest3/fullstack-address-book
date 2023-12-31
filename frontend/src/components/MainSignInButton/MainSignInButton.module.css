@@ -37,3 +37,7 @@
   animation: scaleUp 1000ms both linear;
   border-radius: 18px;
 }
+
+.button:active .overlay {
+  background: var(--color-secondary-2);
+}
