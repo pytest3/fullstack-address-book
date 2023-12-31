@@ -14,7 +14,9 @@
   max-width: 600px;
   position: relative;
   padding: 4px 0px;
-  background: var(--color-secondary);
+  background: transparent;
+  cursor: pointer;
+  /* background: var(--color-secondary); */
 }
 
 .contents {
@@ -29,6 +31,6 @@
   position: absolute;
   inset: 0;
   background: var(--color-secondary);
-  animation: scaleUp 750ms both linear;
+  animation: scaleUp 1000ms both linear;
   border-radius: 18px;
 }

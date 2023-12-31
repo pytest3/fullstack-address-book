@@ -17,30 +17,16 @@ export default function page() {
         </article>
       </div>
       <div className={styles.signInPanel}>
-        <article className={styles.welcomeMessage}>
-          <h1 className={styles.header}>Your personal address book</h1>
-          <div className={styles.message}>
-            Welcome to your personal address book! Sign in to effortlessly
-            manage, update, and organize your contacts, keeping your connections
-            at your fingertips.
-          </div>
-        </article>
-        {/* <div className={styles.buttonWrapper}>
-          <div className={styles.innerButtonWrapper}>
-            <button
-              onClick={() =>
-                signIn("google", {
-                  callbackUrl: "/",
-                })
-              }
-              className={`${styles.signInBtn}`}
-            >
-              <img src="/google-icon.svg" className={styles.googleIcon}></img>
-              <span className={styles.signInWordings}>Sign in with Google</span>
-            </button>
-          </div>
-        </div> */}
-
+        <div className={styles.hideOverFlow}>
+          <article className={styles.welcomeMessage}>
+            <h1 className={styles.header}>Your personal address book</h1>
+            <div className={styles.message}>
+              Welcome to your personal address book! Sign in to effortlessly
+              manage, update, and organize your contacts, keeping your
+              connections at your fingertips.
+            </div>
+          </article>
+        </div>
         <MainSignInButton
           onClick={() =>
             signIn("google", {

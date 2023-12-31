@@ -136,6 +136,7 @@
   justify-content: center;
   align-items: center;
   border: 1px solid var(--color-gray-7);
+  cursor: pointer;
 }
 
 .profileAvatar span {
