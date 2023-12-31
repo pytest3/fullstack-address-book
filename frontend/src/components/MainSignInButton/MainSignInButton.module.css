@@ -10,11 +10,11 @@
 
 .button {
   border: none;
-  /* width: clamp(200px, 300px, 500px); */
-
+  border-radius: 18px;
   max-width: 600px;
   position: relative;
   padding: 4px 0px;
+  background: var(--color-secondary);
 }
 
 .contents {

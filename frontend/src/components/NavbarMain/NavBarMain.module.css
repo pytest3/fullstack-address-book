@@ -127,30 +127,29 @@
 }
 
 .profileAvatar {
-  height: 25px;
-  width: 25px;
-  border: 1px solid var(--color-gray-7);
   border-radius: 50%;
   color: purple;
-  display: grid;
-  place-content: center;
-  cursor: pointer;
-}
-
-.profileAvatarContents {
-  font-size: 13px;
-  line-height: 1;
-  height: 9.5px;
+  background: inherit;
+  padding: 0px;
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1px;
-  margin-left: 0.8px;
+  border: 1px solid var(--color-gray-7);
+}
+
+.profileAvatar span {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .profileAvatarWrapper {
   border: none;
   padding: 0px;
   margin: none;
-  margin-top: -1px;
+  background: var(--color-primary);
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: stretch;
 }
