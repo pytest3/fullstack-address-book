@@ -14,6 +14,7 @@ export default function Home() {
   const [selectedContacts, setSelectedContacts] = React.useState([]);
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
+  const [contactCount, setContactCount] = React.useState("");
   // const { data: session, status } = useSession({
   //   required: process.env.NODE_ENV === "development" ? false : true,
   // });
@@ -76,6 +77,7 @@ export default function Home() {
         selectedCount={selectedCount}
         selectedContacts={selectedContacts}
         updateSelectedContacts={updateSelectedContacts}
+        contactCount={contactCount}
         session={session}
       ></NavBarMain>
       <SearchBar
@@ -91,6 +93,7 @@ export default function Home() {
         updateSelectedContacts={updateSelectedContacts}
         selectedContacts={selectedContacts}
         searchTerm={searchTerm}
+        setContactCount={setContactCount}
       />
     </main>
   );

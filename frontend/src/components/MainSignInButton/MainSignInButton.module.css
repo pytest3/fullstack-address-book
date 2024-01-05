@@ -14,10 +14,11 @@
   max-width: 600px;
   position: relative;
   padding: 0px;
-  padding-top: 6px;
-  padding-bottom: 8px;
+  padding-top: 7px;
+  padding-bottom: 9px;
   background: transparent;
   cursor: pointer;
+
   /* background: var(--color-secondary); */
 }
 
@@ -36,8 +37,9 @@
   background: var(--color-secondary);
   animation: scaleUp 1000ms both linear;
   border-radius: 18px;
+  /* box-shadow: 5px 8px 8px hsl(0deg 0% 0% / 0.2); */
 }
 
 .button:active .overlay {
-  background: var(--color-secondary-2);
+  /* background: var(--color-secondary-2); */
 }

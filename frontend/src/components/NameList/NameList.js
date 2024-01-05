@@ -14,6 +14,7 @@ export default function NameList({
   updateSelectedContacts,
   selectedContacts,
   searchTerm = "",
+  setContactCount,
 }) {
   async function fetcher([url, options]) {
     const res = await fetch(url, options);
@@ -23,6 +24,7 @@ export default function NameList({
       throw error;
     }
     const contacts = await res.json();
+    setContactCount(contacts.length);
     return contacts;
   }
 

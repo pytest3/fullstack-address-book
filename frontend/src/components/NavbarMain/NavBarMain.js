@@ -22,6 +22,7 @@ export default function NavBarMain({
   selectedCount,
   selectedContacts,
   updateSelectedContacts,
+  contactCount,
   session,
 }) {
   const { sendRequest } = useHttp(`${BACKEND_URL}/api/contacts`);
@@ -133,7 +134,7 @@ export default function NavBarMain({
                 <span>{user.lastNameInitial}</span>
               </div>
             </ProfileModalTrigger>
-            <ProfileModalContent user={user} />
+            <ProfileModalContent user={user} contactCount={contactCount} />
           </ProfileModal>
         </div>
       </div>
