@@ -11,7 +11,7 @@
 .leftActions {
   color: var(--color-gray-7);
   flex: 1;
-  align-self: baseline;
+  align-self: flex-end;
   cursor: pointer;
   line-height: 1;
 }
@@ -24,7 +24,7 @@
 .wrapper {
   display: flex;
   width: 100%;
-  align-items: baseline;
+  align-items: center;
   position: sticky;
   top: 0;
   right: 0;
@@ -37,6 +37,7 @@
 .subRightActions {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .icon {
@@ -74,34 +75,11 @@
   transform: scale(0.8);
 }
 
-/* @keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(15deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  75% {
-    transform: rotate(-15deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-} */
-
 .trashIcon {
   background-color: var(--color-primary);
   border: none;
   padding: 0px;
 }
-
-/* .rotate {
-  animation: rotate 300ms both;
-  animation-iteration-count: 2;
-} */
 
 @keyframes vibrate {
   0% {

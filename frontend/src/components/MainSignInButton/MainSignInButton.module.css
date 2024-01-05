@@ -41,5 +41,5 @@
 }
 
 .button:active .overlay {
-  /* background: var(--color-secondary-2); */
+  background: var(--color-secondary-2);
 }

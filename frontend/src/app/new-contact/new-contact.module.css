@@ -52,7 +52,6 @@
 
 .birthdaySection {
   align-items: end;
-  width: 100%;
 }
 
 .birthdayInput {
@@ -60,17 +59,14 @@
   position: relative;
   height: 100%;
   padding: 0px;
-  /* -webkit-appearance: none; */
   /* color: transparent; */
   text-align: left;
-  border: 1px solid green;
   height: 26px;
-  padding-left: 2px !important;
-  padding-top: 2px !important;
 }
 
 .birthdayInput::-webkit-date-and-time-value {
   text-align: left;
+  margin-left: 2px;
 }
 
 /* .birthdayInput::-webkit-calendar-picker-indicator {
@@ -89,26 +85,28 @@
   /* color: #c7c7cd; */
 }
 
-.birthdayInput[type="date"] {
-  color: var(--color-primary);
-  width: 100%;
-}
-
 .birthdayInput[type="date"]:focus,
 .birthdayInput[type="date"]:valid {
   color: inherit;
-  padding-left: 2px;
 }
 
 .birthdayInput[type="date"]:focus::before,
 .birthdayInput[type="date"]:valid::before {
   content: "";
-  padding-left: 2px;
 }
 
-/* @media (pointer: fine) {
-  .birthdayInput {
-    pointer-events: none;
+.birthdayInput[type="date"] {
+  /* -webkit-appearance: none; */
+  color: var(--color-primary);
+  min-width: 100%;
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
+  /* padding-top: 2px !important; */
+}
+
+/* @media (hover: hover) and (pointer: fine) {
+  .birthdayInput[type="date"] {
+    padding-left: 0px !important;
   }
 } */
 
