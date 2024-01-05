@@ -128,10 +128,10 @@ export default function NavBarMain({
           /> */}
           <ProfileModal>
             <ProfileModalTrigger className={styles.profileAvatarWrapper}>
-              <button className={styles.profileAvatar}>
+              <div className={styles.profileAvatar}>
                 <span>{user.firstNameInitial}</span>
                 <span>{user.lastNameInitial}</span>
-              </button>
+              </div>
             </ProfileModalTrigger>
             <ProfileModalContent user={user} />
           </ProfileModal>

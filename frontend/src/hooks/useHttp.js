@@ -34,7 +34,7 @@ export function useHttp(url) {
   const [state, dispatch] = React.useReducer(reducer, {
     isSuccess: false,
     isError: false,
-    isPending: false,
+    isPending: true,
     isLoading: false,
     response: null,
   });
@@ -53,8 +53,6 @@ export function useHttp(url) {
       options.body = JSON.stringify(body);
     }
 
-    console.log(body);
-
     dispatch({ type: "pending" });
 
     try {
@@ -66,6 +64,7 @@ export function useHttp(url) {
         "with method as: ",
         method
       );
+
       const response = await fetch(url, options);
 
       if (!response.ok) {
@@ -77,7 +76,10 @@ export function useHttp(url) {
 
       const data = await response.json();
 
-      console.log(data);
+      if (!data.id) {
+        dispatch({ type: "error" });
+        throw new Error("User not created successfully");
+      }
 
       dispatch({ type: "success", data });
 
@@ -91,5 +93,5 @@ export function useHttp(url) {
     }
   }
 
-  return { sendRequest, ...state };
+  return { sendRequest, state };
 }

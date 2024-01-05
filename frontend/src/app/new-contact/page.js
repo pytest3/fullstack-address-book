@@ -23,14 +23,16 @@ import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "../constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 import { useSession } from "next-auth/react";
+import LoadingScreen from "@/components/LoadingScreen";
+import ErrorMessageWrapper from "@/components/ErrorMessageWrapper";
 
 export default function Page() {
   const isRequired = true;
   const birthdayRef = React.useRef("text");
   const router = useRouter();
-  const { isLoading, isError, sendRequest } = useHttp(
-    `${BACKEND_URL}/api/contacts`
-  );
+  const { state, sendRequest } = useHttp(`${BACKEND_URL}/api/contacts`);
+  const { isError, isLoading } = state;
+  console.log(state);
 
   const [name, setName] = React.useState({ firstName: "", lastName: "" });
   const [maritalStatus, setMaritalStatus] = React.useState("");
@@ -46,7 +48,7 @@ export default function Page() {
   const [categoryList, setCategoryList] = React.useState([
     { id: crypto.randomUUID(), category: "" },
   ]);
-  const [birthday, setBirthday] = React.useState("");
+  const [birthday, setBirthday] = React.useState(" ");
   const [employmentStatus, setEmploymentStatus] = React.useState({
     status: "",
     organization: null,
@@ -126,18 +128,20 @@ export default function Page() {
 
     const createdUser = await sendRequest("POST", reqBody);
 
-    console.log(createdUser);
-    console.log("here");
-
     router.push(`/contact-details/${createdUser?.id}`);
   }
 
   if (isLoading) {
+    return <LoadingScreen></LoadingScreen>;
     return <div>Uploading data to db...</div>;
   }
 
   if (isError) {
-    return <div>Unable to create user</div>;
+    return (
+      <ErrorMessageWrapper>
+        <div>Unable to create user</div>
+      </ErrorMessageWrapper>
+    );
   }
 
   return (
@@ -182,25 +186,17 @@ export default function Page() {
               required={isRequired}
             ></input>
           </section>
-
           <section className={styles.birthdaySection}>
             <Cake className={styles.icon} />
             <input
-              ref={birthdayRef}
               className={styles.birthdayInput}
               name="birthday"
-              placeholder="Add Birthday"
-              type="text"
-              onTouchStart={(e) => (birthdayRef.current.type = "date")}
-              onFocus={(e) => (birthdayRef.current.type = "date")}
-              // onMouseOver={(e) => (birthdayRef.current.type = "date")}
-              onBlur={(e) => (birthdayRef.current.type = "text")}
-              onChange={(e) => {
-                setBirthday(e.target.value);
-              }}
+              type="date"
               value={birthday}
+              placeholder="Add birthday"
               id="date"
               required={isRequired}
+              onChange={(e) => setBirthday(e.target.value)}
             ></input>
           </section>
 
