@@ -10,7 +10,7 @@ import LoadingScreen from "../LoadingScreen";
 import ScrollTopButton from "../ScrollTopButton";
 import fetcher from "@/utils/fetcher";
 
-export default function NameList({
+function NameList({
   isEdit,
   updateSelectedContacts,
   selectedContacts,
@@ -33,11 +33,13 @@ export default function NameList({
     setContactCount(data?.length);
   }, [data]);
 
-  const filteredContacts = data?.filter(
-    (contact) =>
-      contact.first_name.includes(searchTerm) ||
-      contact.last_name.includes(searchTerm)
-  );
+  const filteredContacts = React.useMemo(() => {
+    return data?.filter(
+      (contact) =>
+        contact.first_name.includes(searchTerm) ||
+        contact.last_name.includes(searchTerm)
+    );
+  }, [data, searchTerm]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -47,7 +49,7 @@ export default function NameList({
     return <div className={styles.error}>{error.message}</div>;
   }
 
-  if (filteredContacts.length === 0) {
+  if (filteredContacts?.length === 0) {
     return <div className={styles.noContacts}>No contacts found</div>;
   }
 
@@ -106,6 +108,9 @@ export default function NameList({
         );
       })}
       <ScrollTopButton scrollTarget=".SearchBar_header__IE462" />
+      {/* <ScrollTopButton scrollTarget=".SearchBar_input__6K5rC" /> */}
     </form>
   );
 }
+
+export default React.memo(NameList);

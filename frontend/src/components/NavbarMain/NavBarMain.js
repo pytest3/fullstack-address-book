@@ -13,8 +13,9 @@ import {
   ProfileModalTrigger,
 } from "../ProfileModal";
 import { capitalizeFirstLetter } from "@/utils";
+import NavbarMain from ".";
 
-export default function NavBarMain({
+function NavBarMain({
   isEdit,
   toggleEdit,
   toggleRefresh,
@@ -141,3 +142,5 @@ export default function NavBarMain({
     </NavBarWrapper>
   );
 }
+
+export default React.memo(NavBarMain);

@@ -15,47 +15,36 @@ export default function Home() {
   const selectedCount = selectedContacts.length;
   const [searchTerm, setSearchTerm] = React.useState("");
   const [contactCount, setContactCount] = React.useState("");
-  // const { data: session, status } = useSession({
-  //   required: process.env.NODE_ENV === "development" ? false : true,
-  // });
-
   const { data: session, status } = useSession({
     required: true,
   });
-
-  function toggleEdit() {
-    setIsEdit(!isEdit);
-    setSelectedContacts([]);
-  }
-
-  React.useEffect(() => {
-    window.scrollTo(0, 1);
-  }, []);
-
   const [showContactsInNav, setShowContactsInNav] = React.useState(false);
 
-  function updateSelectedContacts(e) {
-    let nextSelectedContacts;
-    if (!e.target) {
-      // to reset selected contacts as part of client side re-render
-      setSelectedContacts([]);
-      return;
-    }
-    const isPresent = selectedContacts.includes(+e.target.name);
-    if (isPresent) {
-      nextSelectedContacts = selectedContacts.filter(
-        (i) => i != +e.target.name
-      );
-      setSelectedContacts(nextSelectedContacts);
-      return;
-    }
-    nextSelectedContacts = [...selectedContacts, +e.target.name];
-    setSelectedContacts(nextSelectedContacts);
-  }
+  const toggleEdit = React.useCallback(() => {
+    setIsEdit((currentEditingStatus) => !currentEditingStatus);
+    setSelectedContacts([]);
+  }, []);
 
-  function handleSearch(userInput) {
+  const updateSelectedContacts = React.useCallback(
+    (e) => {
+      let nextSelectedContacts;
+      const isChecked = selectedContacts.includes(+e.target.name);
+      if (isChecked) {
+        nextSelectedContacts = selectedContacts.filter(
+          (i) => i != +e.target.name
+        );
+        setSelectedContacts(nextSelectedContacts);
+        return;
+      }
+      nextSelectedContacts = [...selectedContacts, +e.target.name];
+      setSelectedContacts(nextSelectedContacts);
+    },
+    [selectedContacts]
+  );
+
+  const handleSearch = React.useCallback((userInput) => {
     setSearchTerm(userInput);
-  }
+  }, []);
 
   // if (process.env.NODE_ENV === "production") {
   //   if (status != "authenticated" || !session || !status) {
