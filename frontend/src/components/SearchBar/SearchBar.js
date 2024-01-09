@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./SearchBar.module.css";
 import MaxWidthWrapper from "../MaxWidthWrapper/MaxWidthWrapper";
 
-export default function SearchBar({
+function SearchBar({
   isEdit,
   selectedCount,
   searchTerm,
@@ -81,3 +81,5 @@ export default function SearchBar({
     </div>
   );
 }
+
+export default React.memo(SearchBar);

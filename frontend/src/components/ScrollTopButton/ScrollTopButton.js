@@ -9,8 +9,11 @@ export default function ScrollTopButton({
 }) {
   const { isShown } = useShowOnScroll(120);
 
-  function handleScrollTopButtonClick() {
+  function handleScrollTopButtonClick(e) {
+    // e.preventDefault();
+    // e.stopPropagation();
     const target = document.querySelector(scrollTargetSelectorString);
+    console.log(target);
     target.scrollIntoView({
       behavior: "smooth",
       block: "end",

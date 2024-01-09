@@ -2,11 +2,11 @@ import React from "react";
 
 export default function useShowOnScroll(verticalScroll) {
   // Shows or hide an element beyond a certain vertical scroll Y amount
-
   if (
-    typeof verticalScroll !== "integer" &&
+    typeof verticalScroll !== "number" &&
     typeof verticalScroll !== "function"
   ) {
+    console.warn(typeof verticalScroll);
     console.warn("Invalid type for useShownOnScroll");
   }
 
