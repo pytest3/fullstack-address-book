@@ -20,6 +20,7 @@ import { BACKEND_URL } from "@/app/constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper/MaxWidthWrapper";
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollTopButton from "@/components/ScrollTopButton";
+import fetcher from "@/utils/fetcher";
 
 export default function Page({ params }) {
   const { id } = params;
@@ -27,16 +28,6 @@ export default function Page({ params }) {
   const targetElement = React.useRef();
   const [showNameInNav, setShowNameInNav] = React.useState(false);
   const [nameInNavOpacity, setNameInNavOpacity] = React.useState(0);
-
-  const fetcher = async ([url, options]) =>
-    fetch(url, options).then((res) => {
-      if (!res.ok) {
-        const error = new Error();
-        error.message = "An error occurred while loading user details page";
-        throw error;
-      }
-      return res.json();
-    });
 
   const { data, error, isLoading } = useSWR(
     [

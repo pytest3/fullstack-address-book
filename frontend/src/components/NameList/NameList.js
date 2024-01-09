@@ -8,6 +8,7 @@ import Link from "next/link";
 import { BACKEND_URL } from "@/app/constants";
 import LoadingScreen from "../LoadingScreen";
 import ScrollTopButton from "../ScrollTopButton";
+import fetcher from "@/utils/fetcher";
 
 export default function NameList({
   isEdit,
@@ -16,18 +17,6 @@ export default function NameList({
   searchTerm = "",
   setContactCount,
 }) {
-  async function fetcher([url, options]) {
-    const res = await fetch(url, options);
-    if (!res.ok) {
-      const error = new Error("An error occurred while fetching the data");
-      error.status = res.status;
-      throw error;
-    }
-    const contacts = await res.json();
-    setContactCount(contacts.length);
-    return contacts;
-  }
-
   const config = React.useMemo(
     () => ({
       headers: { "ngrok-skip-browser-warning": true },
@@ -39,6 +28,10 @@ export default function NameList({
     [`${BACKEND_URL}/api/contacts`, config],
     fetcher
   );
+
+  React.useEffect(() => {
+    setContactCount(data?.length);
+  }, [data]);
 
   const filteredContacts = data?.filter(
     (contact) =>
