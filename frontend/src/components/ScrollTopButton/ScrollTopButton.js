@@ -10,15 +10,15 @@ export default function ScrollTopButton({
   const { isShown } = useShowOnScroll(120);
 
   function handleScrollTopButtonClick(e) {
+    // const target = document.querySelector(scrollTargetSelectorString);
+    // target.scrollIntoView({
+    //   behavior: "smooth",
+    //   block: "end",
+    //   inline: "nearest",
+    // });
     // e.preventDefault();
     // e.stopPropagation();
-    const target = document.querySelector(scrollTargetSelectorString);
-    console.log(target);
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
@@ -35,7 +35,7 @@ export default function ScrollTopButton({
       }}
       type="button"
       onClick={handleScrollTopButtonClick}
-      onTouchStart={handleScrollTopButtonClick}
+      // onTouchStart={handleScrollTopButtonClick}
       {...rest}
     >
       <div className={styles.scrollTopBtnContents}>
