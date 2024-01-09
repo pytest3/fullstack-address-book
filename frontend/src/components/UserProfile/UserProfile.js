@@ -5,6 +5,7 @@ import { signOut } from "next-auth/react";
 export default function UserProfile({ user, children, contactCount }) {
   return (
     <div className={styles.wrapper}>
+      {/* hi*/}
       <div>{children}</div>
       <div className={styles.userName}>
         <div className={styles.innerUserNameWrapper}>
